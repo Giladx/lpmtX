@@ -22,6 +22,7 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":NUMBER",quads[i].quadNumber);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":LAYER",quads[i].layer);
 
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:TINT",quads[i].bTimelineTint);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:COLOR",quads[i].bTimelineColor);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:ALPHA",quads[i].bTimelineAlpha);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:SLIDE",quads[i].bTimelineSlideChange);
@@ -189,21 +190,22 @@ void testApp::getXml(string xmlFile)
 
         #ifdef WITH_KINECT
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
             #endif
         #else
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
             #endif
         #endif
         quads[i].quadNumber = XML.getValue("QUADS:QUAD_"+ofToString(i)+":NUMBER", 0);
         quads[i].layer = XML.getValue("QUADS:QUAD_"+ofToString(i)+":LAYER", 0);
         layers[quads[i].layer] = quads[i].quadNumber;
 
+        quads[i].bTimelineTint = XML.getValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:TINT",0);
         quads[i].bTimelineColor = XML.getValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:COLOR",0);
         quads[i].bTimelineAlpha = XML.getValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:ALPHA",0);
         quads[i].bTimelineSlideChange = XML.getValue("QUADS:QUAD_"+ofToString(i)+":TIMELINE:SLIDE",0);
@@ -342,6 +344,6 @@ void testApp::getXml(string xmlFile)
         quads[i].isActive = false;
     }
     quads[activeQuad].isActive = True;
-    gui.setPage((activeQuad*3)+2);
+    gui.setPage((activeQuad*4)+2);
     glDisable(GL_DEPTH_TEST);
 }
