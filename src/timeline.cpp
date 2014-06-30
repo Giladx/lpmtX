@@ -4,10 +4,11 @@
 void testApp::timelineSetup(float duration){
 
     timeline.setup();
-
-	timeline.setPageName("main"); //changes the first page name
-	timeline.addTriggers("trigger_main", "main_trigger.xml");
-
+    timeline.setSpacebarTogglePlay(false);
+    timeline.setWorkingFolder("timeline");
+    timeline.setDurationInSeconds(duration);
+    timeline.setPageName("main"); //changes the first page name
+    timeline.addFlags("trigger_main", "main_trigger.xml");
 
     for(int i = 0; i < 4; i++)
     {
@@ -15,11 +16,11 @@ void testApp::timelineSetup(float duration){
     }
 
     timeline.setLoopType(OF_LOOP_NORMAL);
-	//timeline.setDurationInFrames(duration);
-	timeline.setDurationInSeconds(duration);
-    ofAddListener(ofxTLEvents.trigger, this, &testApp::timelineTriggerReceived);
-    timeline.enableSnapToBPM(60.0);
-    timeline.collapseAllElements();
+    //timeline.enableSnapToBPM(120.0);
+    timeline.enableSnapToOtherKeyframes(false);
+    timeline.setEditableHeaders(true);
+    //timeline.collapseAllTracks();
+    ofAddListener(timeline.events().bangFired, this, &testApp::timelineTriggerReceived);
 }
 
 //--------------------------------------------------------------
@@ -29,30 +30,37 @@ void testApp::timelineUpdate()
             {
                 if (quads[j].initialized)
                 {
+                    if(quads[j].bTimelineTint)
+                    {
+                        quads[j].timelineRed = timeline.getValue("red_"+ofToString(j));
+                        quads[j].timelineGreen = timeline.getValue("green_"+ofToString(j));
+                        quads[j].timelineBlu = timeline.getValue("blu_"+ofToString(j));
+                    }
                     if(quads[j].bTimelineColor)
                     {
-                        quads[j].timelineRed = timeline.getKeyframeValue("red_"+ofToString(j));
-                        quads[j].timelineGreen = timeline.getKeyframeValue("green_"+ofToString(j));
-                        quads[j].timelineBlu = timeline.getKeyframeValue("blu_"+ofToString(j));
+                        quads[j].timelineColor = timeline.getColor("color_"+ofToString(j));
+                        quads[j].bgColor = quads[j].timelineColor;
                     }
                     if(quads[j].bTimelineAlpha)
                     {
-                        quads[j].timelineAlpha = timeline.getKeyframeValue("alpha_"+ofToString(j));
+                        quads[j].timelineAlpha = timeline.getValue("alpha_"+ofToString(j));
                     }
                 }
             }
 }
 
 //--------------------------------------------------------------
-void testApp::timelineTriggerReceived(ofxTLTriggerEventArgs& trigger){
-    vector<string> triggerParts = ofSplitString(trigger.triggerGroupName, "_", true, true);
+void testApp::timelineTriggerReceived(ofxTLBangEventArgs& trigger){
+    //vector<string> triggerParts = ofSplitString(trigger.triggerGroupName, "_", true, true);
+    vector<string> triggerParts = ofSplitString(trigger.track->getName(), "_", true, true);
 
     if(useTimeline)
     {
 	//cout << "Trigger from " << trigger.triggerGroupName << " says color " << trigger.triggerName << endl;
 	//cout << "Trigger from " << ofToInt(triggerParts[1]) << " says " << trigger.triggerName << endl;
 
-        string tlMsg = trigger.triggerName;
+        //string tlMsg = trigger.triggerName;
+	string tlMsg = trigger.flag;
         string tlMsgParameter = "";
 
         if(triggerParts[1] != "main")
@@ -67,10 +75,10 @@ void testApp::timelineTriggerReceived(ofxTLTriggerEventArgs& trigger){
             tlMsgParameter = tlMsgParts[1];
         }
 
-	    if (tlMsg == "on"){ quads[tlQuad].isOn=true; }
+	if (tlMsg == "on"){ quads[tlQuad].isOn=true; }
         else if (tlMsg == "off"){ quads[tlQuad].isOn=false; }
-	    else if(tlMsg == "img_on"){ quads[tlQuad].imgBg=true; }
-	    else if (tlMsg == "img_off"){ quads[tlQuad].imgBg=false; }
+	else if(tlMsg == "img_on"){ quads[tlQuad].imgBg=true; }
+	else if (tlMsg == "img_off"){ quads[tlQuad].imgBg=false; }
         else if (tlMsg == "col_on"){ quads[tlQuad].colorBg=true; }
         else if (tlMsg == "col_off"){ quads[tlQuad].colorBg=false; }
         else if (tlMsg == "video_on"){ quads[tlQuad].videoBg=true; }
@@ -147,11 +155,12 @@ void testApp::timelineTriggerReceived(ofxTLTriggerEventArgs& trigger){
 //--------------------------------------------------------------
 void testApp::timelineAddQuadPage(int i) {
     timeline.addPage(ofToString(i), true);
-    timeline.addKeyframes("red_"+ofToString(i), ofToString(i)+"_red.xml", ofRange(0, 1.0));
-	timeline.addKeyframes("green_"+ofToString(i), ofToString(i)+"_green.xml", ofRange(0, 1.0));
-	timeline.addKeyframes("blu_"+ofToString(i), ofToString(i)+"_blu.xml", ofRange(0, 1.0));
-	timeline.addKeyframes("alpha_"+ofToString(i), ofToString(i)+"_alpha.xml", ofRange(0, 1.0));
-	timeline.addTriggers("trigger_"+ofToString(i), ofToString(i)+"_trigger.xml");
+    timeline.addCurves("red_"+ofToString(i), ofToString(i)+"_red.xml", ofRange(0, 1.0));
+	timeline.addCurves("green_"+ofToString(i), ofToString(i)+"_green.xml", ofRange(0, 1.0));
+	timeline.addCurves("blu_"+ofToString(i), ofToString(i)+"_blu.xml", ofRange(0, 1.0));
+	timeline.addCurves("alpha_"+ofToString(i), ofToString(i)+"_alpha.xml", ofRange(0, 1.0));
+	timeline.addFlags("trigger_"+ofToString(i), ofToString(i)+"_trigger.xml");
+	timeline.addColors("color_"+ofToString(i), ofToString(i)+"_color.xml");
 }
 
 #endif
