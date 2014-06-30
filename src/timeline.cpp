@@ -16,7 +16,11 @@ void testApp::timelineSetup(float duration){
     }
 
     timeline.setLoopType(OF_LOOP_NORMAL);
+<<<<<<< HEAD
+    //timeline.enableSnapToBPM(120.0);
+=======
     //timeline.enableSnapToBPM(60.0);
+>>>>>>> 17cb8fcb284ab2f053f1d120eadaf99c3ff6705a
     timeline.enableSnapToOtherKeyframes(false);
     timeline.setEditableHeaders(true);
     //timeline.collapseAllTracks();
