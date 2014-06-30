@@ -31,36 +31,36 @@ void testApp::parseOsc()
     {
         // arguments are ff
         float osc_coord_x = m.getArgAsFloat( 0 );
-	float osc_coord_y = m.getArgAsFloat( 1 );
+        float osc_coord_y = m.getArgAsFloat( 1 );
         quads[activeQuad].corners[0].x = osc_coord_x;
-	quads[activeQuad].corners[0].y = osc_coord_y;
+        quads[activeQuad].corners[0].y = osc_coord_y;
     }
 
     if ( m.getAddress() == "/active/corners/1" )
     {
         // arguments are ff
         float osc_coord_x = m.getArgAsFloat( 0 );
-	float osc_coord_y = m.getArgAsFloat( 1 );
+        float osc_coord_y = m.getArgAsFloat( 1 );
         quads[activeQuad].corners[1].x = osc_coord_x;
-	quads[activeQuad].corners[1].y = osc_coord_y;
+        quads[activeQuad].corners[1].y = osc_coord_y;
     }
 
     if ( m.getAddress() == "/active/corners/2" )
     {
         // arguments are ff
         float osc_coord_x = m.getArgAsFloat( 0 );
-	float osc_coord_y = m.getArgAsFloat( 1 );
+        float osc_coord_y = m.getArgAsFloat( 1 );
         quads[activeQuad].corners[2].x = osc_coord_x;
-	quads[activeQuad].corners[2].y = osc_coord_y;
+        quads[activeQuad].corners[2].y = osc_coord_y;
     }
 
     if ( m.getAddress() == "/active/corners/3" )
     {
         // arguments are ff
         float osc_coord_x = m.getArgAsFloat( 0 );
-	float osc_coord_y = m.getArgAsFloat( 1 );
+        float osc_coord_y = m.getArgAsFloat( 1 );
         quads[activeQuad].corners[3].x = osc_coord_x;
-	quads[activeQuad].corners[3].y = osc_coord_y;
+        quads[activeQuad].corners[3].y = osc_coord_y;
     }
 
 
@@ -73,13 +73,13 @@ void testApp::parseOsc()
     // stop
     else if ( m.getAddress() == "/projection/stop" )
     {
-        stopProjection();
+        startProjection();
     }
 
     // start
     else if ( m.getAddress() == "/projection/start" )
     {
-        startProjection();
+        stopProjection();
     }
 
     // save
@@ -94,7 +94,7 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/load" )
     {
         getXml("_lpmt_settings.xml");
-        gui.setPage((activeQuad*3)+2);
+        gui.setPage((activeQuad*4)+2);
     }
 
     // toggle fullscreen
@@ -143,9 +143,10 @@ void testApp::parseOsc()
 
     else if ( m.getAddress() == "/projection/mode/masksetup/toggle" )
     {
-        if (!bGui){
-        maskSetup = !maskSetup;
-        for(int i = 0; i < 36; i++)
+        if (!bGui)
+        {
+            maskSetup = !maskSetup;
+            for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -157,9 +158,10 @@ void testApp::parseOsc()
 
     else if ( m.getAddress() == "/projection/mode/masksetup/on" )
     {
-        if (!bGui){
-        maskSetup = true;
-        for(int i = 0; i < 36; i++)
+        if (!bGui)
+        {
+            maskSetup = true;
+            for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -171,9 +173,10 @@ void testApp::parseOsc()
 
     else if ( m.getAddress() == "/projection/mode/masksetup/off" )
     {
-        if (!bGui){
-        maskSetup = false;
-        for(int i = 0; i < 36; i++)
+        if (!bGui)
+        {
+            maskSetup = false;
+            for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -214,12 +217,12 @@ void testApp::parseOsc()
     {
         isSetup = True;
         for(int i = 0; i < 36; i++)
+        {
+            if (quads[i].initialized)
             {
-                if (quads[i].initialized)
-                {
-                    quads[i].isSetup = True;
-                }
+                quads[i].isSetup = True;
             }
+        }
     }
 
     else if ( m.getAddress() == "/projection/mode/setup/off" )
@@ -239,10 +242,163 @@ void testApp::parseOsc()
     {
         mpeSetup();
     }
+    //set layers
+    if ( m.getAddress() == "/quad/layer/up" )
+        {
+        int position;
+        int target;
+
+        for(int i = 0; i < 35; i++)
+        {
+            if (layers[i] == quads[activeQuad].quadNumber)
+            {
+                position = i;
+                target = i+1;
+            }
+
+        }
+        if (layers[target] != -1)
+        {
+            int target_content = layers[target];
+            layers[target] = quads[activeQuad].quadNumber;
+            layers[position] = target_content;
+            quads[activeQuad].layer = target;
+            quads[target_content].layer = position;
+        }
+    }
+     // more
+        if ( m.getAddress() == "/quad/layer/down" )
+    {
+        int position;
+        int target;
+
+        for(int i = 0; i < 36; i++)
+        {
+            if (layers[i] == quads[activeQuad].quadNumber)
+            {
+                position = i;
+                target = i-1;
+            }
+
+        }
+        if (target >= 0)
+        {
+            if (layers[target] != -1)
+            {
+                int target_content = layers[target];
+                layers[target] = quads[activeQuad].quadNumber;
+                layers[position] = target_content;
+                quads[activeQuad].layer = target;
+                quads[target_content].layer = position;
+            }
+        }
+    }
+    //snapshot
+
+    if ( m.getAddress() == "/quad/cam/snapshot" )
+    {
+        snapshotOn = !snapshotOn;
+        if (snapshotOn == 1)
+        {
+            cameras[0].update();
+            snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
+            unsigned char * pixels = cameras[0].getPixels();
+            snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);
+        }
+    }
+    //image snapshot
+    if ( m.getAddress() == "/quad/img/snapshot" )
+    {
+        snapshotOn = !snapshotOn;
+        if (snapshotOn == 1)
+        {
+            ofImage img;
+            img.clone(loadImageFromFile());
+            snapshotTexture.allocate(img.width,img.height, GL_RGB);
+            unsigned char * pixels = img.getPixels();
+            snapshotTexture.loadData(pixels, img.width,img.height, GL_RGB);
+        }
+    }
+    //fill screen
+    if ( m.getAddress() == "/quad/fill/screen" )
+
+    {
+        if (isSetup)
+        {
+            quads[activeQuad].corners[0].x = 0.0;
+            quads[activeQuad].corners[0].y = 0.0;
+
+            quads[activeQuad].corners[1].x = 1.0;
+            quads[activeQuad].corners[1].y = 0.0;
+
+            quads[activeQuad].corners[2].x = 1.0;
+            quads[activeQuad].corners[2].y = 1.0;
+
+            quads[activeQuad].corners[3].x = 0.0;
+            quads[activeQuad].corners[3].y = 1.0;
+        }
+    }
+
+    //mask editing delete last point
+    if ( m.getAddress() == "/quad/mask/undo" )
+    {
+    if(maskSetup && quads[activeQuad].maskPoints.size()>0) {quads[activeQuad].maskPoints.pop_back();}
+    }
+    //mask editin goback
+    if ( m.getAddress() == "/quad/mask/goback" )
+    {
+        if(maskSetup && quads[activeQuad].maskPoints.size()>0)
+        {
+            if (quads[activeQuad].bHighlightMaskPoint)
+            {
+                quads[activeQuad].maskPoints.erase(quads[activeQuad].maskPoints.begin()+quads[activeQuad].highlightedMaskPoint);
+            }
+
+        }
+    }
+
+    //new quad
+       if ( m.getAddress() == "/quad/new" )
+    {
+        if (isSetup)
+        {
+            if (nOfQuads < 36)
+            {
+                #ifdef WITH_KINECT
+                    #ifdef WITH_SYPHON
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
+                    #else
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
+                    #endif
+                #else
+                    #ifdef WITH_SYPHON
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
+                    #else
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
+                    #endif
+                #endif
+                quads[nOfQuads].quadNumber = nOfQuads;
+                layers[nOfQuads] = nOfQuads;
+                quads[nOfQuads].layer = nOfQuads;
+                quads[activeQuad].isActive = False;
+                quads[nOfQuads].isActive = True;
+                activeQuad = nOfQuads;
+                ++nOfQuads;
+                gui.setPage((activeQuad*4)+2);
+                // add timeline page for new quad
+                #ifdef WITH_TIMELINE
+                timelineAddQuadPage(activeQuad);
+                #endif
+                // next line fixes a bug i've been tracking down for a looong time
+                glDisable(GL_DEPTH_TEST);
+
+            }
+        }
+    }
 
 
     // timeline stuff
-    #ifdef WITH_TIMELINE
+#ifdef WITH_TIMELINE
     // use toggle
     else if ( m.getAddress() == "/projection/timeline/toggle" )
     {
@@ -255,8 +411,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_timeline = m.getArgAsInt32( 0 );
-        if(osc_timeline == 0) {useTimeline = false;}
-        else if(osc_timeline == 1) {useTimeline = true;}
+        if(osc_timeline == 0)
+        {
+            useTimeline = false;
+        }
+        else if(osc_timeline == 1)
+        {
+            useTimeline = true;
+        }
     }
 
     // timeline duration in seconds
@@ -264,7 +426,10 @@ void testApp::parseOsc()
     {
         // argument is float
         float osc_timelineDurationSeconds = m.getArgAsFloat( 0 );
-        if(osc_timelineDurationSeconds >= 10.0) {timelineDurationSeconds =osc_timelineDurationSeconds;}
+        if(osc_timelineDurationSeconds >= 10.0)
+        {
+            timelineDurationSeconds =osc_timelineDurationSeconds;
+        }
     }
 
     else if ( m.getAddress() == "/projection/timeline/start")
@@ -288,7 +453,7 @@ void testApp::parseOsc()
         }
     }
 
-    #endif
+#endif
 
 //------------------------------------------------------
 // active quad stuff
@@ -304,7 +469,7 @@ void testApp::parseOsc()
             quads[activeQuad].isActive = False;
             activeQuad = osc_activequad;
             quads[activeQuad].isActive = True;
-            gui.setPage((activeQuad*3)+2);
+            gui.setPage((activeQuad*4)+2);
         }
     }
 
@@ -313,8 +478,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_isOn = m.getArgAsInt32( 0 );
-        if(osc_quad_isOn == 0) {quads[activeQuad].isOn = false;}
-        else if(osc_quad_isOn == 1) {quads[activeQuad].isOn = true;}
+        if(osc_quad_isOn == 0)
+        {
+            quads[activeQuad].isOn = false;
+        }
+        else if(osc_quad_isOn == 1)
+        {
+            quads[activeQuad].isOn = true;
+        }
     }
 
     // use timeline color
@@ -322,8 +493,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bTimelineColor = m.getArgAsInt32( 0 );
-        if(osc_quad_bTimelineColor == 0) {quads[activeQuad].bTimelineColor = false;}
-        else if(osc_quad_bTimelineColor == 1) {quads[activeQuad].bTimelineColor = true;}
+        if(osc_quad_bTimelineColor == 0)
+        {
+            quads[activeQuad].bTimelineColor = false;
+        }
+        else if(osc_quad_bTimelineColor == 1)
+        {
+            quads[activeQuad].bTimelineColor = true;
+        }
     }
 
     // use timeline color
@@ -331,8 +508,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bTimelineAlpha = m.getArgAsInt32( 0 );
-        if(osc_quad_bTimelineAlpha == 0) {quads[activeQuad].bTimelineAlpha = false;}
-        else if(osc_quad_bTimelineAlpha == 1) {quads[activeQuad].bTimelineAlpha = true;}
+        if(osc_quad_bTimelineAlpha == 0)
+        {
+            quads[activeQuad].bTimelineAlpha = false;
+        }
+        else if(osc_quad_bTimelineAlpha == 1)
+        {
+            quads[activeQuad].bTimelineAlpha = true;
+        }
     }
 
     // use timeline for slides
@@ -340,8 +523,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bTimelineSlideChange = m.getArgAsInt32( 0 );
-        if(osc_quad_bTimelineSlideChange == 0) {quads[activeQuad].bTimelineSlideChange = false;}
-        else if(osc_quad_bTimelineSlideChange == 1) {quads[activeQuad].bTimelineSlideChange = true;}
+        if(osc_quad_bTimelineSlideChange == 0)
+        {
+            quads[activeQuad].bTimelineSlideChange = false;
+        }
+        else if(osc_quad_bTimelineSlideChange == 1)
+        {
+            quads[activeQuad].bTimelineSlideChange = true;
+        }
     }
 
     // img stuff on active quad
@@ -355,8 +544,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_imgBg = m.getArgAsInt32( 0 );
-        if(osc_quad_imgBg == 0) {quads[activeQuad].imgBg = false;}
-        else if(osc_quad_imgBg == 1) {quads[activeQuad].imgBg = true;}
+        if(osc_quad_imgBg == 0)
+        {
+            quads[activeQuad].imgBg = false;
+        }
+        else if(osc_quad_imgBg == 1)
+        {
+            quads[activeQuad].imgBg = true;
+        }
     }
 
     // img load
@@ -371,8 +566,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_imgHFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_imgHFlip == 0) {quads[activeQuad].imgHFlip = false;}
-        else if(osc_quad_imgHFlip == 1) {quads[activeQuad].imgHFlip = true;}
+        if(osc_quad_imgHFlip == 0)
+        {
+            quads[activeQuad].imgHFlip = false;
+        }
+        else if(osc_quad_imgHFlip == 1)
+        {
+            quads[activeQuad].imgHFlip = true;
+        }
     }
 
     // img VFlip
@@ -380,8 +581,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_imgVFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_imgVFlip == 0) {quads[activeQuad].imgVFlip = false;}
-        else if(osc_quad_imgVFlip == 1) {quads[activeQuad].imgVFlip = true;}
+        if(osc_quad_imgVFlip == 0)
+        {
+            quads[activeQuad].imgVFlip = false;
+        }
+        else if(osc_quad_imgVFlip == 1)
+        {
+            quads[activeQuad].imgVFlip = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/img/color" )
@@ -445,8 +652,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bBlendModes = m.getArgAsInt32( 0 );
-        if(osc_quad_bBlendModes == 0) {quads[activeQuad].bBlendModes = false;}
-        else if(osc_quad_bBlendModes == 1) {quads[activeQuad].bBlendModes = true;}
+        if(osc_quad_bBlendModes == 0)
+        {
+            quads[activeQuad].bBlendModes = false;
+        }
+        else if(osc_quad_bBlendModes == 1)
+        {
+            quads[activeQuad].bBlendModes = true;
+        }
     }
 
     // blendModes mode
@@ -454,7 +667,10 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_blendMode = m.getArgAsInt32( 0 );
-        if(osc_quad_blendMode < 4) {quads[activeQuad].blendMode = osc_quad_blendMode;}
+        if(osc_quad_blendMode < 4)
+        {
+            quads[activeQuad].blendMode = osc_quad_blendMode;
+        }
     }
 
     // solid color stuff
@@ -468,8 +684,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_colorBg = m.getArgAsInt32( 0 );
-        if(osc_quad_colorBg == 0) {quads[activeQuad].colorBg = false;}
-        else if(osc_quad_colorBg == 1) {quads[activeQuad].colorBg = true;}
+        if(osc_quad_colorBg == 0)
+        {
+            quads[activeQuad].colorBg = false;
+        }
+        else if(osc_quad_colorBg == 1)
+        {
+            quads[activeQuad].colorBg = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/solid/color" )
@@ -523,8 +745,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_transBg = m.getArgAsInt32( 0 );
-        if(osc_quad_transBg == 0) {quads[activeQuad].transBg = false;}
-        else if(osc_quad_transBg == 1) {quads[activeQuad].transBg = true;}
+        if(osc_quad_transBg == 0)
+        {
+            quads[activeQuad].transBg = false;
+        }
+        else if(osc_quad_transBg == 1)
+        {
+            quads[activeQuad].transBg = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/solid/trans/color" )
@@ -576,7 +804,7 @@ void testApp::parseOsc()
     }
 
 
-    // mask stuff on active quad
+    // mask stuff on active quadbezier
     else if ( m.getAddress() == "/active/mask" )
     {
         quads[activeQuad].bMask = !quads[activeQuad].bMask;
@@ -587,8 +815,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bMask = m.getArgAsInt32( 0 );
-        if(osc_quad_bMask == 0) {quads[activeQuad].bMask = false;}
-        else if(osc_quad_bMask == 1) {quads[activeQuad].bMask = true;}
+        if(osc_quad_bMask == 0)
+        {
+            quads[activeQuad].bMask = false;
+        }
+        else if(osc_quad_bMask == 1)
+        {
+            quads[activeQuad].bMask = true;
+        }
     }
 
     // mask invert
@@ -596,8 +830,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_maskInvert = m.getArgAsInt32( 0 );
-        if(osc_quad_maskInvert == 0) {quads[activeQuad].maskInvert = false;}
-        else if(osc_quad_maskInvert == 1) {quads[activeQuad].maskInvert = true;}
+        if(osc_quad_maskInvert == 0)
+        {
+            quads[activeQuad].maskInvert = false;
+        }
+        else if(osc_quad_maskInvert == 1)
+        {
+            quads[activeQuad].maskInvert = true;
+        }
     }
 
     // deform stuff
@@ -607,8 +847,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bDeform = m.getArgAsInt32( 0 );
-        if(osc_quad_bDeform == 0) {quads[activeQuad].bDeform = false;}
-        else if(osc_quad_bDeform == 1) {quads[activeQuad].bDeform = true;}
+        if(osc_quad_bDeform == 0)
+        {
+            quads[activeQuad].bDeform = false;
+        }
+        else if(osc_quad_bDeform == 1)
+        {
+            quads[activeQuad].bDeform = true;
+        }
     }
 
     // deform bezier
@@ -616,8 +862,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bBezier = m.getArgAsInt32( 0 );
-        if(osc_quad_bBezier == 0) {quads[activeQuad].bBezier = false;}
-        else if(osc_quad_bBezier == 1) {quads[activeQuad].bBezier = true;}
+        if(osc_quad_bBezier == 0)
+        {
+            quads[activeQuad].bBezier = false;
+        }
+        else if(osc_quad_bBezier == 1)
+        {
+            quads[activeQuad].bBezier = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/deform/bezier/spherize/light" )
@@ -632,7 +884,7 @@ void testApp::parseOsc()
         quadBezierSpherizeStrong(activeQuad);
     }
 
-   else if ( m.getAddress() == "/active/deform/bezier/reset" )
+    else if ( m.getAddress() == "/active/deform/bezier/reset" )
     {
         // no argument
         quadBezierReset(activeQuad);
@@ -643,8 +895,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_bGrid = m.getArgAsInt32( 0 );
-        if(osc_quad_bGrid == 0) {quads[activeQuad].bGrid = false;}
-        else if(osc_quad_bGrid == 1) {quads[activeQuad].bGrid = true;}
+        if(osc_quad_bGrid == 0)
+        {
+            quads[activeQuad].bGrid = false;
+        }
+        else if(osc_quad_bGrid == 1)
+        {
+            quads[activeQuad].bGrid = true;
+        }
     }
 
     // deform grid rows
@@ -652,7 +910,10 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_gridRows = m.getArgAsInt32( 0 );
-        if(osc_quad_gridRows >= 2 && osc_quad_gridRows <= 15) {quads[activeQuad].gridRows = osc_quad_gridRows;}
+        if(osc_quad_gridRows >= 2 && osc_quad_gridRows <= 15)
+        {
+            quads[activeQuad].gridRows = osc_quad_gridRows;
+        }
     }
 
     // deform grid columns
@@ -660,7 +921,10 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_gridColumns = m.getArgAsInt32( 0 );
-        if(osc_quad_gridColumns >= 2 && osc_quad_gridColumns <= 20) {quads[activeQuad].gridColumns = osc_quad_gridColumns;}
+        if(osc_quad_gridColumns >= 2 && osc_quad_gridColumns <= 20)
+        {
+            quads[activeQuad].gridColumns = osc_quad_gridColumns;
+        }
     }
 
     // edge-blend stuff
@@ -669,8 +933,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_edgeBlendBool = m.getArgAsInt32( 0 );
-        if(osc_quad_edgeBlendBool == 0) {quads[activeQuad].edgeBlendBool = false;}
-        else if(osc_quad_edgeBlendBool == 1) {quads[activeQuad].edgeBlendBool = true;}
+        if(osc_quad_edgeBlendBool == 0)
+        {
+            quads[activeQuad].edgeBlendBool = false;
+        }
+        else if(osc_quad_edgeBlendBool == 1)
+        {
+            quads[activeQuad].edgeBlendBool = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/edgeblend/power" )
@@ -807,8 +1077,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_videoBg = m.getArgAsInt32( 0 );
-        if(osc_quad_videoBg == 0) {quads[activeQuad].videoBg = false;}
-        else if(osc_quad_videoBg == 1) {quads[activeQuad].videoBg = true;}
+        if(osc_quad_videoBg == 0)
+        {
+            quads[activeQuad].videoBg = false;
+        }
+        else if(osc_quad_videoBg == 1)
+        {
+            quads[activeQuad].videoBg = true;
+        }
     }
 
     // video load
@@ -823,8 +1099,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_videoHFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_videoHFlip == 0) {quads[activeQuad].videoHFlip = false;}
-        else if(osc_quad_videoHFlip == 1) {quads[activeQuad].videoHFlip = true;}
+        if(osc_quad_videoHFlip == 0)
+        {
+            quads[activeQuad].videoHFlip = false;
+        }
+        else if(osc_quad_videoHFlip == 1)
+        {
+            quads[activeQuad].videoHFlip = true;
+        }
     }
 
     // video VFlip
@@ -832,8 +1114,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_videoVFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_videoVFlip == 0) {quads[activeQuad].videoVFlip = false;}
-        else if(osc_quad_videoVFlip == 1) {quads[activeQuad].videoVFlip = true;}
+        if(osc_quad_videoVFlip == 0)
+        {
+            quads[activeQuad].videoVFlip = false;
+        }
+        else if(osc_quad_videoVFlip == 1)
+        {
+            quads[activeQuad].videoVFlip = true;
+        }
     }
 
 
@@ -912,8 +1200,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_videoLoop = m.getArgAsInt32( 0 );
-        if(osc_quad_videoLoop == 0) {quads[activeQuad].videoLoop = false;}
-        else if(osc_quad_videoLoop == 1) {quads[activeQuad].videoLoop = true;}
+        if(osc_quad_videoLoop == 0)
+        {
+            quads[activeQuad].videoLoop = false;
+        }
+        else if(osc_quad_videoLoop == 1)
+        {
+            quads[activeQuad].videoLoop = true;
+        }
     }
 
     // video greenscreen
@@ -921,8 +1215,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_videoGreenscreen = m.getArgAsInt32( 0 );
-        if(osc_quad_videoGreenscreen == 0) {quads[activeQuad].videoGreenscreen = false;}
-        else if(osc_quad_videoGreenscreen == 1) {quads[activeQuad].videoGreenscreen = true;}
+        if(osc_quad_videoGreenscreen == 0)
+        {
+            quads[activeQuad].videoGreenscreen = false;
+        }
+        else if(osc_quad_videoGreenscreen == 1)
+        {
+            quads[activeQuad].videoGreenscreen = true;
+        }
     }
 
     // camera stuff
@@ -937,8 +1237,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_camBg = m.getArgAsInt32( 0 );
-        if(osc_quad_camBg == 0) {quads[activeQuad].camBg = false;}
-        else if(osc_quad_camBg == 1) {quads[activeQuad].camBg = true;}
+        if(osc_quad_camBg == 0)
+        {
+            quads[activeQuad].camBg = false;
+        }
+        else if(osc_quad_camBg == 1)
+        {
+            quads[activeQuad].camBg = true;
+        }
     }
 
     // video HFlip
@@ -946,8 +1252,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_camHFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_camHFlip == 0) {quads[activeQuad].camHFlip = false;}
-        else if(osc_quad_camHFlip == 1) {quads[activeQuad].camHFlip = true;}
+        if(osc_quad_camHFlip == 0)
+        {
+            quads[activeQuad].camHFlip = false;
+        }
+        else if(osc_quad_camHFlip == 1)
+        {
+            quads[activeQuad].camHFlip = true;
+        }
     }
 
     // video VFlip
@@ -955,8 +1267,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_camVFlip = m.getArgAsInt32( 0 );
-        if(osc_quad_camVFlip == 0) {quads[activeQuad].camVFlip = false;}
-        else if(osc_quad_camVFlip == 1) {quads[activeQuad].camVFlip = true;}
+        if(osc_quad_camVFlip == 0)
+        {
+            quads[activeQuad].camVFlip = false;
+        }
+        else if(osc_quad_camVFlip == 1)
+        {
+            quads[activeQuad].camVFlip = true;
+        }
     }
 
 
@@ -1021,8 +1339,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_camGreenscreen = m.getArgAsInt32( 0 );
-        if(osc_quad_camGreenscreen == 0) {quads[activeQuad].camGreenscreen = false;}
-        else if(osc_quad_camGreenscreen == 1) {quads[activeQuad].camGreenscreen = true;}
+        if(osc_quad_camGreenscreen == 0)
+        {
+            quads[activeQuad].camGreenscreen = false;
+        }
+        else if(osc_quad_camGreenscreen == 1)
+        {
+            quads[activeQuad].camGreenscreen = true;
+        }
     }
 
     // greenscreen stuff
@@ -1088,31 +1412,52 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_slideshowBg = m.getArgAsInt32( 0 );
-        if(osc_quad_slideshowBg == 0) {quads[activeQuad].slideshowBg = false;}
-        else if(osc_quad_slideshowBg == 1) {quads[activeQuad].slideshowBg = true;}
+        if(osc_quad_slideshowBg == 0)
+        {
+            quads[activeQuad].slideshowBg = false;
+        }
+        else if(osc_quad_slideshowBg == 1)
+        {
+            quads[activeQuad].slideshowBg = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/slideshow/folder" )
     {
         // argument is int32
         int osc_quad_bgSlideshow = m.getArgAsInt32( 0 );
-        if(osc_quad_bgSlideshow <= slideshowFolders.size()) {quads[activeQuad].bgSlideshow = osc_quad_bgSlideshow;}
+        if(osc_quad_bgSlideshow <= slideshowFolders.size())
+        {
+            quads[activeQuad].bgSlideshow = osc_quad_bgSlideshow;
+        }
     }
 
     else if ( m.getAddress() == "/active/slideshow/fit" )
     {
         // argument is int32
         int osc_quad_slideFit = m.getArgAsInt32( 0 );
-        if(osc_quad_slideFit == 0) {quads[activeQuad].slideFit = false;}
-        else if(osc_quad_slideFit == 1) {quads[activeQuad].slideFit = true;}
+        if(osc_quad_slideFit == 0)
+        {
+            quads[activeQuad].slideFit = false;
+        }
+        else if(osc_quad_slideFit == 1)
+        {
+            quads[activeQuad].slideFit = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/slideshow/keep_aspect" )
     {
         // argument is int32
         int osc_quad_slideKeepAspect = m.getArgAsInt32( 0 );
-        if(osc_quad_slideKeepAspect == 0) {quads[activeQuad].slideKeepAspect = false;}
-        else if(osc_quad_slideKeepAspect == 1) {quads[activeQuad].slideKeepAspect = true;}
+        if(osc_quad_slideKeepAspect == 0)
+        {
+            quads[activeQuad].slideKeepAspect = false;
+        }
+        else if(osc_quad_slideKeepAspect == 1)
+        {
+            quads[activeQuad].slideKeepAspect = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/slideshow/duration" )
@@ -1134,12 +1479,18 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_kinectBg = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectBg == 0) {quads[activeQuad].kinectBg = false;}
-        else if(osc_quad_kinectBg == 1) {quads[activeQuad].kinectBg = true;}
+        if(osc_quad_kinectBg == 0)
+        {
+            quads[activeQuad].kinectBg = false;
+        }
+        else if(osc_quad_kinectBg == 1)
+        {
+            quads[activeQuad].kinectBg = true;
+        }
     }
 
     //kinect stuff
-    #ifdef WITH_KINECT
+#ifdef WITH_KINECT
     else if ( m.getAddress() == "/active/kinect/open" )
     {
         // no argument
@@ -1158,8 +1509,14 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_kinectImg = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectImg == 0) {quads[activeQuad].kinectImg = false;}
-        else if(osc_quad_kinectImg == 1) {quads[activeQuad].kinectImg = true;}
+        if(osc_quad_kinectImg == 0)
+        {
+            quads[activeQuad].kinectImg = false;
+        }
+        else if(osc_quad_kinectImg == 1)
+        {
+            quads[activeQuad].kinectImg = true;
+        }
     }
 
     // kinect grayscale image
@@ -1167,16 +1524,28 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_getKinectGrayImage = m.getArgAsInt32( 0 );
-        if(osc_quad_getKinectGrayImage == 0) {quads[activeQuad].getKinectGrayImage = false;}
-        else if(osc_quad_getKinectGrayImage == 1) {quads[activeQuad].getKinectGrayImage = true;}
+        if(osc_quad_getKinectGrayImage == 0)
+        {
+            quads[activeQuad].getKinectGrayImage = false;
+        }
+        else if(osc_quad_getKinectGrayImage == 1)
+        {
+            quads[activeQuad].getKinectGrayImage = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/mask" )
     {
         // argument is int32
         int osc_quad_kinectMask = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectMask == 0) {quads[activeQuad].kinectMask = false;}
-        else if(osc_quad_kinectMask == 1) {quads[activeQuad].kinectMask = true;}
+        if(osc_quad_kinectMask == 0)
+        {
+            quads[activeQuad].kinectMask = false;
+        }
+        else if(osc_quad_kinectMask == 1)
+        {
+            quads[activeQuad].kinectMask = true;
+        }
     }
 
 
@@ -1227,37 +1596,58 @@ void testApp::parseOsc()
     {
         // argument is int32
         int osc_quad_kinectAngle = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectAngle >= -30 && osc_quad_kinectAngle <= 30) {kinect.kinectAngle = osc_quad_kinectAngle;}
+        if(osc_quad_kinectAngle >= -30 && osc_quad_kinectAngle <= 30)
+        {
+            kinect.kinectAngle = osc_quad_kinectAngle;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/blur" )
     {
         // argument is int32
         int osc_quad_kinectBlur = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectBlur >= 0 && osc_quad_kinectBlur <= 10) {quads[activeQuad].kinectBlur = osc_quad_kinectBlur;}
+        if(osc_quad_kinectBlur >= 0 && osc_quad_kinectBlur <= 10)
+        {
+            quads[activeQuad].kinectBlur = osc_quad_kinectBlur;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/contour" )
     {
         // argument is int32
         int osc_quad_getKinectContours = m.getArgAsInt32( 0 );
-        if(osc_quad_getKinectContours == 0) {quads[activeQuad].getKinectContours = false;}
-        else if(osc_quad_getKinectContours == 1) {quads[activeQuad].getKinectContours = true;}
+        if(osc_quad_getKinectContours == 0)
+        {
+            quads[activeQuad].getKinectContours = false;
+        }
+        else if(osc_quad_getKinectContours == 1)
+        {
+            quads[activeQuad].getKinectContours = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/contour/curves" )
     {
         // argument is int32
         int osc_quad_kinectContourCurved = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectContourCurved == 0) {quads[activeQuad].kinectContourCurved = false;}
-        else if(osc_quad_kinectContourCurved == 1) {quads[activeQuad].kinectContourCurved = true;}
+        if(osc_quad_kinectContourCurved == 0)
+        {
+            quads[activeQuad].kinectContourCurved = false;
+        }
+        else if(osc_quad_kinectContourCurved == 1)
+        {
+            quads[activeQuad].kinectContourCurved = true;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/contour/smooth" )
     {
         // argument is int32
         int osc_quad_kinectContourSmooth = m.getArgAsInt32( 0 );
-        if(osc_quad_kinectContourSmooth >= 0 && osc_quad_kinectContourSmooth <= 20) {quads[activeQuad].kinectContourSmooth = osc_quad_kinectContourSmooth;}
+        if(osc_quad_kinectContourSmooth >= 0 && osc_quad_kinectContourSmooth <= 20)
+        {
+            quads[activeQuad].kinectContourSmooth = osc_quad_kinectContourSmooth;
+        }
     }
 
     else if ( m.getAddress() == "/active/kinect/contour/simplify" )
@@ -1330,7 +1720,7 @@ void testApp::parseOsc()
         float kinect_color_a = m.getArgAsFloat( 0 );
         quads[activeQuad].kinectColorize.a = kinect_color_a;
     }
-    #endif
+#endif
 
     else if ( m.getAddress() == "/active/crop/rectangular/top" )
     {
@@ -1375,6 +1765,7 @@ void testApp::parseOsc()
         quads[activeQuad].circularCrop[2] = crop_radius;
     }
 
+    /*
     else
     {
         // unrecognized message: display on the bottom of the screen
@@ -1402,5 +1793,195 @@ void testApp::parseOsc()
         current_msg_string = ( current_msg_string + 1 ) % NUM_MSG_STRINGS;
         // clear the next line
         msg_strings[current_msg_string] = "";
+        cout << endl << msg_string << endl;
     }
+    */
+    ///*
+
+    // if we get an OSC message not recognized, we can use it for auto-learning gui control as with midi
+    else
+    {
+        // hotkey stuff - learning
+        if(bMidiHotkeyCoupling && midiHotkeyPressed >= 0)
+        {
+            if(oscHotkeyMessages.size()>0 && oscHotkeyMessages.size() == oscHotkeyKeys.size())
+            {
+                for(int i=0; i < oscHotkeyMessages.size(); i++)
+                {
+                    // check if we already have a message for selected hotkey and eventually removes it
+                    if(oscHotkeyKeys[i] == midiHotkeyPressed)
+                    {
+                        oscHotkeyKeys.erase(oscHotkeyKeys.begin()+i);
+                        oscHotkeyMessages.erase(oscHotkeyMessages.begin()+i);
+                    }
+                }
+            }
+            oscHotkeyMessages.push_back(m);
+            oscHotkeyKeys.push_back(midiHotkeyPressed);
+            cout << endl << "OSC message '" << m.getAddress() << " " << m.getArgAsString(0) << "' coupled to hotkey '" << (char) midiHotkeyPressed << "'" << endl;
+            midiHotkeyPressed = -1;
+            bMidiHotkeyCoupling = false;
+            bMidiHotkeyLearning = false;
+            return;
+        }
+
+        // hotkey stuff - checking
+        if(oscHotkeyMessages.size()>0 && oscHotkeyMessages.size() == oscHotkeyKeys.size())
+        {
+            bool keyFound = false;
+            for(int i=0; i < oscHotkeyMessages.size(); i++)
+            {
+                ofxOscMessage oscControl = oscHotkeyMessages[i];
+                if(m.getAddress() == oscControl.getAddress())
+                {
+                    if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_INT32)
+                    {
+                        if(m.getArgAsInt32(0) == oscControl.getArgAsInt32(0))
+                        {
+                            keyPressed(oscHotkeyKeys[i]);
+                            keyFound = true;
+                            }
+                        }
+                    else if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_FLOAT)
+                    {
+                        if(m.getArgAsFloat(0) == oscControl.getArgAsFloat(0))
+                        {
+                            keyPressed(oscHotkeyKeys[i]);
+                            keyFound = true;
+                            }
+                        }
+                    else if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_STRING)
+                    {
+                        if(m.getArgAsString(0) == oscControl.getArgAsString(0))
+                        {
+                            keyPressed(oscHotkeyKeys[i]);
+                            keyFound = true;
+                            }
+                        }
+                    else if(m.getNumArgs()==0)
+                    {
+                        keyPressed(oscHotkeyKeys[i]);
+                        keyFound = true;
+                        }
+                    }
+                }
+                if(keyFound) return;
+            }
+
+        // gui coupling stuff
+        for(int i=0; i < gui.getPages().size(); i++)
+        {
+            for(int j=0; j < gui.getPages()[i]->getControls().size(); j++)
+            {
+                // toggle case
+                if(gui.getPages()[i]->getControls()[j]->controlType == "Toggle")
+                {
+                    // learning
+                    if(gui.getPages()[i]->getControls()[j]->bLearning)
+                    {
+                        gui.getPages()[i]->getControls()[j]->bLearning = false;
+                        gui.getPages()[i]->getControls()[j]->bLearnt = true;
+                        gui.getPages()[i]->getControls()[j]->oscControl = m;
+                    }
+                    // checking
+                    else if(gui.getPages()[i]->getControls()[j]->bLearnt)
+                    {
+                        ofxOscMessage oscControl = gui.getPages()[i]->getControls()[j]->oscControl;
+                        if(m.getAddress() == oscControl.getAddress())
+                        {
+                            if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_INT32)
+                            {
+                                if(m.getArgAsInt32(0) == oscControl.getArgAsInt32(0))
+                                {
+                                    ofxSimpleGuiToggle *t = (ofxSimpleGuiToggle *) gui.getPages()[i]->getControls()[j];
+                                    t->toggle();
+                                }
+                            }
+                            else if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_FLOAT)
+                            {
+                                if(m.getArgAsFloat(0) == oscControl.getArgAsFloat(0))
+                                {
+                                    ofxSimpleGuiToggle *t = (ofxSimpleGuiToggle *) gui.getPages()[i]->getControls()[j];
+                                    t->toggle();
+                                }
+                            }
+                            else if(m.getNumArgs()>0 && m.getArgType(0) == OFXOSC_TYPE_STRING)
+                            {
+                                if(m.getArgAsString(0) == oscControl.getArgAsString(0))
+                                {
+                                    ofxSimpleGuiToggle *t = (ofxSimpleGuiToggle *) gui.getPages()[i]->getControls()[j];
+                                    t->toggle();
+                                }
+                            }
+                            else if(m.getNumArgs()==0)
+                            {
+                                ofxSimpleGuiToggle *t = (ofxSimpleGuiToggle *) gui.getPages()[i]->getControls()[j];
+                                t->toggle();
+                            }
+                        }
+
+                    }
+                }
+                // slider case
+                else if(gui.getPages()[i]->getControls()[j]->controlType == "SliderFloat" || gui.getPages()[i]->getControls()[j]->controlType == "SliderInt")
+                {
+                    // learning
+                    if(gui.getPages()[i]->getControls()[j]->bLearning)
+                    {
+                        if(m.getNumArgs()>0)
+                        {
+                            gui.getPages()[i]->getControls()[j]->bLearning = false;
+                            gui.getPages()[i]->getControls()[j]->bLearnt = true;
+                            gui.getPages()[i]->getControls()[j]->oscControl = m;
+                        }
+                    }
+                    // checking
+                    else if(gui.getPages()[i]->getControls()[j]->bLearnt)
+                    {
+                        ofxOscMessage oscControl = gui.getPages()[i]->getControls()[j]->oscControl;
+                        if(m.getNumArgs()>0 && (m.getArgType(0) == OFXOSC_TYPE_INT32 || m.getArgType(0) == OFXOSC_TYPE_FLOAT))
+                        {
+                            if(m.getAddress() == oscControl.getAddress())
+                            {
+                                if(gui.getPages()[i]->getControls()[j]->controlType == "SliderFloat")
+                                {
+                                    ofxSimpleGuiSliderFloat *s = (ofxSimpleGuiSliderFloat *) gui.getPages()[i]->getControls()[j];
+                                    float remappedValue;
+                                    if(m.getArgType(0) == OFXOSC_TYPE_INT32)
+                                    {
+                                        float value = (float)m.getArgAsInt32(0);
+                                        remappedValue = ofMap(value, (float) oscControlMin, (float) oscControlMax, (float) s->min, (float) s->max);
+                                    }
+                                    else
+                                    {
+                                        float value = m.getArgAsFloat(0);
+                                        remappedValue = ofMap(value, (float) oscControlMin, (float) oscControlMax, (float) s->min, (float) s->max);
+                                    }
+                                    s->setValue(remappedValue);
+                                }
+                                else
+                                {
+                                    ofxSimpleGuiSliderInt *s = (ofxSimpleGuiSliderInt *) gui.getPages()[i]->getControls()[j];
+                                    float remappedValue;
+                                    if(m.getArgType(0) == OFXOSC_TYPE_INT32)
+                                    {
+                                        float value = (float)m.getArgAsInt32(0);
+                                        remappedValue = ofMap(value, (float) oscControlMin, (float) oscControlMax, (float) s->min, (float) s->max);
+                                    }
+                                    else
+                                    {
+                                        float value = m.getArgAsFloat(0);
+                                        remappedValue = ofMap(value, (float) oscControlMin, (float) oscControlMax, (float) s->min, (float) s->max);
+                                    }
+                                    s->setValue((int)remappedValue);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }//*/
+
 }
