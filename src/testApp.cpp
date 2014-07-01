@@ -41,6 +41,8 @@ void testApp::setup()
     //ofSetVerticalSync(false);
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
+    bdrawGrid = false;
+
 
     // read xml config file
     configOk = XML.loadFile("config.xml");
@@ -910,10 +912,16 @@ void testApp::draw()
                 }
                 ofRect(2,2,ofGetWidth()-4,ofGetHeight()-4);
             }
+
+    }
+    if(bdrawGrid)
+                {
+		        ofSetColor(255, 0, 0, 100);
+		        drawGrid(80,60);
+	            }
             // draws gui
             gui.draw();
         }
-    }
 
     #ifdef WITH_TIMELINE
     if (bTimeline)
@@ -928,6 +936,7 @@ void testApp::draw()
         splashImg.draw(((ofGetWidth()/2)-230),((ofGetHeight()/2)-110));
         ofDisableAlphaBlending();
     }
+
 }
 
 
@@ -959,7 +968,21 @@ void testApp::mpeResetEvent(ofxMPEEventArgs& event)
 
 
 
+//--------------------------------------------------------------
+void testApp::drawGrid(float x, float y){
+    float w = ofGetWidth();
+    float h = ofGetHeight();
 
+    for(int i = 0; i < h; i+=y)
+    {
+        ofLine(0,i,w,i);
+    }
+
+    for(int j = 0; j < w; j+=x)
+    {
+        ofLine(j,0,j,h);
+    }
+}
 //--------------------------------------------------------------
 void testApp::keyPressed(int key)
 {
@@ -1252,6 +1275,7 @@ void testApp::keyPressed(int key)
             isSetup = True;
             gui.hide();
             bGui = False;
+            bdrawGrid = True;
             for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
@@ -1504,6 +1528,10 @@ void testApp::keyPressed(int key)
         bMidiHotkeyCoupling = !bMidiHotkeyCoupling;
         bMidiHotkeyLearning = false;
         midiHotkeyPressed = -1;
+    }
+    if ((key == '8') && !bTimeline){
+
+    bdrawGrid = !bdrawGrid;
     }
 
 }

@@ -67,6 +67,8 @@ public:
     void mousePressed(int x, int y, int button);
     void mouseReleased();
     void windowResized(int w, int h);
+    void drawGrid(float x, float y);
+
 
     int whichCorner;
 
@@ -82,6 +84,7 @@ public:
 
     bool configOk;
     bool autoStart;
+    bool bdrawGrid;
 
     bool isSetup;
     bool bFullscreen;
