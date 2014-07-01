@@ -161,11 +161,7 @@ void testApp::setup()
 	// open port by number
 	//midiIn.openPort(1);
 	//midiIn.openPort("IAC Pure Data In");	// by name
-<<<<<<< HEAD
 	midiIn.openVirtualPort("Disp Input");	// open a virtual port
-=======
-	midiIn.openVirtualPort("LPMT Input");	// open a virtual port
->>>>>>> 17cb8fcb284ab2f053f1d120eadaf99c3ff6705a
 
 	// don't ignore sysex, timing, & active sense messages,
 	// these are ignored by default
@@ -178,17 +174,14 @@ void testApp::setup()
 	midiHotkeyMessages.clear();
 	midiHotkeyKeys.clear();
     #endif
-<<<<<<< HEAD
+    oscHotkeyMessages.clear();
+    oscHotkeyKeys.clear();
+
+
 
     oscHotkeyMessages.clear();
     oscHotkeyKeys.clear();
 
-=======
-
-    oscHotkeyMessages.clear();
-    oscHotkeyKeys.clear();
-
->>>>>>> 17cb8fcb284ab2f053f1d120eadaf99c3ff6705a
     bMidiHotkeyCoupling = false;
     bMidiHotkeyLearning = false;
     midiHotkeyPressed = -1;
