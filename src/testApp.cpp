@@ -188,7 +188,7 @@ void testApp::setup()
     bMidiHotkeyLearning = false;
     midiHotkeyPressed = -1;
 
-    // we scan the video dir for videos
+ /*   // we scan the video dir for videos
     //string videoDir = string("./data/video");
     string videoDir =  ofToDataPath("video",true);
     videoFiles = vector<string>();
@@ -211,7 +211,7 @@ void testApp::setup()
         slideshows[i]= slideshowFolders[i];
     }
 
-
+*/
     #ifdef WITH_SYPHON
 	// Syphon setup
 	syphClient.setup();
@@ -970,6 +970,7 @@ void testApp::mpeResetEvent(ofxMPEEventArgs& event)
 
 //--------------------------------------------------------------
 void testApp::drawGrid(float x, float y){
+
     float w = ofGetWidth();
     float h = ofGetHeight();
 
