@@ -188,6 +188,7 @@ public:
     string slideshowName;
 
     ofShader * shaderBlend;
+//    ofShader * fisheye;
     ofFbo   quadFbo;
     ofFbo::Settings settings;
 

@@ -8,15 +8,15 @@
 
 #ifdef WITH_KINECT
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &fisheyeShader,ofShader &brickShader,ofShader &EnvBMShader, ofShader &noiseShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &fisheyeShader,ofShader &brickShader,ofShader &EnvBMShader, ofShader &noiseShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
     #endif
 #else
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &fisheyeShader,ofShader &brickShader,ofShader &EnvBMShader, ofShader &noiseShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &fisheyeShader,ofShader &brickShader,ofShader &EnvBMShader, ofShader &noiseShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos)
     #endif
 #endif
 {
@@ -24,6 +24,11 @@
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
+    brick = &brickShader;
+    fisheye = &fisheyeShader;
+    noise = &noiseShader;
+    env =&EnvBMShader;
+
     //camera = &camGrabber;
     #ifdef WITH_KINECT
     quadKinect = &kinect;

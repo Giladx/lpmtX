@@ -142,7 +142,7 @@ public:
     ofShader noiseShader;
     ofShader brickShader;
     ofShader EnvBMShader;
-    ofShader fisheyeSader;
+    ofShader fisheyeShader;
 
 
     // gui elements
