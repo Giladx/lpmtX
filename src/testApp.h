@@ -30,10 +30,10 @@
 #endif
 #ifdef WITH_MIDI
 #include "ofxMidi.h"
+#include "ofxFenster.h"
 #endif
 
 //#include <GL/glut.h>
-
 #ifdef WITH_MIDI
 class testApp : public ofBaseApp, public ofxMidiListener
 #else
@@ -81,10 +81,16 @@ public:
     int nOfQuads;
     int borderColor;
     int copyQuadNum;
+    bool loaded;
+    bool rendering;
+    int currentRenderFrame;
+    void renderCurrentFrame();
 
+    string renderFolder;
+
+    bool bdrawGrid;
     bool configOk;
     bool autoStart;
-    bool bdrawGrid;
 
     bool isSetup;
     bool bFullscreen;
@@ -133,10 +139,14 @@ public:
     ofShader edgeBlendShader;
     ofShader quadMaskShader;
     ofShader chromaShader;
+    ofShader noiseShader;
+    ofShader brickShader;
+    ofShader EnvBMShader;
+    ofShader fisheyeSader;
+
 
     // gui elements
     bool showGui;
-
     bool bImageLoad;
     bool bVideoLoad;
     bool bSharedVideoLoad0;
@@ -218,13 +228,24 @@ public:
     // timeline
     #ifdef WITH_TIMELINE
     ofxTimeline timeline;
+    //brightness,contrast,saturation shader found here: http://mouaif.wordpress.com/2009/01/05/photoshop-math-with-glsl-shaders/
+    ofShader colorControl;
+    ofFbo frameBuffer;
+
+    ofRectangle contentRectangle; //matched to video size
+    ofRectangle outputRectangle;
+    ofRectangle loadVideoButton;
+    ofRectangle renderButton;
+
     float timelineDurationSeconds;
     float timelinePreviousDuration;
     void timelineSetup(float duration);
     void timelineUpdate();
     void timelineAddQuadPage(int i);
     void timelineTriggerReceived(ofxTLBangEventArgs& trigger);
-    bool useTimeline;
+    bool useTimeline;\
+
+
     #endif
 
     // syphon

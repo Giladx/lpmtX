@@ -1,5 +1,6 @@
 #include "testApp.h"
 #ifdef WITH_TIMELINE
+#define BUTTON_HEIGHT 30
 //--------------------------------------------------------------
 void testApp::timelineSetup(float duration){
 
@@ -15,18 +16,29 @@ void testApp::timelineSetup(float duration){
         timelineAddQuadPage(i);
     }
 
+    loaded = false;
+	rendering = false;
+    renderFolder = "renders/"; //this is where rendered frames will be saved to
+
     timeline.setLoopType(OF_LOOP_NORMAL);
-    //timeline.enableSnapToBPM(120.0);
+    timeline.enableSnapToBPM(120.0);
     timeline.enableSnapToOtherKeyframes(false);
     timeline.setEditableHeaders(true);
     //timeline.collapseAllTracks();
+    //initialize the shader
+    colorControl.load("shaders/colorcontrol");
+    colorControl.begin();
+    colorControl.setUniform1i("tex", 0);
+    colorControl.end();
     ofAddListener(timeline.events().bangFired, this, &testApp::timelineTriggerReceived);
 }
 
 //--------------------------------------------------------------
 void testApp::timelineUpdate()
+
 {
-            for(int j = 0; j < 36; j++)
+
+            for(int j = 0; j < 6; j++)
             {
                 if (quads[j].initialized)
                 {
@@ -45,6 +57,7 @@ void testApp::timelineUpdate()
                     {
                         quads[j].timelineAlpha = timeline.getValue("alpha_"+ofToString(j));
                     }
+
                 }
             }
 }
@@ -161,6 +174,11 @@ void testApp::timelineAddQuadPage(int i) {
 	timeline.addCurves("alpha_"+ofToString(i), ofToString(i)+"_alpha.xml", ofRange(0, 1.0));
 	timeline.addFlags("trigger_"+ofToString(i), ofToString(i)+"_trigger.xml");
 	timeline.addColors("color_"+ofToString(i), ofToString(i)+"_color.xml");
+	timeline.addCurves("brightness"+ofToString(i), ofToString(i), ofRange(0.0, 2.0), 1.0);
+    timeline.addCurves("contrast"+ofToString(i), ofToString(i), ofRange(.5, 2.0), 1.0);
+    timeline.addCurves("saturation"+ofToString(i), ofToString(i), ofRange(0.0, 1.5), 1.0);
+    timeline.addSwitches("invert"+ofToString(i), ofToString(i));
+
 }
 
 #endif

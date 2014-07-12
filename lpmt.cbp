@@ -6,7 +6,7 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons/;src/;build config/;addons/ofxMSAInteractiveObject/src/;addons/ofxMostPixelsEver/src/;addons/ofxNetwork/src/;addons/ofxOsc/src/;addons/ofxSimpleGuiToo/src/Controls/;addons/ofxSimpleGuiToo/src/;addons/ofxThread/src/;addons/ofxXmlSettings/src/;shaders/;addons/ofxMidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxTimeline/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxKinect/libs/libfreenect/;addons/ofxKinect/src/;addons/ofxOpenCv/src/;addons/ofxTween/src/Easings/;addons/ofxTimeline/libs/sndfile/include/AL/;addons/ofxTimeline/libs/kiss/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxTween/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxXmlSettings/libs/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxTimecode/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/;addons/ofxTimeline/libs/kiss/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxTextInputField/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxMSATimer/src/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxRange/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxTimeline/libs/sndfile/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxMidi/src/rtmidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxKinect/libs/libusb/osx/include/libusb-1.0/;" />
+		<Option virtualFolders="addons/;src/;build config/;addons/ofxMSAInteractiveObject/src/;addons/ofxMostPixelsEver/src/;addons/ofxNetwork/src/;addons/ofxOsc/src/;addons/ofxSimpleGuiToo/src/Controls/;addons/ofxSimpleGuiToo/src/;addons/ofxXmlSettings/src/;shaders/;addons/ofxMidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxTimeline/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxKinect/libs/libfreenect/;addons/ofxKinect/src/;addons/ofxOpenCv/src/;addons/ofxTween/src/Easings/;addons/ofxTimeline/libs/sndfile/include/AL/;addons/ofxTimeline/libs/kiss/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxTween/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxXmlSettings/libs/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxTimecode/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/;addons/ofxTimeline/libs/kiss/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxTextInputField/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxMSATimer/src/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxRange/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxTimeline/libs/sndfile/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxMidi/src/rtmidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxKinect/libs/libusb/osx/include/libusb-1.0/;addons/ofxFenster/libs/ghost/include/Cocoa/;addons/ofxFenster/libs/ghost/include/;addons/ofxFenster/libs/ghost/include/WIN32/;addons/ofxFenster/libs/ghost/include/X11/;addons/ofxFenster/libs/string/include/;addons/ofxFenster/src/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
@@ -27,6 +27,198 @@
 				<Option projectLinkerOptionsRelation="2" />
 			</Target>
 		</Build>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/Cocoa/GHOST_DisplayManagerCocoa.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/Cocoa" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/Cocoa/GHOST_SystemCocoa.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/Cocoa" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/Cocoa/GHOST_SystemPathsCocoa.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/Cocoa" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/Cocoa/GHOST_WindowCocoa.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/Cocoa" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Buttons.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_C-api.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_CallbackEventConsumer.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Debug.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_DisplayManager.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_DisplayManagerNULL.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Event.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventButton.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventCursor.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventDragnDrop.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventKey.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventManager.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventNDOF.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventPrinter.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventString.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventTrackpad.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_EventWheel.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_IEvent.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_IEventConsumer.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_ISystem.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_ISystemPaths.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_ITimerTask.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_IWindow.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_ModifierKeys.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Path-api.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Rect.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_System.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_SystemNULL.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_SystemPaths.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_TimerManager.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_TimerTask.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Types.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_Window.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_WindowManager.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/GHOST_WindowNULL.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_DisplayManagerWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_DropTargetWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_SystemPathsWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_SystemWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_TaskbarWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/GHOST_WindowWin32.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/pktdef.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/WIN32/wintab.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/WIN32" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/X11/GHOST_DisplayManagerX11.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/X11" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/X11/GHOST_SystemPathsX11.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/X11" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/X11/GHOST_SystemX11.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/X11" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/ghost/include/X11/GHOST_WindowX11.h">
+			<Option virtualFolder="addons/ofxFenster/libs/ghost/include/X11" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/libs/string/include/STR_String.h">
+			<Option virtualFolder="addons/ofxFenster/libs/string/include" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplay.cpp">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplay.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplayMac.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplayManager.cpp">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplayManager.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxDisplayManagerMac.mm">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFenster.cpp">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFenster.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFensterCanvas.cpp">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFensterCanvas.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFensterManager.cpp">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxFenster/src/ofxFensterManager.h">
+			<Option virtualFolder="addons/ofxFenster/src" />
+		</Unit>
 		<Unit filename="../../../addons/ofxKinect/libs/libfreenect/cameras.c">
 			<Option compilerVar="CC" />
 			<Option virtualFolder="addons/ofxKinect/libs/libfreenect" />
@@ -692,9 +884,6 @@
 		<Unit filename="../../../addons/ofxTextInputField/src/ofxTextInputField.h">
 			<Option virtualFolder="addons/ofxTextInputField/src" />
 		</Unit>
-		<Unit filename="../../../addons/ofxThread/src/ofxThread.h">
-			<Option virtualFolder="addons/ofxThread/src" />
-		</Unit>
 		<Unit filename="../../../addons/ofxTimecode/src/ofxTimecode.cpp">
 			<Option virtualFolder="addons/ofxTimecode/src" />
 		</Unit>
@@ -1033,14 +1222,35 @@
 		<Unit filename="bin/data/shaders/mask.vert">
 			<Option virtualFolder="shaders/" />
 		</Unit>
+		<Unit filename="bin/data/shaders/noise.frag">
+			<Option virtualFolder="shaders/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/noise.vert">
+			<Option virtualFolder="shaders/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/brick.frag">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/brick.vert">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/EnvBM.frag">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/EnvBM.vert">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/fisheye.frag">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/new/fisheye.vert">
+			<Option virtualFolder="shaders/new/" />
+		</Unit>
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
 		<Unit filename="src/appUtils.cpp">
 			<Option virtualFolder="src/" />
-		</Unit>
-		<Unit filename="src/appUtils.cpp~">
-			<Option virtualFolder="src" />
 		</Unit>
 		<Unit filename="src/ball.h">
 			<Option virtualFolder="src" />
@@ -1084,20 +1294,11 @@
 		<Unit filename="src/testApp.cpp">
 			<Option virtualFolder="src/" />
 		</Unit>
-		<Unit filename="src/testApp.cpp~">
-			<Option virtualFolder="src" />
-		</Unit>
 		<Unit filename="src/testApp.h">
 			<Option virtualFolder="src/" />
 		</Unit>
-		<Unit filename="src/testApp.h~">
-			<Option virtualFolder="src" />
-		</Unit>
 		<Unit filename="src/timeline.cpp">
 			<Option virtualFolder="src/" />
-		</Unit>
-		<Unit filename="src/timeline.cpp~">
-			<Option virtualFolder="src" />
 		</Unit>
 		<Unit filename="src/xmlSetup.cpp">
 			<Option virtualFolder="src/" />

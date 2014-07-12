@@ -13,3 +13,5 @@ ofxMSATimer
 ofxTimecode
 ofxTextInputField
 ofxMidi
+ofxFenster
+

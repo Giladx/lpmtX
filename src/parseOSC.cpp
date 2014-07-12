@@ -72,6 +72,39 @@ void testApp::parseOsc()
 
     // stop
     else if ( m.getAddress() == "/projection/stop" )
+
+    {
+        if (isSetup)
+        {
+            isSetup = False;
+            gui.hide();
+            bGui = False;
+            bdrawGrid = False;
+            for(int i = 0; i < 36; i++)
+            {
+                if (quads[i].initialized)
+                {
+                    quads[i].isSetup = False;
+                }
+            }
+        }
+        else
+        {
+            isSetup = True;
+            gui.hide();
+            bGui = False;
+            bdrawGrid = False;
+            for(int i = 0; i < 36; i++)
+            {
+                if (quads[i].initialized)
+                {
+                    quads[i].isSetup = True;
+                }
+            }
+        }
+    }
+
+    /*
     {
         stopProjection();
     }
@@ -80,7 +113,7 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/start" )
     {
         startProjection();
-    }
+    }*/
 
     // save
     else if ( m.getAddress() == "/projection/save" )
@@ -94,7 +127,7 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/load" )
     {
         getXml("_lpmt_settings.xml");
-        gui.setPage((activeQuad*3)+2);
+        gui.setPage((activeQuad*4)+2);
     }
 
     // toggle fullscreen
@@ -316,7 +349,7 @@ void testApp::parseOsc()
             quads[activeQuad].isActive = False;
             activeQuad = osc_activequad;
             quads[activeQuad].isActive = True;
-            gui.setPage((activeQuad*3)+2);
+            gui.setPage((activeQuad*4)+2);
         }
     }
 
