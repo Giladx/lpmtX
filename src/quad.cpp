@@ -25,6 +25,7 @@
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
     brickwallShader = &brickShader;
+
     //camera = &camGrabber;
     #ifdef WITH_KINECT
     quadKinect = &kinect;
@@ -565,15 +566,6 @@ void quad::draw()
                     {
                         video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
                     }
-                    if (brickwallShader)
-                    {
-                    brickwallShader->begin();
-                    }
-                    else
-                    {
-                        video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
-                    }
-
                 }
             }
             else
@@ -608,6 +600,17 @@ void quad::draw()
             {
                 glPopMatrix();
             }
+            //--------------------------brickwall---------------------------
+
+                    if (brickwallShader)
+                    {
+                    brickwallShader->begin();
+                    brickwallShader->end();
+                    }
+                    else
+                    {
+                        video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
+                    }
         }
 
         // shared video ----------------------------------------------------------------------
@@ -657,13 +660,13 @@ void quad::draw()
             {
                 glPopMatrix();
             }
-            if(brickwallShader)
+            if(videoBrick)
             {
             brickwallShader->begin();
+            brickwallShader->end();
             }
 
-
-        }
+}
 
 
 
@@ -705,6 +708,18 @@ void quad::draw()
                 greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
                 cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
                 greenscreenShader->end();
+            }
+            else
+            {
+                //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
+                cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+
+            }
+            if(camBrick)
+            {
+                brickwallShader->begin();
+              //  brickwallShader.setUniform3f("BrickColor",1.0,1.0,1.0);
+                brickwallShader->end();
             }
             else
             {
