@@ -61,6 +61,10 @@ public:
     ofFloatColor colorGreenscreen;
     ofFloatColor kinectColorize;
     ofFloatColor timelineColor;
+    ofFloatColor brickColor;
+    ofFloatColor mortarColor;
+
+
 
     float timelineRed;
     float timelineGreen;
@@ -141,6 +145,8 @@ public:
     bool getKinectContours;
     bool getKinectGrayImage;
     bool kinectContourCurved;
+    bool videoBrick;
+    bool camBrick;
 
     bool videoHFlip;
     bool imgHFlip;

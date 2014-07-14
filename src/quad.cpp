@@ -100,6 +100,8 @@
     imgBg = False;
     videoBg = False;
     videoLoop = True;
+    videoBrick = False;
+    camBrick = False;
     videoGreenscreen = False;
     sharedVideoBg = false;
     sharedVideoNum = 1;
@@ -563,6 +565,15 @@ void quad::draw()
                     {
                         video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
                     }
+                    if (brickwallShader)
+                    {
+                    brickwallShader->begin();
+                    }
+                    else
+                    {
+                        video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
+                    }
+
                 }
             }
             else
@@ -646,7 +657,14 @@ void quad::draw()
             {
                 glPopMatrix();
             }
+            if(brickwallShader)
+            {
+            brickwallShader->begin();
+            }
+
+
         }
+
 
 
         // camera ------------------------------------------------------------------------------
