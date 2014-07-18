@@ -37,7 +37,7 @@ int getdir (string dir, vector<string> &files)
 //--------------------------------------------------------------
 void testApp::setup()
 {
-
+    ofSetWindowTitle("HVA lpmtX by GiladX");
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
     bdrawGrid = false;
@@ -127,7 +127,9 @@ void testApp::setup()
 
     // splash image
     bSplash = true;
+    bSplash2 = false;
     splashImg.loadImage("lpmt_splash.png");
+    splashImg2.loadImage("num.png");
     splashTime = ofGetElapsedTimef();
 
     //mask editing
@@ -348,9 +350,9 @@ void testApp::setup()
     gui.config->titleHeight = 18;
     //gui.config->fullActiveColor = 0x6B404B;
     //gui.config->fullActiveColor = 0x5E4D3E;
-    gui.config->fullActiveColor = 0x648B96;
+    gui.config->fullActiveColor = 0x008080;
     gui.config->textColor = 0xFFFFFF;
-    gui.config->textBGOverColor = 0xDB6800;
+    gui.config->textBGOverColor = 0x00FF00;
     // adding controls
     // first a general page for general controls and toggling surfaces on/off
     for(int i = 0; i < 36; i++)
@@ -437,6 +439,7 @@ void testApp::setup()
         gui.addSlider("right edge", quads[i].edgeBlendAmountDx, 0.0, 0.5);
         gui.addSlider("top edge", quads[i].edgeBlendAmountTop, 0.0, 0.5);
         gui.addSlider("bottom edge", quads[i].edgeBlendAmountBottom, 0.0, 0.5);
+        gui.addToggle("Blend grid(num8)", bdrawGrid);
         gui.addTitle("Content placement");
         gui.addSlider("X displacement", quads[i].quadDispX, -1600, 1600);
         gui.addSlider("Y displacement", quads[i].quadDispY, -1600, 1600);
@@ -853,11 +856,18 @@ void testApp::update()
     {
         if (bSplash)
         {
-            if (abs(splashTime - ofGetElapsedTimef()) > 8.0)
+            if (abs(splashTime - ofGetElapsedTimef()) > 4.0)
             {
                 bSplash = ! bSplash;
             }
         }
+        /*if (bSplash2)
+        {
+            if (abs(splashTime - ofGetElapsedTimef()) > 8.0)
+            {
+                bSplash2 = ! bSplash2;
+            }
+        }*/
         prepare();
     }
 }
@@ -910,7 +920,7 @@ void testApp::draw()
             }
             if(bdrawGrid)
                 {
-		        ofSetColor(255, 0, 0, 100);
+		        ofSetColor(0, 255, 0, 255);
 		        drawGrid(80,60);
 	            }
             // draws gui
@@ -929,6 +939,12 @@ void testApp::draw()
     {
         ofEnableAlphaBlending();
         splashImg.draw(((ofGetWidth()/2)-230),((ofGetHeight()/2)-110));
+        ofDisableAlphaBlending();
+    }
+    if (bSplash2)
+    {
+        ofEnableAlphaBlending();
+        splashImg2.draw(((ofGetWidth()/2)-340),((ofGetHeight()/2)-400));
         ofDisableAlphaBlending();
     }
 }
@@ -1523,13 +1539,17 @@ void testApp::keyPressed(int key)
         bMidiHotkeyLearning = false;
         midiHotkeyPressed = -1;
     }
-    if ((key == '8') && !bTimeline){
-
+    if ((key == '8') && !bTimeline)
+    {
     bdrawGrid = !bdrawGrid;
     }
-
-
+    if((key == '0') && !bTimeline)
+    {
+    bSplash2 = !bSplash2;
     }
+
+
+  }
 
 }
 

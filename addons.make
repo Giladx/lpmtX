@@ -13,5 +13,5 @@ ofxMSATimer
 ofxTimecode
 ofxTextInputField
 ofxMidi
-ofxFenster
-
+ofxAssimpModelLoader
+ofx3DModelLoader

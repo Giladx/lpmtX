@@ -25,6 +25,21 @@ void testApp::openVideoFile()
 }
 
 //-----------------------------------------------------------
+void testApp::openObjFile()
+{
+
+}
+//-----------------------------------------------------------
+void testApp::openDaeFile()
+{
+
+}
+//-----------------------------------------------------------
+void testApp::openDirectXFile()
+{
+
+}
+//-----------------------------------------------------------
 void testApp::openSharedVideoFile(int i)
 {
     cout << "loading shared video " << endl;
@@ -221,7 +236,7 @@ void testApp::copyQuadSettings(int sourceQuad)
 {
     if(sourceQuad >= 0)
     {
-       quads[activeQuad].quadDispX = quads[sourceQuad].quadDispX;
+    quads[activeQuad].quadDispX = quads[sourceQuad].quadDispX;
     quads[activeQuad].quadDispY = quads[sourceQuad].quadDispY;
     quads[activeQuad].quadW = quads[sourceQuad].quadW;
     quads[activeQuad].quadH = quads[sourceQuad].quadH;

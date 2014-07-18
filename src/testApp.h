@@ -30,7 +30,7 @@
 #endif
 #ifdef WITH_MIDI
 #include "ofxMidi.h"
-#include "ofxFenster.h"
+//#include "ofxFenster.h"
 #endif
 
 //#include <GL/glut.h>
@@ -99,12 +99,14 @@ public:
     bool snapshotOn;
     bool bStarted;
     bool bSplash;
+    bool bSplash2;
     bool maskSetup;
     bool gridSetup;
     bool bCameraOk;
     bool bSnapOn;
 
     ofImage splashImg;
+    ofImage splashImg2;
     float splashTime;
 
     // use of MostPixelsEver
@@ -167,6 +169,9 @@ public:
 
     void openImageFile();
     void openVideoFile();
+    void openObjFile();
+    void openDaeFile();
+    void openDirectXFile();
     void openSharedVideoFile(int i);
     void openSharedVideoFile(string path, int i);
     void quadDimensionsReset(int q);
