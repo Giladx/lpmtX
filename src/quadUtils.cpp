@@ -51,17 +51,12 @@ void quad::loadImageFromFile(string imgName, string imgPath)
 //---------------------------------------------------------------
 void quad::loadAnimaFromFile(string modelName, string modelPath)
 {
-     ofFile object(modelPath);
+     ofFile animation(modelPath);
      animaBg = true;
-     model.loadModel(modelName);
+     model.loadModel(modelName, false);
      bgAnima = modelPath;
      loadedAnima = modelName;
 
-
-    /* glShadeModel(GL_SMOOTH); //some model / light stuff
-     light.enable();
-     ofEnableSeparateSpecularLight();
-    */
 }
 
 //---------------------------------------------------------------
