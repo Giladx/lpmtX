@@ -190,6 +190,7 @@ void testApp::getXml(string xmlFile)
 
         #ifdef WITH_KINECT
             #ifdef WITH_SYPHON
+<<<<<<< HEAD
             quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
             #else
             quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
@@ -199,6 +200,17 @@ void testApp::getXml(string xmlFile)
             quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
             #else
             quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+=======
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
+            #else
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
+            #endif
+        #else
+            #ifdef WITH_SYPHON
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
+            #else
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
+>>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
             #endif
         #endif
         quads[i].quadNumber = XML.getValue("QUADS:QUAD_"+ofToString(i)+":NUMBER", 0);
@@ -344,6 +356,6 @@ void testApp::getXml(string xmlFile)
         quads[i].isActive = false;
     }
     quads[activeQuad].isActive = True;
-    gui.setPage((activeQuad*3)+2);
+    gui.setPage((activeQuad*4)+2);
     glDisable(GL_DEPTH_TEST);
 }

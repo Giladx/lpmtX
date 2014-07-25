@@ -106,14 +106,19 @@ void testApp::parseOsc()
 
     /*
     {
-        stopProjection();
+        startProjection();
     }
 
     // start
     else if ( m.getAddress() == "/projection/start" )
     {
+<<<<<<< HEAD
         startProjection();
     }*/
+=======
+        stopProjection();
+    }
+>>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
 
     // save
     else if ( m.getAddress() == "/projection/save" )
@@ -274,6 +279,159 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/mpe/connect" )
     {
         mpeSetup();
+    }
+    //set layers
+    if ( m.getAddress() == "/quad/layer/up" )
+        {
+        int position;
+        int target;
+
+        for(int i = 0; i < 35; i++)
+        {
+            if (layers[i] == quads[activeQuad].quadNumber)
+            {
+                position = i;
+                target = i+1;
+            }
+
+        }
+        if (layers[target] != -1)
+        {
+            int target_content = layers[target];
+            layers[target] = quads[activeQuad].quadNumber;
+            layers[position] = target_content;
+            quads[activeQuad].layer = target;
+            quads[target_content].layer = position;
+        }
+    }
+     // more
+        if ( m.getAddress() == "/quad/layer/down" )
+    {
+        int position;
+        int target;
+
+        for(int i = 0; i < 36; i++)
+        {
+            if (layers[i] == quads[activeQuad].quadNumber)
+            {
+                position = i;
+                target = i-1;
+            }
+
+        }
+        if (target >= 0)
+        {
+            if (layers[target] != -1)
+            {
+                int target_content = layers[target];
+                layers[target] = quads[activeQuad].quadNumber;
+                layers[position] = target_content;
+                quads[activeQuad].layer = target;
+                quads[target_content].layer = position;
+            }
+        }
+    }
+    //snapshot
+
+    if ( m.getAddress() == "/quad/cam/snapshot" )
+    {
+        snapshotOn = !snapshotOn;
+        if (snapshotOn == 1)
+        {
+            cameras[0].update();
+            snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
+            unsigned char * pixels = cameras[0].getPixels();
+            snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);
+        }
+    }
+    //image snapshot
+    if ( m.getAddress() == "/quad/img/snapshot" )
+    {
+        snapshotOn = !snapshotOn;
+        if (snapshotOn == 1)
+        {
+            ofImage img;
+            img.clone(loadImageFromFile());
+            snapshotTexture.allocate(img.width,img.height, GL_RGB);
+            unsigned char * pixels = img.getPixels();
+            snapshotTexture.loadData(pixels, img.width,img.height, GL_RGB);
+        }
+    }
+    //fill screen
+    if ( m.getAddress() == "/quad/fill/screen" )
+
+    {
+        if (isSetup)
+        {
+            quads[activeQuad].corners[0].x = 0.0;
+            quads[activeQuad].corners[0].y = 0.0;
+
+            quads[activeQuad].corners[1].x = 1.0;
+            quads[activeQuad].corners[1].y = 0.0;
+
+            quads[activeQuad].corners[2].x = 1.0;
+            quads[activeQuad].corners[2].y = 1.0;
+
+            quads[activeQuad].corners[3].x = 0.0;
+            quads[activeQuad].corners[3].y = 1.0;
+        }
+    }
+
+    //mask editing delete last point
+    if ( m.getAddress() == "/quad/mask/undo" )
+    {
+    if(maskSetup && quads[activeQuad].maskPoints.size()>0) {quads[activeQuad].maskPoints.pop_back();}
+    }
+    //mask editin goback
+    if ( m.getAddress() == "/quad/mask/goback" )
+    {
+        if(maskSetup && quads[activeQuad].maskPoints.size()>0)
+        {
+            if (quads[activeQuad].bHighlightMaskPoint)
+            {
+                quads[activeQuad].maskPoints.erase(quads[activeQuad].maskPoints.begin()+quads[activeQuad].highlightedMaskPoint);
+            }
+
+        }
+    }
+
+    //new quad
+       if ( m.getAddress() == "/quad/new" )
+    {
+        if (isSetup)
+        {
+            if (nOfQuads < 36)
+            {
+                #ifdef WITH_KINECT
+                    #ifdef WITH_SYPHON
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
+                    #else
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
+                    #endif
+                #else
+                    #ifdef WITH_SYPHON
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
+                    #else
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
+                    #endif
+                #endif
+                quads[nOfQuads].quadNumber = nOfQuads;
+                layers[nOfQuads] = nOfQuads;
+                quads[nOfQuads].layer = nOfQuads;
+                quads[activeQuad].isActive = False;
+                quads[nOfQuads].isActive = True;
+                activeQuad = nOfQuads;
+                ++nOfQuads;
+                gui.setPage((activeQuad*4)+2);
+                // add timeline page for new quad
+                #ifdef WITH_TIMELINE
+                timelineAddQuadPage(activeQuad);
+                #endif
+                // next line fixes a bug i've been tracking down for a looong time
+                glDisable(GL_DEPTH_TEST);
+
+            }
+        }
     }
 
 
@@ -684,7 +842,7 @@ void testApp::parseOsc()
     }
 
 
-    // mask stuff on active quad
+    // mask stuff on active quadbezier
     else if ( m.getAddress() == "/active/mask" )
     {
         quads[activeQuad].bMask = !quads[activeQuad].bMask;
