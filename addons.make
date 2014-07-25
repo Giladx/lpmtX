@@ -14,4 +14,3 @@ ofxTimecode
 ofxTextInputField
 ofxMidi
 ofxAssimpModelLoader
-ofx3DModelLoader

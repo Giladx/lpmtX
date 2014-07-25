@@ -25,19 +25,15 @@ void testApp::openVideoFile()
 }
 
 //-----------------------------------------------------------
-void testApp::openObjFile()
+void testApp::openAnimaFile()
 {
-
-}
-//-----------------------------------------------------------
-void testApp::openDaeFile()
-{
-
-}
-//-----------------------------------------------------------
-void testApp::openDirectXFile()
-{
-
+    cout << "loading 3d " << endl;
+    ofFileDialogResult dialog_result = ofSystemLoadDialog("load 3d file");
+    cout << "3d loaded " << endl;
+    if(dialog_result.bSuccess)
+    {
+        quads[activeQuad].loadAnimaFromFile(dialog_result.getName(), dialog_result.getPath());
+    }
 }
 //-----------------------------------------------------------
 void testApp::openSharedVideoFile(int i)

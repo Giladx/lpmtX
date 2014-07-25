@@ -31,6 +31,8 @@
 #ifdef WITH_MIDI
 #include "ofxMidi.h"
 //#include "ofxFenster.h"
+#include "ofxAssimpModelLoader.h"
+#include "ofVboMesh.h"
 #endif
 
 //#include <GL/glut.h>
@@ -109,6 +111,18 @@ public:
     ofImage splashImg2;
     float splashTime;
 
+/*    //3dmodel
+    ofxAssimpModelLoader model;
+    bool bAnimate;
+    bool bAnimateMouse;
+    float animationPosition;
+
+
+    ofMesh mesh;
+    ofLight	light;
+*/
+    vector<ofxAssimpModelLoader> models;
+    vector<string> modelFiles;
     // use of MostPixelsEver
     bool bMpe;
     mpeClientTCP client;
@@ -146,11 +160,13 @@ public:
     ofShader EnvBMShader;
     ofShader fisheyeShader;
 
+    //ofxAssimpModelLoader obj;
 
     // gui elements
     bool showGui;
     bool bImageLoad;
     bool bVideoLoad;
+    bool bAnimaLoad;
     bool bSharedVideoLoad0;
     bool bSharedVideoLoad1;
     bool bSharedVideoLoad2;
@@ -169,9 +185,7 @@ public:
 
     void openImageFile();
     void openVideoFile();
-    void openObjFile();
-    void openDaeFile();
-    void openDirectXFile();
+    void openAnimaFile();
     void openSharedVideoFile(int i);
     void openSharedVideoFile(string path, int i);
     void quadDimensionsReset(int q);
@@ -203,7 +217,6 @@ public:
     vector<string> imgFiles;
     vector<string> videoFiles;
     vector<string> slideshowFolders;
-
     ofxXmlSettings XML;
     void setXml();
     void getXml(string xmlFile);
@@ -236,6 +249,7 @@ public:
     //brightness,contrast,saturation shader found here: http://mouaif.wordpress.com/2009/01/05/photoshop-math-with-glsl-shaders/
     ofShader colorControl;
     ofFbo frameBuffer;
+    //ofxAssimpModelLoader models;
 
     ofRectangle contentRectangle; //matched to video size
     ofRectangle outputRectangle;

@@ -8,19 +8,45 @@
 
 #ifdef WITH_KINECT
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
     #endif
 #else
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
     #endif
 #endif
 {
+    //animation
+    //if(animaBg = true){
 
+    ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
+
+    bAnimate = false;
+    bAnimateMouse = false;
+    animationPosition = 0;
+
+    model.loadModel("astroBoy_walk.dae", true);
+    model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
+    model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+    model.playAllAnimations();
+    if(!bAnimate) {
+        model.setPausedForAllAnimations(true);
+    }
+
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+
+	glEnable(GL_DEPTH_TEST);
+
+    glShadeModel(GL_SMOOTH); //some model / light stuff
+    light.enable();
+    ofEnableSeparateSpecularLight();
+   // }
+
+//*/
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
@@ -48,7 +74,8 @@
     //ttf.loadFont("type/frabk.ttf", 11);
     ttf.loadFont("type/OpenSans-Regular.ttf", 11);
 
-
+    bgAnima = string("");
+    loadedAnima = string("");
     bgImg = string("");
     loadedImg = string("");
     loadedVideo = string("");
@@ -364,7 +391,15 @@ void quad::update()
             }
         }
 
+}
+        // animation -----------------------------------------------------------------
+        if(animaBg)
+        {
+             model.update();
+             mesh = model.getCurrentAnimatedMesh(0);
+        }
         // slideshow -----------------------------------------------------------------
+
         if (slideshowBg)
         {
             // put it to off while loading images
@@ -469,9 +504,8 @@ void quad::update()
             dst[i].x = corners[i].x  * (float)ofGetWidth();
             dst[i].y = corners[i].y * (float) ofGetHeight();
         }
-
-    }
 }
+
 
 
 // DRAW -----------------------------------------------------------------
@@ -611,7 +645,52 @@ void quad::draw()
                     {
                         video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
                     }
-        }
+
+
+            }
+        //--------------------------animation---------------------------
+            if(animaBg){
+
+            ofSetColor(255);
+
+            ofPushMatrix();
+            ofTranslate(model.getPosition().x+100, model.getPosition().y, 0);
+//            ofRotate(-mouseX, 0, 1, 0);
+            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+            model.drawFaces();
+            ofPopMatrix();
+
+            glPushAttrib(GL_ALL_ATTRIB_BITS);
+            glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+            glEnable(GL_NORMALIZE);
+
+            ofPushMatrix();
+            ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
+//            ofRotate(-mouseX, 0, 1, 0);
+            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+
+            ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
+
+            ofMultMatrix(model.getModelMatrix());
+            ofMultMatrix(meshHelper.matrix);
+
+            ofMaterial & material = meshHelper.material;
+            ofTexture & texture = meshHelper.texture;
+
+            texture.bind();
+            material.begin();
+            mesh.drawWireframe();
+            material.end();
+            texture.unbind();
+	        ofPopMatrix();
+
+	        glPopAttrib();
+
+            ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+            ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
+            ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
+            ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
+            }
 
         // shared video ----------------------------------------------------------------------
 

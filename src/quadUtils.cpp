@@ -48,19 +48,34 @@ void quad::loadImageFromFile(string imgName, string imgPath)
     bgImg = imgPath;
     loadedImg = imgName;
 }
+//---------------------------------------------------------------
+void quad::loadAnimaFromFile(string modelName, string modelPath)
+{
+     ofFile object(modelPath);
+     animaBg = true;
+     model.loadModel(modelName);
+     bgAnima = modelPath;
+     loadedAnima = modelName;
 
+
+    /* glShadeModel(GL_SMOOTH); //some model / light stuff
+     light.enable();
+     ofEnableSeparateSpecularLight();
+    */
+}
 
 //---------------------------------------------------------------
 void quad::loadVideoFromFile(string videoName, string videoPath)
 {
-    //ofFile movie(videoPath);
+    ofFile movie(videoPath);
     videoBg = true;
     bgVideo = videoPath;
     loadedVideo = videoName;
     if (video.isLoaded())
     {
-        video.closeMovie();
+        video.play();
     }
+
     video.loadMovie(videoPath);
     videoWidth = video.width;
     videoHeight = video.height;
@@ -87,7 +102,7 @@ int quad::getdir (string dir, vector<string> &files)
     closedir(dp);
     return 0;
 }
-
+//---------------------------------------------------------------
 void quad::setupCamera()
 {
     camWidth = cams[camNumber].width;

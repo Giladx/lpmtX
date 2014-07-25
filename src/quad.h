@@ -5,6 +5,9 @@
 #include "ofMain.h"
 #include "ofGraphics.h"
 
+#include "ofxAssimpModelLoader.h"
+#include "ofVboMesh.h"
+
 #ifdef WITH_KINECT
 #include "ofxOpenCv.h"
 #include "kinectManager.h"
@@ -41,6 +44,7 @@ public:
     //this will be the matrix that peforms the transformation
     GLfloat matrix[16];
     ofTrueTypeFont ttf;
+
     // img and video stuff
     ofImage img;
     ofImage slide;
@@ -77,6 +81,15 @@ public:
     bool bTimelineSlideChange;
 
     int bgAlpha;
+
+    //3dmodel
+    ofxAssimpModelLoader model;
+    bool bAnimate;
+    bool bAnimateMouse;
+    float animationPosition;
+
+    ofMesh mesh;
+    ofLight	light;
 
     // camera stuff
     bool camAvailable;
@@ -126,6 +139,7 @@ public:
     bool videoSound;
     bool videoLoop;
     bool videoGreenscreen;
+    bool animaBg;
     bool sharedVideoBg;
     int sharedVideoNum;
     int sharedVideoId;
@@ -185,11 +199,14 @@ public:
     vector<ofImage> slides;
     vector<ofVideoGrabber> cams;
     vector<ofVideoPlayer> vids;
+    vector<ofxAssimpAnimation> mods;
 
     string bgImg;
     string bgVideo;
+    string bgAnima;
     string loadedImg;
     string loadedVideo;
+    string loadedAnima;
     string loadedSlideshow;
     string slideshowName;
 
@@ -234,15 +251,15 @@ public:
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
         #endif
     #endif
 
@@ -259,6 +276,8 @@ public:
     void loadImageFromFile(string imgName, string imgPath);
 
     void loadVideoFromFile(string videoName, string videoPath);
+
+    void loadAnimaFromFile(string modelName, string modelPath);
 
     void allocateFbo(int w, int h);
 

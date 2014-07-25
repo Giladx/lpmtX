@@ -37,7 +37,7 @@ int getdir (string dir, vector<string> &files)
 //--------------------------------------------------------------
 void testApp::setup()
 {
-    ofSetWindowTitle("HVA lpmtX by GiladX");
+    ofSetWindowTitle("lpmt remiX by GiladX");
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
     bdrawGrid = false;
@@ -265,57 +265,57 @@ void testApp::setup()
     // defines the first 4 default quads
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[0].quadNumber = 0;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[1].quadNumber = 1;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[2].quadNumber = 2;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[3].quadNumber = 3;
@@ -539,6 +539,8 @@ void testApp::setup()
         gui.addSlider("center X", quads[i].circularCrop[0], 0, 1.0);
         gui.addSlider("center Y", quads[i].circularCrop[1], 0, 1.0);
         gui.addSlider("radius", quads[i].circularCrop[2], 0, 2.0);
+        gui.addTitle("3dObject");
+        gui.addButton("load 3d", bAnimaLoad);
     }
 
     // then we set displayed gui page to the one corresponding to active quad and show the gui
@@ -677,6 +679,11 @@ void testApp::prepare()
         {
             bVideoLoad = false;
             openVideoFile();
+        }
+        if(bAnimaLoad)
+        {
+            bAnimaLoad = false;
+            openAnimaFile();
         }
 
         // check if video load button on GUI is pressed
@@ -851,7 +858,6 @@ void testApp::dostuff()
 //--------------------------------------------------------------
 void testApp::update()
 {
-
     if (!bMpe)
     {
         if (bSplash)
@@ -875,6 +881,7 @@ void testApp::update()
 //--------------------------------------------------------------
 void testApp::draw()
 {
+
     // in setup mode writes the number of active quad at the bottom of the window
     if (isSetup)
     {
@@ -1233,15 +1240,15 @@ void testApp::keyPressed(int key)
             {
                 #ifdef WITH_KINECT
                     #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
                     #endif
                 #else
                     #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
                     #endif
                 #endif
                 quads[nOfQuads].quadNumber = nOfQuads;
