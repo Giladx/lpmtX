@@ -1464,6 +1464,6 @@ void quad::draw()
             }
 
         }
-
+        ofDisableSmoothing();
     }
 }
