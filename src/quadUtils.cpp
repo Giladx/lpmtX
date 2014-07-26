@@ -53,10 +53,22 @@ void quad::loadAnimaFromFile(string modelName, string modelPath)
 {
      ofFile animation(modelPath);
      animaBg = true;
-     model.loadModel(modelName, false);
+     model.
      bgAnima = modelPath;
      loadedAnima = modelName;
+     if(model.loadModel(modelName,true))
+     {
+         ofDisableArbTex();
 
+         bAnimate = false;
+         bAnimateMouse = false;
+         animationPosition = 0;
+
+         model.calculateDimensions();
+         model.setPosition(ofGetWidth()/2,ofGetHeight()/1.2 ,0);
+         model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+         model.playAllAnimations();
+     }
 }
 
 //---------------------------------------------------------------

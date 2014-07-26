@@ -160,7 +160,7 @@ public:
     ofShader EnvBMShader;
     ofShader fisheyeShader;
 
-    ofxAssimpModelLoader model;
+    //ofxAssimpModelLoader obj;
 
     // gui elements
     bool showGui;

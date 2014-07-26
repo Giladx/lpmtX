@@ -37,13 +37,7 @@ int getdir (string dir, vector<string> &files)
 //--------------------------------------------------------------
 void testApp::setup()
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     ofSetWindowTitle("lpmt remiX by GiladX");
-=======
-    ofDisableAntiAliasing();
-    //ofSetVerticalSync(false);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
     bdrawGrid = false;
@@ -54,11 +48,6 @@ void testApp::setup()
     else {cout << "using config file config.xml" << endl;}
 
     #ifdef WITH_KINECT
-=======
-
-    //ofSetDrawBitmapMode(OF_BITMAPMODE_MODEL_BILLBOARD);
-
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     bKinectOk = kinect.setup();
     bCloseKinect = false;
     bOpenKinect = false;
@@ -68,7 +57,6 @@ void testApp::setup()
     cameras.clear();
     numOfCams = 0;
     bCameraOk = False;
-<<<<<<< HEAD
     if(configOk)
     {
         XML.pushTag("CAMERAS");
@@ -105,19 +93,6 @@ void testApp::setup()
             }
         }
         XML.popTag();
-=======
-    camWidth = 640;	// try to grab at this size.
-    camHeight = 480;
-    camGrabber.setVerbose(true);
-    camGrabber.listDevices();
-    bCameraOk = camGrabber.initGrabber(camWidth,camHeight);
-    camWidth = camGrabber.width;
-    camHeight= camGrabber.height;
-    printf("camera init asked for 640 by 480 - actual size is %i by %i \n", camWidth, camHeight);
-    if (camWidth == 0 || camHeight == 0)
-    {
-        ofSystemAlertDialog("camera not found, live feed not available");
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 
     // shared videos setup
@@ -151,12 +126,8 @@ void testApp::setup()
     //ofSetVerticalSync(true);
 
     // splash image
-<<<<<<< HEAD
     bSplash = true;
     bSplash2 = false;
-=======
-    bSplash = false;
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     splashImg.loadImage("lpmt_splash.png");
     splashImg2.loadImage("num.png");
     splashTime = ofGetElapsedTimef();
@@ -192,11 +163,7 @@ void testApp::setup()
 	// open port by number
 	//midiIn.openPort(1);
 	//midiIn.openPort("IAC Pure Data In");	// by name
-<<<<<<< HEAD
 	midiIn.openVirtualPort("LPMT Input");	// open a virtual port
-=======
-	midiIn.openVirtualPort("Disp Input");	// open a virtual port
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
 
 	// don't ignore sysex, timing, & active sense messages,
 	// these are ignored by default
@@ -209,29 +176,17 @@ void testApp::setup()
 	midiHotkeyMessages.clear();
 	midiHotkeyKeys.clear();
     #endif
-<<<<<<< HEAD
 
     oscHotkeyMessages.clear();
     oscHotkeyKeys.clear();
 
-=======
-
-    oscHotkeyMessages.clear();
-    oscHotkeyKeys.clear();
-
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     bMidiHotkeyCoupling = false;
     bMidiHotkeyLearning = false;
     midiHotkeyPressed = -1;
 
     // we scan the video dir for videos
-<<<<<<< HEAD
     string videoDir = string("./data/video");
     //string videoDir =  ofToDataPath("video",true);
-=======
-    //string videoDir = string("./data/video");
-    string videoDir =  ofToDataPath("video",true);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     videoFiles = vector<string>();
     getdir(videoDir,videoFiles);
     string videos[videoFiles.size()];
@@ -242,7 +197,7 @@ void testApp::setup()
 
     // we scan the slideshow dir for videos
     //string slideshowDir = string("./data/slideshow");
-
+    /*
     string slideshowDir = ofToDataPath("slideshow",true);
     slideshowFolders = vector<string>();
     getdir(slideshowDir,slideshowFolders);
@@ -251,7 +206,7 @@ void testApp::setup()
     {
         slideshows[i]= slideshowFolders[i];
     }
-
+    */
 
     #ifdef WITH_SYPHON
 	// Syphon setup
@@ -269,13 +224,8 @@ void testApp::setup()
     EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
     fisheyeShader.load("shaders/new/fisheye.vert", "shaders/new/fisheye.frag");
 
-<<<<<<< HEAD
      //ttf.loadFont("type/frabk.ttf", 11);
     ttf.loadFont("type/OpenSans-Regular.ttf", 11);
-=======
-    //ttf.loadFont("type/frabk.ttf", 11);
-    ttf.loadFont("type/OpenSans-Regular.ttf", 10);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     // set border color for quads in setup mode
     borderColor = 0x666666;
     // starts in quads setup mode
@@ -297,11 +247,7 @@ void testApp::setup()
 
     //timeline defaults
     #ifdef WITH_TIMELINE
-<<<<<<< HEAD
     useTimeline = true;
-=======
-    useTimeline = false;
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     timelineDurationSeconds = timelinePreviousDuration = 100.0;
     #endif
 
@@ -319,105 +265,57 @@ void testApp::setup()
     // defines the first 4 default quads
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-<<<<<<< HEAD
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
-=======
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
-        #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
-        #endif
-    #else
-        #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
-        #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[0].quadNumber = 0;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-<<<<<<< HEAD
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
-=======
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
-        #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
-        #endif
-    #else
-        #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
-        #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[1].quadNumber = 1;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-<<<<<<< HEAD
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
-=======
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
-        #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
-        #endif
-    #else
-        #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
-        #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[2].quadNumber = 2;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-<<<<<<< HEAD
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
-=======
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
-        #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
-        #endif
-    #else
-        #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
-        #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
         #endif
     #endif
     quads[3].quadNumber = 3;
@@ -440,7 +338,7 @@ void testApp::setup()
     timelineSetup(timelineDurationSeconds);
     #endif
 
-   // GUI STUFF ---------------------------------------------------
+    // GUI STUFF ---------------------------------------------------
 
     // general page
     gui.addTitle("show/hide quads");
@@ -482,25 +380,15 @@ void testApp::setup()
     string blendModesArray[] = {"screen","add","subtract","multiply"};
     for(int i = 0; i < 36; i++)
     {
-<<<<<<< HEAD
         gui.addPage("surface "+ofToString(i)+" - 1/4");
 
 
-=======
-        //empty page
-        gui.addPage("surface "+ofToString(i)+" - 1/4");
-
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
         gui.addPage("surface "+ofToString(i)+" - 2/4");
         gui.addTitle("surface "+ofToString(i));
         gui.addToggle("show/hide", quads[i].isOn);
         #ifdef WITH_TIMELINE
         gui.addToggle("use timeline", useTimeline);
-<<<<<<< HEAD
         gui.addSlider("timeline seconds", timelineDurationSeconds, 10.0, 3600.0);
-=======
-        gui.addSlider("timeline seconds", timelineDurationSeconds, 10.0, 1200.0);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
         gui.addToggle("use timeline tint", quads[i].bTimelineTint);
         gui.addToggle("use timeline color", quads[i].bTimelineColor);
         gui.addToggle("use timeline alpha", quads[i].bTimelineAlpha);
@@ -577,7 +465,6 @@ void testApp::setup()
         gui.addSlider("shared video", quads[i].sharedVideoNum, 1, 8);
         if (cameras.size()>0)
         {
-<<<<<<< HEAD
         gui.addTitle("Camera").setNewColumn(true);
         gui.addToggle("cam on/off", quads[i].camBg);
         if(cameras.size()>1)
@@ -591,21 +478,10 @@ void testApp::setup()
         gui.addColorPicker("cam color", &quads[i].camColorize.r);
         gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
         gui.addTitle("Greenscreen");
-=======
-            gui.addTitle("Camera").setNewColumn(true);
-            gui.addToggle("cam on/off", quads[i].camBg);
-            gui.addSlider("camera scale X", quads[i].camMultX, 0.1, 5.0);
-            gui.addSlider("camera scale Y", quads[i].camMultY, 0.1, 5.0);
-            gui.addToggle("H mirror", quads[i].camHFlip);
-            gui.addToggle("V mirror", quads[i].camVFlip);
-            gui.addColorPicker("cam color", &quads[i].camColorize.r);
-            gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
-            gui.addTitle("Greenscreen");
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
         }
         else
         {
-            gui.addTitle("Greenscreen").setNewColumn(true);
+        gui.addTitle("Greenscreen").setNewColumn(true);
         }
         gui.addSlider("g-screen threshold", quads[i].thresholdGreenscreen, 0.0, 255.0);
         gui.addColorPicker("greenscreen col", &quads[i].colorGreenscreen.r);
@@ -663,19 +539,11 @@ void testApp::setup()
         gui.addSlider("center X", quads[i].circularCrop[0], 0, 1.0);
         gui.addSlider("center Y", quads[i].circularCrop[1], 0, 1.0);
         gui.addSlider("radius", quads[i].circularCrop[2], 0, 2.0);
-<<<<<<< HEAD
         gui.addTitle("3dObject");
         gui.addButton("load 3d", bAnimaLoad);
     }
 
     // then we set displayed gui page to the one corresponding to active quad and show the gui
-=======
-
-
-    }
-
-   // then we set displayed gui page to the one corresponding to active quad and show the gui
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     gui.setPage((activeQuad*4)+2);
     gui.show();
     // timeline off at start
@@ -713,7 +581,7 @@ void testApp::setup()
         XML.clear();
         isSetup = False;
         gui.hide();
-        bGui = True;
+        bGui = False;
         for(int i = 0; i < 36; i++)
         {
             if (quads[i].initialized)
@@ -890,7 +758,7 @@ void testApp::prepare()
         {
             if (cameras[i].getHeight() > 0)  // isLoaded check
             {
-                cameras[i].update();
+                cameras[i].grabFrame();
             }
         }
 
@@ -966,12 +834,12 @@ void testApp::dostuff()
 
         // if snapshot is on draws it as window background
         if (isSetup && snapshotOn)
-        {
-            ofEnableAlphaBlending();
-            ofSetHexColor(0xFFFFFF);
-            snapshotTexture.draw(0,0,ofGetWidth(),ofGetHeight());
-            ofDisableAlphaBlending();
-        }
+            {
+                ofEnableAlphaBlending();
+                ofSetHexColor(0xFFFFFF);
+                snapshotTexture.draw(0,0,ofGetWidth(),ofGetHeight());
+                ofDisableAlphaBlending();
+            }
 
         // loops through initialized quads and calls their draw function
         for(int j = 0; j < 36; j++)
@@ -1043,8 +911,7 @@ void testApp::draw()
             ofDisableAlphaBlending();
             ofSetHexColor(0xFFFFFF);
             ttf.drawString("active surface: "+ofToString(activeQuad), 30, ofGetHeight()-25);
-            if(maskSetup)
-            {
+            if(maskSetup) {
                 ofSetHexColor(0xFF0000);
                 ttf.drawString("Mask-editing mode ", 170, ofGetHeight()-25);
             }
@@ -1060,14 +927,11 @@ void testApp::draw()
                 }
                 ofRect(2,2,ofGetWidth()-4,ofGetHeight()-4);
             }
-<<<<<<< HEAD
             if(bdrawGrid)
                 {
 		        ofSetColor(0, 255, 0, 255);
 		        drawGrid(80,60);
 	            }
-=======
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
             // draws gui
             gui.draw();
         }
@@ -1127,7 +991,6 @@ void testApp::drawGrid(float x, float y){
     float w = ofGetWidth();
     float h = ofGetHeight();
 
-<<<<<<< HEAD
     for(int i = 0; i < h; i+=y)
     {
         ofLine(0,i,w,i);
@@ -1138,9 +1001,6 @@ void testApp::drawGrid(float x, float y){
         ofLine(j,0,j,h);
     }
 }
-=======
-
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
 //--------------------------------------------------------------
 void testApp::keyPressed(int key)
 {
@@ -1237,7 +1097,7 @@ void testApp::keyPressed(int key)
         snapshotOn = !snapshotOn;
         if (snapshotOn == 1)
         {
-            cameras[0].update();
+            cameras[0].grabFrame();
             snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
             unsigned char * pixels = cameras[0].getPixels();
             snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);
@@ -1312,32 +1172,13 @@ void testApp::keyPressed(int key)
     // goes to first page of gui for active quad or, in mask edit mode, delete last drawn point
     if ( (key == 'z' || key == 'Z') && !bTimeline)
     {
-<<<<<<< HEAD
         if(maskSetup && quads[activeQuad].maskPoints.size()>0) {quads[activeQuad].maskPoints.pop_back();}
-<<<<<<< HEAD
         else {gui.setPage((activeQuad*4)+2);}
-=======
-        else {gui.setPage((activeQuad*4)+3);}
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
-=======
-        if(maskSetup && quads[activeQuad].maskPoints.size()>0)
-        {
-            quads[activeQuad].maskPoints.pop_back();
-        }
-        else
-        {
-            gui.setPage((activeQuad*3)+2);
-        }
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 
-    if ( key == OF_KEY_F5)
+    if ( key == OF_KEY_F1)
     {
-<<<<<<< HEAD
         gui.setPage((activeQuad*4)+2);
-=======
-        gui.setPage((activeQuad*4)+4);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     }
 
 
@@ -1363,29 +1204,13 @@ void testApp::keyPressed(int key)
     // goes to second page of gui for active quad or, in edit mask mode, clears mask
     if ( (key == 'c' || key == 'C') && !bTimeline)
     {
-<<<<<<< HEAD
         if(maskSetup) {quads[activeQuad].maskPoints.clear();}
         else {gui.setPage((activeQuad*4)+4);}
-=======
-
-        if(maskSetup)
-        {
-            quads[activeQuad].maskPoints.clear();
-        }
-        else
-        {
-            gui.setPage((activeQuad*3)+4);
-        }
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 
     if (key == OF_KEY_F3)
     {
-<<<<<<< HEAD
         gui.setPage((activeQuad*4)+4);
-=======
-        gui.setPage((activeQuad*4)+5);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     }
 
     // paste settings from source surface to current active surface
@@ -1417,27 +1242,15 @@ void testApp::keyPressed(int key)
             {
                 #ifdef WITH_KINECT
                     #ifdef WITH_SYPHON
-<<<<<<< HEAD
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, kinect);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
                     #endif
                 #else
                     #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, sharedVideos);
-=======
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, syphClient, ttf);
-                    #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, kinect, ttf);
-                    #endif
-                #else
-                    #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, syphClient, ttf);
-                    #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, sharedVideos, ttf);
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
                     #endif
                 #endif
                 quads[nOfQuads].quadNumber = nOfQuads;
@@ -1481,10 +1294,7 @@ void testApp::keyPressed(int key)
             isSetup = True;
             gui.hide();
             bGui = False;
-<<<<<<< HEAD
             bdrawGrid = False;
-=======
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
             for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
@@ -1516,31 +1326,18 @@ void testApp::keyPressed(int key)
         }
     }
 
-   // toggles gui
+    // toggles gui
     if(key == 'g' && !bTimeline)
     {
-<<<<<<< HEAD
         if (maskSetup) {
-            maskSetup = True;
-=======
-        if (maskSetup)
-        {
             maskSetup = False;
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
             for(int i = 0; i < 36; i++)
-            {
-                if (quads[i].initialized)
                 {
-<<<<<<< HEAD
                     if (quads[i].initialized)
                     {
-                        quads[i].isMaskSetup = True;
+                        quads[i].isMaskSetup = False;
                     }
-=======
-                    quads[i].isMaskSetup = False;
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
                 }
-            }
         }
         gui.toggleDraw();
         bGui = !bGui;
@@ -1549,10 +1346,9 @@ void testApp::keyPressed(int key)
     // toggles mask editing
     if(key == 'm' && !bTimeline)
     {
-        if (!bGui)
-        {
-            maskSetup = !maskSetup;
-            for(int i = 0; i < 36; i++)
+        if (!bGui){
+        maskSetup = !maskSetup;
+        for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -1565,10 +1361,9 @@ void testApp::keyPressed(int key)
     // toggles bezier deformation editing
     if(key == 'b' && !bTimeline)
     {
-        if (!bGui)
-        {
-            gridSetup = !gridSetup;
-            for(int i = 0; i < 36; i++)
+        if (!bGui){
+        gridSetup = !gridSetup;
+        for(int i = 0; i < 36; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -1739,20 +1534,6 @@ void testApp::keyPressed(int key)
             quads[activeQuad].corners[i] = quads[activeQuad].corners[i] * resultingMatrix;
         }
     }
-    }
-
-    else
-        {
-            bMidiHotkeyLearning = true;
-            midiHotkeyPressed = key;
-        }
-
-    if ( key == OF_KEY_F4)
-    {
-        bMidiHotkeyCoupling = !bMidiHotkeyCoupling;
-        bMidiHotkeyLearning = false;
-        midiHotkeyPressed = -1;
-    }
 
 
     else
@@ -1811,12 +1592,11 @@ void testApp::mouseMoved(int x, int y )
         }
 
         if(whichCorner >= 0)
-        {
-            quads[activeQuad].bHighlightCorner = True;
-            quads[activeQuad].highlightedCorner = whichCorner;
-        }
+            {
+                quads[activeQuad].bHighlightCorner = True;
+                quads[activeQuad].highlightedCorner = whichCorner;
+            }
         else
-<<<<<<< HEAD
             {
                 quads[activeQuad].bHighlightCorner = False;
                 quads[activeQuad].highlightedCorner = -1;
@@ -1847,12 +1627,6 @@ void testApp::mouseMoved(int x, int y )
                 }
                 else {quads[activeQuad].bHighlightRotation = false;}
             }
-=======
-        {
-            quads[activeQuad].bHighlightCorner = False;
-            quads[activeQuad].highlightedCorner = -1;
-        }
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 
     else if (maskSetup && !gridSetup && !bTimeline)
@@ -1874,15 +1648,15 @@ void testApp::mouseMoved(int x, int y )
             }
         }
         if(whichPoint >= 0)
-        {
-            quads[activeQuad].bHighlightMaskPoint = True;
-            quads[activeQuad].highlightedMaskPoint = whichPoint;
-        }
+            {
+                quads[activeQuad].bHighlightMaskPoint = True;
+                quads[activeQuad].highlightedMaskPoint = whichPoint;
+            }
         else
-        {
-            quads[activeQuad].bHighlightMaskPoint = False;
-            quads[activeQuad].highlightedMaskPoint = -1;
-        }
+            {
+                quads[activeQuad].bHighlightMaskPoint = False;
+                quads[activeQuad].highlightedMaskPoint = -1;
+            }
     }
 
     else if (gridSetup && !maskSetup && !bTimeline)
@@ -1894,58 +1668,58 @@ void testApp::mouseMoved(int x, int y )
 
         if(quads[activeQuad].bBezier)
         {
-            for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    warped = quads[activeQuad].getWarpedPoint(x,y);
-                    float distx = (float)quads[activeQuad].bezierPoints[i][j][0] * ofGetWidth() - (float)warped.x;
-                    float disty = (float)quads[activeQuad].bezierPoints[i][j][1] * ofGetHeight() - (float)warped.y;
-                    float dist  = sqrt( distx * distx + disty * disty);
+                warped = quads[activeQuad].getWarpedPoint(x,y);
+                float distx = (float)quads[activeQuad].bezierPoints[i][j][0] * ofGetWidth() - (float)warped.x;
+                float disty = (float)quads[activeQuad].bezierPoints[i][j][1] * ofGetHeight() - (float)warped.y;
+                float dist  = sqrt( distx * distx + disty * disty);
 
-                    if(dist < smallestDist && dist < 20.0)
-                    {
-                        whichPointRow = i;
-                        whichPointCol = j;
-                        smallestDist = dist;
-                    }
+                if(dist < smallestDist && dist < 20.0)
+                {
+                    whichPointRow = i;
+                    whichPointCol = j;
+                    smallestDist = dist;
                 }
             }
+        }
         }
 
         else if(quads[activeQuad].bGrid)
         {
-            for(int i = 0; i <= quads[activeQuad].gridRows; i++)
+        for(int i = 0; i <= quads[activeQuad].gridRows; i++)
+        {
+            for (int j = 0; j <= quads[activeQuad].gridColumns; j++)
             {
-                for (int j = 0; j <= quads[activeQuad].gridColumns; j++)
-                {
-                    warped = quads[activeQuad].getWarpedPoint(x,y);
-                    float distx = (float)quads[activeQuad].gridPoints[i][j][0] * ofGetWidth() - (float)warped.x;
-                    float disty = (float)quads[activeQuad].gridPoints[i][j][1] * ofGetHeight() - (float)warped.y;
-                    float dist  = sqrt( distx * distx + disty * disty);
+                warped = quads[activeQuad].getWarpedPoint(x,y);
+                float distx = (float)quads[activeQuad].gridPoints[i][j][0] * ofGetWidth() - (float)warped.x;
+                float disty = (float)quads[activeQuad].gridPoints[i][j][1] * ofGetHeight() - (float)warped.y;
+                float dist  = sqrt( distx * distx + disty * disty);
 
-                    if(dist < smallestDist && dist < 20.0)
-                    {
-                        whichPointRow = i;
-                        whichPointCol = j;
-                        smallestDist = dist;
-                    }
+                if(dist < smallestDist && dist < 20.0)
+                {
+                    whichPointRow = i;
+                    whichPointCol = j;
+                    smallestDist = dist;
                 }
             }
         }
+        }
 
         if(whichPointRow >= 0)
-        {
-            quads[activeQuad].bHighlightCtrlPoint = True;
-            quads[activeQuad].highlightedCtrlPointRow = whichPointRow;
-            quads[activeQuad].highlightedCtrlPointCol = whichPointCol;
-        }
+            {
+                quads[activeQuad].bHighlightCtrlPoint = True;
+                quads[activeQuad].highlightedCtrlPointRow = whichPointRow;
+                quads[activeQuad].highlightedCtrlPointCol = whichPointCol;
+            }
         else
-        {
-            quads[activeQuad].bHighlightCtrlPoint = False;
-            quads[activeQuad].highlightedCtrlPointRow = -1;
-            quads[activeQuad].highlightedCtrlPointCol = -1;
-        }
+            {
+                quads[activeQuad].bHighlightCtrlPoint = False;
+                quads[activeQuad].highlightedCtrlPointRow = -1;
+                quads[activeQuad].highlightedCtrlPointCol = -1;
+            }
     }
 }
 
@@ -2032,17 +1806,17 @@ void testApp::mouseDragged(int x, int y, int button)
     {
         if(quads[activeQuad].bBezier)
         {
-            ofVec3f punto;
-            punto = quads[activeQuad].getWarpedPoint(x,y);
-            quads[activeQuad].bezierPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][0] = (float)punto.x/ofGetWidth();
-            quads[activeQuad].bezierPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][1] = (float)punto.y/ofGetHeight();
+        ofVec3f punto;
+        punto = quads[activeQuad].getWarpedPoint(x,y);
+        quads[activeQuad].bezierPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][0] = (float)punto.x/ofGetWidth();
+        quads[activeQuad].bezierPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][1] = (float)punto.y/ofGetHeight();
         }
         else if(quads[activeQuad].bGrid)
         {
-            ofVec3f punto;
-            punto = quads[activeQuad].getWarpedPoint(x,y);
-            quads[activeQuad].gridPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][0] = (float)punto.x/ofGetWidth();
-            quads[activeQuad].gridPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][1] = (float)punto.y/ofGetHeight();
+        ofVec3f punto;
+        punto = quads[activeQuad].getWarpedPoint(x,y);
+        quads[activeQuad].gridPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][0] = (float)punto.x/ofGetWidth();
+        quads[activeQuad].gridPoints[quads[activeQuad].highlightedCtrlPointRow][quads[activeQuad].highlightedCtrlPointCol][1] = (float)punto.y/ofGetHeight();
         }
     }
 }
@@ -2063,43 +1837,36 @@ void testApp::mousePressed(int x, int y, int button)
     if (isSetup && !bGui && !bTimeline)
     {
 
-        if(maskSetup && !gridSetup)
-        {
+        if(maskSetup && !gridSetup) {
             if (!quads[activeQuad].bHighlightMaskPoint)
             {
                 quads[activeQuad].maskAddPoint(x, y);
             }
         }
 
-        else
+        else {
+        float smallestDist = 1.0;
+        whichCorner = -1;
+        unsigned long curTap = ofGetElapsedTimeMillis();
+        if(lastTap != 0 && curTap - lastTap < doubleclickTime){
+            activateQuad(x,y);
+        }
+        lastTap = curTap;
+
+        // check if we are near once of active quad's corners
+        for(int i = 0; i < 4; i++)
         {
-            float smallestDist = 1.0;
-            whichCorner = -1;
-            unsigned long curTap = ofGetElapsedTimeMillis();
-            if(lastTap != 0 && curTap - lastTap < doubleclickTime)
-            {
-                activateQuad(x,y);
-            }
-            lastTap = curTap;
+            float distx = quads[activeQuad].corners[i].x - (float)x/ofGetWidth();
+            float disty = quads[activeQuad].corners[i].y - (float)y/ofGetHeight();
+            float dist  = sqrt( distx * distx + disty * disty);
 
-<<<<<<< HEAD
             if(dist < smallestDist && dist < 0.05)
-=======
-            // check if we are near once of active quad's corners
-            for(int i = 0; i < 4; i++)
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
             {
-                float distx = quads[activeQuad].corners[i].x - (float)x/ofGetWidth();
-                float disty = quads[activeQuad].corners[i].y - (float)y/ofGetHeight();
-                float dist  = sqrt( distx * distx + disty * disty);
-
-                if(dist < smallestDist && dist < 0.1)
-                {
-                    whichCorner = i;
-                    smallestDist = dist;
-                }
+                whichCorner = i;
+                smallestDist = dist;
             }
         }
+    }
     }
 }
 
@@ -2111,38 +1878,31 @@ void testApp::mouseReleased()
     if (isSetup && !bGui && !bTimeline)
     {
 
-        if (whichCorner >= 0)
+    if (whichCorner >= 0)
+    {
+        // snap detection for near quads
+        float smallestDist = 1.0;
+        int snapQuad = -1;
+        int snapCorner = -1;
+        for (int i = 0; i < 36; i++)
         {
-            // snap detection for near quads
-            float smallestDist = 1.0;
-            int snapQuad = -1;
-            int snapCorner = -1;
-            for (int i = 0; i < 36; i++)
+            if ( i != activeQuad && quads[i].initialized)
             {
-                if ( i != activeQuad && quads[i].initialized)
+                for(int j = 0; j < 4; j++)
                 {
-                    for(int j = 0; j < 4; j++)
+                    float distx = quads[activeQuad].corners[whichCorner].x - quads[i].corners[j].x;
+                    float disty = quads[activeQuad].corners[whichCorner].y - quads[i].corners[j].y;
+                    float dist = sqrt( distx * distx + disty * disty);
+                    // to tune snapping change dist value inside next if statement
+                    if (dist < smallestDist && dist < 0.0075)
                     {
-                        float distx = quads[activeQuad].corners[whichCorner].x - quads[i].corners[j].x;
-                        float disty = quads[activeQuad].corners[whichCorner].y - quads[i].corners[j].y;
-                        float dist = sqrt( distx * distx + disty * disty);
-                        // to tune snapping change dist value inside next if statement
-                        if (dist < smallestDist && dist < 0.0075)
-                        {
-                            snapQuad = i;
-                            snapCorner = j;
-                            smallestDist = dist;
-                        }
+                        snapQuad = i;
+                        snapCorner = j;
+                        smallestDist = dist;
                     }
                 }
             }
-            if (snapQuad >= 0 && snapCorner >= 0)
-            {
-                quads[activeQuad].corners[whichCorner].x = quads[snapQuad].corners[snapCorner].x;
-                quads[activeQuad].corners[whichCorner].y = quads[snapQuad].corners[snapCorner].y;
-            }
         }
-<<<<<<< HEAD
         if (snapQuad >= 0 && snapCorner >= 0 && bSnapOn)
         {
             quads[activeQuad].corners[whichCorner].x = quads[snapQuad].corners[snapCorner].x;
@@ -2151,17 +1911,12 @@ void testApp::mouseReleased()
     }
     whichCorner = -1;
     quads[activeQuad].bHighlightCorner = False;
-=======
-        whichCorner = -1;
-        quads[activeQuad].bHighlightCorner = False;
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 }
 
 
 void testApp::windowResized(int w, int h)
 {
-<<<<<<< HEAD
             #ifdef WITH_TIMELINE
             timeline.setWidth(w);
             #endif
@@ -2174,17 +1929,6 @@ void testApp::windowResized(int w, int h)
                     quadDimensionsReset(i);
                 }
             }
-=======
-    for(int i = 0; i < 36; i++)
-    {
-        if (quads[i].initialized)
-        {
-            quads[i].bHighlightCorner = False;
-            quads[i].allocateFbo(ofGetWidth(),ofGetHeight());
-            quadDimensionsReset(i);
-        }
-    }
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
 }
 
 
@@ -2219,7 +1963,6 @@ void testApp::quadBezierSpherize(int q)
         {   {0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0}, {0.5*k*h/w+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {(1.0*h/w)-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0}  }
     };
 
-<<<<<<< HEAD
 	for (int i = 0; i < 4; ++i) {
 		for (int j = 0; j < 4; ++j) {
 			for (int k = 0; k < 3; ++k) {
@@ -2234,15 +1977,6 @@ void testApp::quadBezierSpherize(int q)
         {   {0*h/w-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0-0.5*k, 0},        {0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},  {1.0*h/w+(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0-0.5*k, 0}  },
         {   {0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},        {0.5*k*h/w+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {(1.0*h/w)-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0}  }
     }; */
-=======
-    /*  quads[q].bezierPoints =
-      {
-          {   {(0.5*w/h-0.5)*h/w, 0, 0},  {0.5*(k+w/h-1)*h/w, -0.5*k, 0},    {0.5*(1-k+w/h)*h/w, -0.5*k, 0},    {1.0*h/w+(0.5*(w/h-1))*h/w, 0, 0}    },
-          {   {0*h/w-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 0.5*k, 0},        {0*h/w+(0.5*(w/h-1))*h/w, 0, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 0, 0},  {1.0*h/w+(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 0.5*k, 0}  },
-          {   {0*h/w-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0-0.5*k, 0},        {0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},  {1.0*h/w+(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0-0.5*k, 0}  },
-          {   {0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0},        {0.5*k*h/w+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {(1.0*h/w)-(0.5*k*h/w)+(0.5*(w/h-1))*h/w, 1.0+0.5*k, 0},  {1.0*h/w+(0.5*(w/h-1))*h/w, 1.0, 0}  }
-      }; */
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
 }
 
 //---------------------------------------------------------------
@@ -2318,316 +2052,6 @@ void testApp::activateQuad(int x, int y)
         quads[activeQuad].isActive = False;
         activeQuad = whichQuad;
         quads[activeQuad].isActive = True;
-<<<<<<< HEAD
         gui.setPage((activeQuad*4)+2);
-=======
-        gui.setPage((activeQuad*3)+2);
-    }
-}
-
-
-//-----------------------------------------------------------
-ofImage testApp::loadImageFromFile()
-{
-    ofFileDialogResult dialog_result = ofSystemLoadDialog("load image file", false);
-    if(dialog_result.bSuccess)
-    {
-        ofImage img;
-        string imgName = dialog_result.getName();
-        string imgPath = dialog_result.getPath();
-        ofFile image(imgPath);
-        img.loadImage(image);
-        return img;
-    }
-
-}
-
-
-
-
-
-//--------------------------------------------------------------
-
-void testApp::setXml()
-
-{
-    XML.setValue("GENERAL:ACTIVE_QUAD",activeQuad);
-    XML.setValue("GENERAL:N_OF_QUADS",nOfQuads);
-
-    for(int i = 0; i < 36; i++)
-    {
-        if (quads[i].initialized)
-        {
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":NUMBER",quads[i].quadNumber);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":LAYER",quads[i].layer);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:DISPX",quads[i].quadDispX);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:DISPY",quads[i].quadDispY);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:WIDTH",quads[i].quadW);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:HEIGHT",quads[i].quadH);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:LOADED_IMG",quads[i].loadedImg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:LOADED_IMG_PATH",quads[i].bgImg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO",quads[i].loadedVideo);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO_PATH",quads[i].bgVideo);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:LOADED_SLIDESHOW",quads[i].bgSlideshow);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:X",quads[i].corners[0].x);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:Y",quads[i].corners[0].y);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_1:X",quads[i].corners[1].x);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_1:Y",quads[i].corners[1].y);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_2:X",quads[i].corners[2].x);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_2:Y",quads[i].corners[2].y);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_3:X",quads[i].corners[3].x);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_3:Y",quads[i].corners[3].y);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IS_ON",quads[i].isOn);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:ACTIVE",quads[i].colorBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:TRANS:ACTIVE",quads[i].transBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:TRANS:DURATION",quads[i].transDuration);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:ACTIVE",quads[i].slideshowBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:SPEED",quads[i].slideshowSpeed);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:FIT",quads[i].slideFit);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:KEEP_ASPECT",quads[i].slideKeepAspect);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:ACTIVE",quads[i].camBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:ACTIVE",quads[i].imgBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:ACTIVE",quads[i].videoBg);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:WIDTH",quads[i].camWidth);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:HEIGHT",quads[i].camHeight);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_X",quads[i].camMultX);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_Y",quads[i].camMultY);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_X",quads[i].imgMultX);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_Y",quads[i].imgMultY);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_X",quads[i].videoMultX);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_Y",quads[i].videoMultY);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:SPEED",quads[i].videoSpeed);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:VOLUME",quads[i].videoVolume);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOOP",quads[i].videoLoop);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",quads[i].bgColor.r);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:G",quads[i].bgColor.g);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:B",quads[i].bgColor.b);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:A",quads[i].bgColor.a);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:R",quads[i].secondColor.r);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:G",quads[i].secondColor.g);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:B",quads[i].secondColor.b);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:A",quads[i].secondColor.a);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:R",quads[i].imgColorize.r);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:G",quads[i].imgColorize.g);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:B",quads[i].imgColorize.b);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:A",quads[i].imgColorize.a);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:R",quads[i].videoColorize.r);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:G",quads[i].videoColorize.g);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:B",quads[i].videoColorize.b);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:A",quads[i].videoColorize.a);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:R",quads[i].camColorize.r);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:G",quads[i].camColorize.g);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:B",quads[i].camColorize.b);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:A",quads[i].camColorize.a);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:H",quads[i].imgHFlip);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:V",quads[i].imgVFlip);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FLIP:H",quads[i].videoHFlip);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FLIP:V",quads[i].videoVFlip);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:FLIP:H",quads[i].camHFlip);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:FLIP:V",quads[i].camVFlip);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:ON",quads[i].bBlendModes);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:MODE",quads[i].blendMode);
-
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:ON",quads[i].edgeBlendBool);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:EXPONENT",quads[i].edgeBlendExponent);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:GAMMA",quads[i].edgeBlendGamma);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:LUMINANCE", quads[i].edgeBlendLuminance);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:SIN",quads[i].edgeBlendAmountSin);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:DX",quads[i].edgeBlendAmountDx);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:TOP",quads[i].edgeBlendAmountTop);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:BOTTOM",quads[i].edgeBlendAmountBottom);
-
-            //mask stuff
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:ON",quads[i].bMask);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:INVERT_MASK",quads[i].maskInvert);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:N_POINTS",(int)quads[i].maskPoints.size());
-            if (quads[i].maskPoints.size() > 0)
-            {
-                for(int j=0; j<quads[i].maskPoints.size(); j++)
-                {
-                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":X",quads[i].maskPoints[j].x);
-                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":Y",quads[i].maskPoints[j].y);
-                }
-            }
-            // deform stuff
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:ON",quads[i].bDeform);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:ON",quads[i].bBezier);
-            XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:GRID:ON",quads[i].bGrid);
-            // bezier stuff
-            for (int j = 0; j < 4; ++j)
-            {
-                for (int k = 0; k < 4; ++k)
-                {
-                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":X",quads[i].bezierPoints[j][k][0]);
-                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Y",quads[i].bezierPoints[j][k][1]);
-                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Z",quads[i].bezierPoints[j][k][2]);
-                }
-            }
-
-
-        }
-    }
-}
-
-
-void testApp::getXml()
-
-{
-
-    nOfQuads = XML.getValue("GENERAL:N_OF_QUADS", 0);
-    activeQuad = XML.getValue("GENERAL:ACTIVE_QUAD", 0);
-
-    for(int i = 0; i < nOfQuads; i++)
-    {
-        float x0 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:X",0.0);
-        float y0 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:Y",0.0);
-        float x1 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_1:X",0.0);
-        float y1 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_1:Y",0.0);
-        float x2 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_2:X",0.0);
-        float y2 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_2:Y",0.0);
-        float x3 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_3:X",0.0);
-        float y3 = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_3:Y",0.0);
-
-        quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, slideshowFolders, edgeBlendShader, quadMaskShader, camGrabber, kinect);
-        quads[i].quadNumber = XML.getValue("QUADS:QUAD_"+ofToString(i)+":NUMBER", 0);
-        quads[i].layer = XML.getValue("QUADS:QUAD_"+ofToString(i)+":LAYER", 0);
-        layers[quads[i].layer] = quads[i].quadNumber;
-
-        quads[i].quadDispX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:DISPX",0);
-        quads[i].quadDispY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:DISPY",0);
-        quads[i].quadW = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:WIDTH",0);
-        quads[i].quadH = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CONTENT:HEIGHT",0);
-
-        quads[i].imgBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:ACTIVE",0);
-        quads[i].loadedImg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:LOADED_IMG", "", 0);
-        quads[i].bgImg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:LOADED_IMG_PATH", "", 0);
-        if ((quads[i].imgBg) && (quads[i].bgImg != ""))
-        {
-            quads[i].loadImageFromFile(quads[i].loadedImg, quads[i].bgImg);
-        }
-        quads[i].imgHFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:H", 0);
-        quads[i].imgVFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:V", 0);
-
-        quads[i].videoBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:ACTIVE",0);
-        quads[i].loadedVideo = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO", "", 0);
-        quads[i].bgVideo = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO_PATH", "", 0);
-        if ((quads[i].videoBg) && (quads[i].bgVideo != ""))
-        {
-            quads[i].loadVideoFromFile(quads[i].loadedVideo, quads[i].bgVideo);
-        }
-        quads[i].videoHFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FLIP:H", 0);
-        quads[i].videoVFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FLIP:V", 0);
-
-        quads[i].bgSlideshow = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:LOADED_SLIDESHOW", 0);
-
-        quads[i].colorBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:ACTIVE",0);
-
-        quads[i].transBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:TRANS:ACTIVE",0);
-        quads[i].transDuration = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:TRANS:DURATION", 1.0);
-        quads[i].slideshowBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:ACTIVE", 0);
-        quads[i].slideshowSpeed = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:SPEED", 1.0);
-        quads[i].slideFit = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:FIT", 0);
-        quads[i].slideKeepAspect = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:KEEP_ASPECT", 1);
-
-        quads[i].camBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:ACTIVE",0);
-        quads[i].camWidth = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:WIDTH",0);
-        quads[i].camHeight = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:HEIGHT",0);
-        quads[i].camHFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:FLIP:H", 0);
-        quads[i].camVFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:FLIP:V", 0);
-
-        quads[i].camMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_X",1.0);
-        quads[i].camMultY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_Y",1.0);
-        quads[i].imgMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_X",1.0);
-        quads[i].imgMultY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_Y",1.0);
-        quads[i].videoMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_X",1.0);
-        quads[i].videoMultY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_Y",1.0);
-        quads[i].videoSpeed = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:SPEED",1.0);
-        quads[i].videoVolume = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:VOLUME",0);
-        quads[i].videoLoop = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOOP",1);
-
-        quads[i].bgColor.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",0.0);
-        quads[i].bgColor.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:G",0.0);
-        quads[i].bgColor.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:B",0.0);
-        quads[i].bgColor.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:A",0.0);
-
-        quads[i].secondColor.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:R",0.0);
-        quads[i].secondColor.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:G",0.0);
-        quads[i].secondColor.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:B",0.0);
-        quads[i].secondColor.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:SECOND_COLOR:A",0.0);
-
-        quads[i].imgColorize.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:R",1.0);
-        quads[i].imgColorize.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:G",1.0);
-        quads[i].imgColorize.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:B",1.0);
-        quads[i].imgColorize.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:COLORIZE:A",1.0);
-
-        quads[i].videoColorize.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:R",1.0);
-        quads[i].videoColorize.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:G",1.0);
-        quads[i].videoColorize.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:B",1.0);
-        quads[i].videoColorize.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:COLORIZE:A",1.0);
-
-        quads[i].camColorize.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:R",1.0);
-        quads[i].camColorize.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:G",1.0);
-        quads[i].camColorize.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:B",1.0);
-        quads[i].camColorize.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:A",1.0);
-
-        quads[i].bBlendModes = XML.getValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:ON", 0);
-        quads[i].blendMode= XML.getValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:MODE", 0);
-
-        quads[i].edgeBlendBool = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:ON", 0);
-        quads[i].edgeBlendExponent = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:EXPONENT", 1.0);
-        quads[i].edgeBlendGamma = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:GAMMA", 1.8);
-        quads[i].edgeBlendLuminance = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:LUMINANCE", 0.0);
-        quads[i].edgeBlendAmountSin = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:SIN", 0.3);
-        quads[i].edgeBlendAmountDx = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:DX", 0.3);
-        quads[i].edgeBlendAmountTop = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:TOP", 0.0);
-        quads[i].edgeBlendAmountBottom = XML.getValue("QUADS:QUAD_"+ofToString(i)+":EDGE_BLENDING:AMOUNT:BOTTOM", 0.0);
-
-        //mask stuff
-        quads[i].bMask = XML.getValue("QUADS:QUAD_"+ofToString(i)+":MASK:ON", 0);
-        quads[i].maskInvert = XML.getValue("QUADS:QUAD_"+ofToString(i)+":MASK:INVERT_MASK", 0);
-        int nOfMaskPoints =  XML.getValue("QUADS:QUAD_"+ofToString(i)+":MASK:N_POINTS", 0);
-        quads[i].maskPoints.clear();
-        if (nOfMaskPoints > 0)
-        {
-            for(int j=0; j<nOfMaskPoints; j++)
-            {
-                ofPoint tempMaskPoint;
-                tempMaskPoint.x = XML.getValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":X", 0);
-                tempMaskPoint.y = XML.getValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":Y", 0);
-                quads[i].maskPoints.push_back(tempMaskPoint);
-            }
-        }
-
-        // deform stuff
-        quads[i].bDeform = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:ON",0);
-        quads[i].bBezier = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:ON",0);
-        quads[i].bGrid = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:GRID:ON",0);
-        // bezier stuff
-        for (int j = 0; j < 4; ++j)
-        {
-            for (int k = 0; k < 4; ++k)
-            {
-                quads[i].bezierPoints[j][k][0] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":X",0.0);
-                quads[i].bezierPoints[j][k][1] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Y",0.0);
-                quads[i].bezierPoints[j][k][2] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Z",0.0);
-            }
-        }
-
-
-        quads[i].isOn = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IS_ON",0);
-
->>>>>>> 90ffbabf923dd380e78138c15e478a774f597aec
     }
 }

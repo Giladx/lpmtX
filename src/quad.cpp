@@ -8,48 +8,24 @@
 
 #ifdef WITH_KINECT
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
     #endif
 #else
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofVideoPlayer> &sharedVideos)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
     #endif
 #endif
 {
     //animation
-    //if(animaBg)
-     //{
-         ofDisableArbTex();
+    if(animaBg){
+    model.loadModel("..", true);
+    }
 
-         bAnimate = true;
-         bAnimateMouse = false;
-         animationPosition = 0;
-
-         model.loadModel("3d/astroBoy_walk.dae", true);
-         model.calculateDimensions();
-         model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
-         model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-         model.playAllAnimations();
-
-          if(!bAnimate)
-        {
-        model.setPausedForAllAnimations(true);
-        }
-
-        ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-
-	    glEnable(GL_DEPTH_TEST);
-
-        glShadeModel(GL_SMOOTH); //some model / light stuff
-        //light.enable();
-        //ofEnableSeparateSpecularLight();
-
-     //}
-
+//*/
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
@@ -399,11 +375,7 @@ void quad::update()
 }
         // animation -----------------------------------------------------------------
         if(animaBg){
-        model.update();
-        if(bAnimateMouse) {
-        model.setPositionForAllAnimations(animationPosition);
-        }
-        mesh = model.getCurrentAnimatedMesh(0);
+
         }
         // slideshow -----------------------------------------------------------------
 
@@ -523,47 +495,6 @@ void quad::draw()
         //calculates screen ratio factor for window and fullscreen
         float screenFactorX = (ofGetWidth()/(float)ofGetScreenWidth());
         float screenFactorY = (ofGetHeight()/(float)ofGetScreenHeight());
-
-        //--------------------------animation---------------------------
-            //if(animaBg){
-
-            glPushMatrix();
-            ofTranslate(model.getPosition().x+100, model.getPosition().y, 0);
-            //ofRotate(-mouseX 0, 1, 0);
-            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
-            model.drawFaces();
-            glPopMatrix();
-
-            glPushAttrib(GL_ALL_ATTRIB_BITS);
-            glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-            glEnable(GL_NORMALIZE);
-
-            glPushMatrix();
-            ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
-            //ofRotate(-mouseX, 0, 1, 0);
-            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
-
-            ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
-
-            ofMultMatrix(model.getModelMatrix());
-            ofMultMatrix(meshHelper.matrix);
-
-            ofMaterial & material = meshHelper.material;
-            ofTexture & texture = meshHelper.texture;
-
-            texture.bind();
-            material.begin();
-            mesh.drawWireframe();
-            material.end();
-            texture.unbind();
-	        glPopMatrix();
-
-            glPopAttrib();
-
-            ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-            ofDrawBitmapString("3D is not working yet", 10, 30);
-            //}
-
         // recalculates bezier surface
         if(bBezier)
         {
@@ -696,7 +627,17 @@ void quad::draw()
 
 
             }
+        //--------------------------animation---------------------------
+            if(animaBg){
 
+                ofBackground(50, 50, 50, 0);
+                ofSetColor(255, 255, 255, 255);
+                model.setRotation(0,90,0,1,0);
+                model.setScale(0.5, 0.5, 0.5);
+
+                model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
+                model.drawFaces();
+            }
 
         // shared video ----------------------------------------------------------------------
 
@@ -1464,6 +1405,6 @@ void quad::draw()
             }
 
         }
-        ofDisableSmoothing();
+
     }
 }

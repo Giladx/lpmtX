@@ -21,7 +21,6 @@ void testApp::timelineSetup(float duration){
     renderFolder = "renders/"; //this is where rendered frames will be saved to
 
     timeline.setLoopType(OF_LOOP_NORMAL);
-<<<<<<< HEAD
     timeline.enableSnapToBPM(120.0);
     timeline.enableSnapToOtherKeyframes(false);
     timeline.setEditableHeaders(true);
@@ -31,12 +30,6 @@ void testApp::timelineSetup(float duration){
     colorControl.begin();
     colorControl.setUniform1i("tex", 0);
     colorControl.end();
-=======
-    //timeline.enableSnapToBPM(120.0);
-    timeline.enableSnapToOtherKeyframes(false);
-    timeline.setEditableHeaders(true);
-    //timeline.collapseAllTracks();
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
     ofAddListener(timeline.events().bangFired, this, &testApp::timelineTriggerReceived);
 }
 
@@ -181,14 +174,11 @@ void testApp::timelineAddQuadPage(int i) {
 	timeline.addCurves("alpha_"+ofToString(i), ofToString(i)+"_alpha.xml", ofRange(0, 1.0));
 	timeline.addFlags("trigger_"+ofToString(i), ofToString(i)+"_trigger.xml");
 	timeline.addColors("color_"+ofToString(i), ofToString(i)+"_color.xml");
-<<<<<<< HEAD
 	timeline.addCurves("brightness"+ofToString(i), ofToString(i), ofRange(0.0, 2.0), 1.0);
     timeline.addCurves("contrast"+ofToString(i), ofToString(i), ofRange(.5, 2.0), 1.0);
     timeline.addCurves("saturation"+ofToString(i), ofToString(i), ofRange(0.0, 1.5), 1.0);
     timeline.addSwitches("invert"+ofToString(i), ofToString(i));
 
-=======
->>>>>>> c88ffd5d2c289fa498f7ee519320c136f8176908
 }
 
 #endif
