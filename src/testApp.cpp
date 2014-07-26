@@ -219,10 +219,10 @@ void testApp::setup()
     edgeBlendShader.load("shaders/blend.vert", "shaders/blend.frag");
     quadMaskShader.load("shaders/mask.vert", "shaders/mask.frag");
     chromaShader.load("shaders/chroma.vert", "shaders/chroma.frag");
-    noiseShader.load("shaders/noise.vert", "shaders/noise.frag");
+    //noiseShader.load("shaders/noise.vert", "shaders/noise.frag");
     brickShader.load("shaders/new/brick.vert", "shaders/new/brick.frag");
-    EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
-    fisheyeShader.load("shaders/new/fisheye.vert", "shaders/new/fisheye.frag");
+    //EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
+    //fisheyeShader.load("shaders/new/fisheye.vert", "shaders/new/fisheye.frag");
 
      //ttf.loadFont("type/frabk.ttf", 11);
     ttf.loadFont("type/OpenSans-Regular.ttf", 11);

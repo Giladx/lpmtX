@@ -155,10 +155,10 @@ public:
     ofShader edgeBlendShader;
     ofShader quadMaskShader;
     ofShader chromaShader;
-    ofShader noiseShader;
+    //ofShader noiseShader;
     ofShader brickShader;
-    ofShader EnvBMShader;
-    ofShader fisheyeShader;
+    //ofShader EnvBMShader;
+    //ofShader fisheyeShader;
 
     //ofxAssimpModelLoader obj;
 
