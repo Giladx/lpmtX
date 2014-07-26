@@ -24,16 +24,12 @@
     if(animaBg){
     ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
 
-    bAnimate = false;
-    bAnimateMouse = false;
+    bAnimate = true;
+    bAnimateMouse = true;
     animationPosition = 0;
     //model.loadModel("astroBoy_walk.dae", true);
-    model.setPosition(ofGetWidth() * 0.5, (float)ofGetHeight() * 0.75 , 0);
-    model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-    model.playAllAnimations();
-    if(!bAnimate){
-    model.setPausedForAllAnimations(true);
-    }
+//    model.setPosition(ofGetWidth() * 1.0, (float)ofGetHeight() * 1.0 , 0);
+
 
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 
@@ -391,6 +387,13 @@ void quad::update()
 }
         // animation -----------------------------------------------------------------
         if(animaBg){
+        model.update();
+
+        if(bAnimateMouse) {
+        model.setPositionForAllAnimations(animationPosition);
+    }
+
+        mesh = model.getCurrentAnimatedMesh(0);
 
         }
         // slideshow -----------------------------------------------------------------
@@ -646,43 +649,49 @@ void quad::draw()
         //--------------------------animation---------------------------
             if(animaBg){
 
-    ofPushMatrix();
-    ofTranslate(model.getPosition().x+100, model.getPosition().y, 0);
+            ofPushMatrix();
+            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+            model.playAllAnimations();
+
+            model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
+            model.drawFaces();
+            ofPopMatrix();
+            model.getRotationAxis(180);
+            model.getRotationAngle(180);
+            glPushAttrib(GL_ALL_ATTRIB_BITS);
+            glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
+            glEnable(GL_NORMALIZE);
+            if(!bAnimate){
+            model.setPausedForAllAnimations(true);
+            }
+
+            //ofPushMatrix();
+            //ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
 //    ofRotate(-mouseX, 0, 1, 0);
-    ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
-    model.drawFaces();
-    ofPopMatrix();
+            //ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
 
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
-    glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
-    glEnable(GL_NORMALIZE);
+            ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
 
-/*    ofPushMatrix();
-    ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
-    ofRotate(-mouseX, 0, 1, 0);
-    ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+            ofMultMatrix(model.getModelMatrix());
+            ofMultMatrix(meshHelper.matrix);
 
-    ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
+            ofMaterial & material = meshHelper.material;
+            ofTexture & texture = meshHelper.texture;
 
-    ofMultMatrix(model.getModelMatrix());
-    ofMultMatrix(meshHelper.matrix);
+            texture.bind();
+            material.begin();
+            //mesh.drawWireframe();
+            material.end();
+            texture.unbind();
+	        //ofPopMatrix();
 
-    ofMaterial & material = meshHelper.material;
-    ofTexture & texture = meshHelper.texture;
+	        glPopAttrib();
 /*
-    texture.bind();
-    material.begin();
-    mesh.drawWireframe();
-    material.end();
-    texture.unbind();
-	ofPopMatrix();
+            ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+            ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
+            ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
+            ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
 */
-	glPopAttrib();
-
-    ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-    ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
-    ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
-    ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
 }
 
         // shared video ----------------------------------------------------------------------
