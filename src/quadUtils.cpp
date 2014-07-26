@@ -53,7 +53,7 @@ void quad::loadAnimaFromFile(string modelName, string modelPath)
 {
      ofFile animation(modelPath);
      animaBg = true;
-     model.
+     model.loadModel(".", true);
      bgAnima = modelPath;
      loadedAnima = modelName;
      if(model.loadModel(modelName,true))
