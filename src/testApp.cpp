@@ -758,7 +758,10 @@ void testApp::prepare()
         {
             if (cameras[i].getHeight() > 0)  // isLoaded check
             {
+                /*using equivalent cameras[i].update() in of v0.8
                 cameras[i].grabFrame();
+                */
+                cameras[i].update();
             }
         }
 
@@ -1097,7 +1100,10 @@ void testApp::keyPressed(int key)
         snapshotOn = !snapshotOn;
         if (snapshotOn == 1)
         {
+            /*using equivalent cameras[i].update() in of v0.8
             cameras[0].grabFrame();
+            */
+            cameras[0].update();
             snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
             unsigned char * pixels = cameras[0].getPixels();
             snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);

@@ -373,7 +373,10 @@ void quad::update()
 
             if (video.isLoaded())
             {
+                /*seems it doesn't exist in OF v0.8
                 video.idleMovie();
+                using instead*/
+                video.setPaused(true);
             }
 
             // changevideo speed
@@ -676,7 +679,10 @@ void quad::draw()
             ofMultMatrix(meshHelper.matrix);
 
             ofMaterial & material = meshHelper.material;
+            /*seems undefinded
             ofTexture & texture = meshHelper.texture;
+            */
+            ofTexture & texture = meshHelper.getTextureRef();
 
             texture.bind();
             material.begin();
