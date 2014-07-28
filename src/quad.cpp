@@ -376,7 +376,8 @@ void quad::update()
                 /*seems it doesn't exist in OF v0.8
                 video.idleMovie();
                 using instead*/
-                video.setPaused(true);
+                video.update();
+
             }
 
             // changevideo speed
