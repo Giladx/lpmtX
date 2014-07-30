@@ -12,7 +12,7 @@ undo/redo history
 more shaders
 
 I have more plans ...
-![alt tag]3d1.png   
+![alt tag](![alt tag](https://raw.github.com/giladx/lpmtx/master/bin/data/img/3d1.png)   
 
 LPMT - Little Projection-Mapping Tool
 ---------------------------------------
