@@ -1,3 +1,19 @@
+LPMTX is a new experiment with LPMT
+--------------------------------------
+new stuff
+
+loads 3D Models *(I still have depth configuration problem)
+new global grid (for multiprojection calibration)
+new Display Number Banner (multiprojectionID)
+gui has been removed from the first display 
+
+todo
+undo/redo history
+more shaders
+
+I have more plans ...
+![alt tag]3d1.png   
+
 LPMT - Little Projection-Mapping Tool
 ---------------------------------------
 (C) 2011, HVA - Hermanitos Verdes Architetti / Modena, Italy

@@ -417,10 +417,10 @@ void quad::update()
 
         mesh = model.getCurrentAnimatedMesh(0);
 	    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	    glEnable(GL_DEPTH_TEST);
-	    glShadeModel(GL_SMOOTH); //some model / light stuff
-        light.enable();
-        ofEnableSeparateSpecularLight();
+	    //glEnable(GL_DEPTH_TEST);
+	    //glShadeModel(GL_SMOOTH); //some model / light stuff
+        //light.enable();
+        //ofEnableSeparateSpecularLight();
 
 }
         // slideshow -----------------------------------------------------------------
