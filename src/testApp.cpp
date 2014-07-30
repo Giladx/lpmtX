@@ -613,7 +613,7 @@ void testApp::setup()
 
 void testApp::exit()
 {
- if(key == '')
+
 }
 
 void testApp::mpeSetup()
