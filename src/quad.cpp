@@ -20,24 +20,7 @@
     #endif
 #endif
 {
-    //animation
-    if(animaBg){
-    ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
 
-    bAnimate = true;
-    bAnimateMouse = true;
-    animationPosition = 0;
-    //model.loadModel("astroBoy_walk.dae", true);
-//    model.setPosition(ofGetWidth() * 1.0, (float)ofGetHeight() * 1.0 , 0);
-
-
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-
-	glEnable(GL_DEPTH_TEST);
-
-    }
-
-//*/
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
@@ -301,6 +284,45 @@
     bTimelineAlpha = false;
     bTimelineSlideChange = false;
 
+    //animation
+    bAnimate = true;
+    bAnimateMouse = true;
+    animationPosition = 0;
+    animationRotation = 0;
+    animaScalex = 1;
+    animaScaley = 1;
+    animaScalez = 1;
+    animaRotateX = 0;
+    animaRotateY = 0;
+    animaRotateZ = 0;
+
+
+    if(animaBg){
+    ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
+
+    bAnimate = !bAnimate;
+    if(!bAnimate)
+            {
+            model.setPausedForAllAnimations(true);
+            }
+    else if(bAnimate)
+            {
+            //model.loadModel("astroBoy_walk.dae", true);
+            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+            model.playAllAnimations();
+            }
+
+    //model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75, 0);
+
+
+
+	//glEnable(GL_DEPTH_TEST);
+
+    glShadeModel(GL_SMOOTH); //some model / light stuff
+    light.enable();
+    ofEnableSeparateSpecularLight();
+
+    }
 }
 
 
@@ -391,11 +413,16 @@ void quad::update()
 
         if(bAnimateMouse) {
         model.setPositionForAllAnimations(animationPosition);
-    }
+        }
 
         mesh = model.getCurrentAnimatedMesh(0);
+	    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+	    glEnable(GL_DEPTH_TEST);
+	    glShadeModel(GL_SMOOTH); //some model / light stuff
+        light.enable();
+        ofEnableSeparateSpecularLight();
 
-        }
+}
         // slideshow -----------------------------------------------------------------
 
         if (slideshowBg)
@@ -528,6 +555,7 @@ void quad::draw()
         quadFbo.begin();
         ofClear(0.0,0.0,0.0,0.0);
         ofEnableAlphaBlending();
+
         // -- NOW LETS DRAW!!!!!!  -----
 
         // if a solid color content or color transition is set it draws it
@@ -650,24 +678,34 @@ void quad::draw()
             if(animaBg){
 
             ofPushMatrix();
-            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-            model.playAllAnimations();
-
             model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
-            model.drawFaces();
+            ofTranslate(-model.getPosition().x+1280, -model.getPosition().y+1600);
+
+            ofRotate(animationRotation, 0, 1, 0);
+            ofScale(animaScalex, animaScaley, animaScalez);
+
+            ofRotateX(animaRotateX);
+            ofRotateY(animaRotateY);
+            ofRotateZ(animaRotateZ);
+
+            ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+
+            if(textureModes == 0) model.drawFaces();
+            else if(textureModes == 1) model.drawWireframe();
+            else if(textureModes == 2) model.drawVertices();
+
             ofPopMatrix();
-            model.getRotationAxis(180);
-            model.getRotationAngle(180);
+//            model.getRotationAxis(180);
+//            model.getRotationAngle(90);
             glPushAttrib(GL_ALL_ATTRIB_BITS);
             glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
             glEnable(GL_NORMALIZE);
-            if(!bAnimate){
-            model.setPausedForAllAnimations(true);
-            }
 
-            //ofPushMatrix();
+
+
+            ofPushMatrix();
             //ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
-//    ofRotate(-mouseX, 0, 1, 0);
+            //ofRotate(-mouseX, 0, 1, 0);
             //ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
 
             ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
@@ -683,16 +721,16 @@ void quad::draw()
             //mesh.drawWireframe();
             material.end();
             texture.unbind();
-	        //ofPopMatrix();
+	        ofPopMatrix();
 
 	        glPopAttrib();
-/*
+
             ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-            ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
+/*            ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
             ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
             ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
 */
-}
+         }
 
         // shared video ----------------------------------------------------------------------
 

@@ -421,7 +421,16 @@ void testApp::setup()
         gui.addTitle("Mask");
         gui.addToggle("mask on/off", quads[i].bMask);
         gui.addToggle("invert mask", quads[i].maskInvert);
-        gui.addTitle("Surface deformation");
+        gui.addTitle("Mask Circular crop");
+        gui.addSlider("center X", quads[i].circularCrop[0], 0, 1.0);
+        gui.addSlider("center Y", quads[i].circularCrop[1], 0, 1.0);
+        gui.addSlider("radius", quads[i].circularCrop[2], 0, 2.0);
+        gui.addTitle("Mask Rectangular crop");
+        gui.addSlider("top", quads[i].crop[0], 0, 1.0);
+        gui.addSlider("right", quads[i].crop[1], 0, 1.0);
+        gui.addSlider("bottom", quads[i].crop[2], 0, 1.0);
+        gui.addSlider("left", quads[i].crop[3], 0, 1.0);
+        gui.addTitle("Surface deformation").setNewColumn(true);
         gui.addToggle("surface deform.", quads[i].bDeform);
         gui.addToggle("use bezier", quads[i].bBezier);
         gui.addToggle("use grid", quads[i].bGrid);
@@ -430,7 +439,7 @@ void testApp::setup()
         gui.addButton("spherize light", bQuadBezierSpherize);
         gui.addButton("spherize strong", bQuadBezierSpherizeStrong);
         gui.addButton("reset bezier warp", bQuadBezierReset);
-        gui.addTitle("Edge blending").setNewColumn(true);
+        gui.addTitle("Edge blending");
         gui.addToggle("edge blend on/off", quads[i].edgeBlendBool);
         gui.addSlider("power", quads[i].edgeBlendExponent, 0.0, 4.0);
         gui.addSlider("gamma", quads[i].edgeBlendGamma, 0.0, 4.0);
@@ -491,6 +500,20 @@ void testApp::setup()
         gui.addSlider("slide duration", quads[i].slideshowSpeed, 0.1, 15.0);
         gui.addToggle("slides to quad size", quads[i].slideFit);
         gui.addToggle("keep aspect ratio", quads[i].slideKeepAspect);
+
+        gui.addTitle("3d Model").setNewColumn(true);
+        gui.addButton("load 3d model",bAnimaLoad);
+        gui.addComboBox("model texture", quads[i].textureModes,3,0);
+        //gui.addSlider("model rotate", quads[i].animationRotation, 0.0, 360.0);
+        gui.addSlider("model scale x", quads[i].animaScalex, 0.1, 20);
+        gui.addSlider("model scale y", quads[i].animaScaley, 0.1, 20);
+        gui.addSlider("model scale z", quads[i].animaScalez, 0.1, 20);
+        gui.addSlider("model rotate x", quads[i].animaRotateX,0.0, 360);
+        gui.addSlider("model rotate y", quads[i].animaRotateY,0.0, 360);
+        gui.addSlider("model rotate z", quads[i].animaRotateZ,0.0, 360);
+        gui.addToggle("animate", quads[i].bAnimate);
+
+
         #ifdef WITH_KINECT
         if(bKinectOk)
         {
@@ -530,17 +553,7 @@ void testApp::setup()
         gui.addTitle("Corner 2");
         gui.addSlider("X", quads[i].corners[2].x, -1.0, 2.0);
         gui.addSlider("Y", quads[i].corners[2].y, -1.0, 2.0);
-        gui.addTitle("Rectangular crop").setNewColumn(true);
-        gui.addSlider("top", quads[i].crop[0], 0, 1.0);
-        gui.addSlider("right", quads[i].crop[1], 0, 1.0);
-        gui.addSlider("bottom", quads[i].crop[2], 0, 1.0);
-        gui.addSlider("left", quads[i].crop[3], 0, 1.0);
-        gui.addTitle("Circular crop");
-        gui.addSlider("center X", quads[i].circularCrop[0], 0, 1.0);
-        gui.addSlider("center Y", quads[i].circularCrop[1], 0, 1.0);
-        gui.addSlider("radius", quads[i].circularCrop[2], 0, 2.0);
-        gui.addTitle("3dObject");
-        gui.addButton("load 3d", bAnimaLoad);
+
     }
 
     // then we set displayed gui page to the one corresponding to active quad and show the gui
