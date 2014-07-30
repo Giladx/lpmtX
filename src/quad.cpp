@@ -299,25 +299,6 @@
 
     if(animaBg){
     ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
-
-    bAnimate = !bAnimate;
-    if(!bAnimate)
-            {
-            model.setPausedForAllAnimations(true);
-            }
-    else if(bAnimate)
-            {
-            //model.loadModel("astroBoy_walk.dae", true);
-            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-            model.playAllAnimations();
-            }
-
-    //model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75, 0);
-
-
-
-	//glEnable(GL_DEPTH_TEST);
-
     glShadeModel(GL_SMOOTH); //some model / light stuff
     light.enable();
     ofEnableSeparateSpecularLight();
@@ -418,7 +399,7 @@ void quad::update()
         mesh = model.getCurrentAnimatedMesh(0);
 	    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 	    //glEnable(GL_DEPTH_TEST);
-	    //glShadeModel(GL_SMOOTH); //some model / light stuff
+	    glShadeModel(GL_SMOOTH); //some model / light stuff
         //light.enable();
         //ofEnableSeparateSpecularLight();
 
@@ -690,23 +671,28 @@ void quad::draw()
 
             ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
 
-            if(textureModes == 0) model.drawFaces();
-            else if(textureModes == 1) model.drawWireframe();
-            else if(textureModes == 2) model.drawVertices();
-
             ofPopMatrix();
-//            model.getRotationAxis(180);
-//            model.getRotationAngle(90);
             glPushAttrib(GL_ALL_ATTRIB_BITS);
             glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
             glEnable(GL_NORMALIZE);
 
+            if(textureModes == 0) model.drawFaces();
+            else if(textureModes == 1) model.drawWireframe();
+            else if(textureModes == 2) model.drawVertices();
 
 
             ofPushMatrix();
-            //ofTranslate(model.getPosition().x-300, model.getPosition().y, 0);
-            //ofRotate(-mouseX, 0, 1, 0);
-            //ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+             bAnimate = !bAnimate;
+            if(!bAnimate)
+            {
+            model.setPausedForAllAnimations(true);
+            }
+            else if(bAnimate)
+            {
+            //model.loadModel("astroBoy_walk.dae", true);
+            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
+            model.playAllAnimations();
+            }
 
             ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
 

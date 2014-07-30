@@ -503,7 +503,6 @@ void testApp::setup()
 
         gui.addTitle("3d Model").setNewColumn(true);
         gui.addButton("load 3d model",bAnimaLoad);
-        gui.addComboBox("model texture", quads[i].textureModes,3,0);
         //gui.addSlider("model rotate", quads[i].animationRotation, 0.0, 360.0);
         gui.addSlider("model scale x", quads[i].animaScalex, 0.1, 20);
         gui.addSlider("model scale y", quads[i].animaScaley, 0.1, 20);
@@ -512,6 +511,7 @@ void testApp::setup()
         gui.addSlider("model rotate y", quads[i].animaRotateY,0.0, 360);
         gui.addSlider("model rotate z", quads[i].animaRotateZ,0.0, 360);
         gui.addToggle("animate", quads[i].bAnimate);
+        gui.addComboBox("model texture", quads[i].textureModes,3,0);
 
 
         #ifdef WITH_KINECT
