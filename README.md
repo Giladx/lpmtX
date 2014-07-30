@@ -11,10 +11,11 @@ todo
 undo/redo history
 more shaders
 
-I have more plans ...
+and I have more plans ...
 
-Screen shots
-model in Wire texture loaded to quad 
+Screenshots:
+
+model in Wire texture mode loaded to quad ... 
 ![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
 
 ![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
