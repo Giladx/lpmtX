@@ -279,6 +279,9 @@ void testApp::copyQuadSettings(int sourceQuad)
     quads[activeQuad].animaScalex = quads[sourceQuad].animaScalex;
     quads[activeQuad].animaScaley = quads[sourceQuad].animaScaley;
     quads[activeQuad].animaScalez = quads[sourceQuad].animaScalez;
+    quads[activeQuad].animaRotateX = quads[sourceQuad].animaRotateX;
+    quads[activeQuad].animaRotateY = quads[sourceQuad].animaRotateY;
+    quads[activeQuad].animaRotateZ = quads[sourceQuad].animaRotateZ;
     quads[activeQuad].bgColor.r = quads[sourceQuad].bgColor.r;
     quads[activeQuad].bgColor.g = quads[sourceQuad].bgColor.g;
     quads[activeQuad].bgColor.b = quads[sourceQuad].bgColor.b;

@@ -37,6 +37,8 @@ int getdir (string dir, vector<string> &files)
 //--------------------------------------------------------------
 void testApp::setup()
 {
+
+    ofSetEscapeQuitsApp(false);
     ofSetWindowTitle("lpmt remiX by GiladX");
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
@@ -511,6 +513,7 @@ void testApp::setup()
         gui.addSlider("model rotate y", quads[i].animaRotateY,0.0, 360);
         gui.addSlider("model rotate z", quads[i].animaRotateZ,0.0, 360);
         gui.addToggle("animate", quads[i].bAnimate);
+        gui.addTitle("texture");
         gui.addComboBox("model texture", quads[i].textureModes,3,0);
 
 
@@ -610,7 +613,7 @@ void testApp::setup()
 
 void testApp::exit()
 {
-
+ if(key == '')
 }
 
 void testApp::mpeSetup()

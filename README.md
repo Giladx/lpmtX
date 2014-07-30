@@ -1,21 +1,27 @@
-LPMTX is a new experiment with LPMT
---------------------------------------
-new stuff
+LPMTX is a new experiment with hva LPMT
+-----------------------------------------
+new stuff:
 
-loads 3D Models *(I still have depth configuration problem)
-new global grid (for multiprojection calibration)
-new Display Number Banner (multiprojectionID)
-gui has been removed from the first display 
+*loads 3D Models *(I still have depth configuration problem).
 
-todo
-undo/redo history
-more shaders
+*new global grid (for multiprojection calibration)
 
-and I have more plans ...
+*new Display Number Banner (multiprojectionID)
+
+*gui has been removed from the first display 
+
+todo list(7/14)
+
+*undo/redo history
+
+*more shaders
+
+*and I have more plans ...
 
 Screenshots:
-
+------------
 model in Wire texture mode loaded to quad ... 
+
 ![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
 
 ![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
