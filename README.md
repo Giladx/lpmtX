@@ -15,13 +15,13 @@ I have more plans ...
 
 Screen shots
 model in Wire texture loaded to quad 
-![Alt tag](![alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
 
-![Alt tag](![alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
 
-![Alt tag](![alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d3.png)
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d3.png)
 
-![Alt tag](![alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d4.png)        
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d4.png)        
 
 
 LPMT - Little Projection-Mapping Tool
