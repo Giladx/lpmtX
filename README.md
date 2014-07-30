@@ -11,6 +11,7 @@ new stuff:
 *gui has been removed from the first display 
 
 todo list(7/14)
+----------------
 
 *undo/redo history
 
