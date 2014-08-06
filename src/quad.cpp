@@ -297,12 +297,13 @@
     animaRotateZ = 0;
 
 
-    if(animaBg){
+    if(animaBg)
+    {
     ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     glShadeModel(GL_SMOOTH); //some model / light stuff
     light.enable();
     ofEnableSeparateSpecularLight();
-
     }
 }
 
@@ -389,21 +390,19 @@ void quad::update()
 
 }
         // animation -----------------------------------------------------------------
-        if(animaBg){
+
+        if(animaBg)
+        {
         model.update();
 
-        if(bAnimateMouse) {
+        /*if(bAnimateMouse)
+        {
         model.setPositionForAllAnimations(animationPosition);
         }
-
+*/
         mesh = model.getCurrentAnimatedMesh(0);
-	    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-	    //glEnable(GL_DEPTH_TEST);
-	    glShadeModel(GL_SMOOTH); //some model / light stuff
-        //light.enable();
-        //ofEnableSeparateSpecularLight();
 
-}
+         }
         // slideshow -----------------------------------------------------------------
 
         if (slideshowBg)
@@ -444,7 +443,7 @@ void quad::update()
             slideshowBg = True;
         }
 
-        // -------------------------
+        // ----------------------------------------------------------------------------
         // finds kinect blobs with OpenCV
         #ifdef WITH_KINECT
         if (kinectBg)
@@ -656,44 +655,45 @@ void quad::draw()
 
             }
         //--------------------------animation---------------------------
-            if(animaBg){
+        if(animaBg){
 
             ofPushMatrix();
             model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
             ofTranslate(-model.getPosition().x+1280, -model.getPosition().y+1600);
 
-            ofRotate(animationRotation, 0, 1, 0);
+            //ofRotate(animationRotation, 0, 1, 0);
             ofScale(animaScalex, animaScaley, animaScalez);
 
             ofRotateX(animaRotateX);
             ofRotateY(animaRotateY);
             ofRotateZ(animaRotateZ);
+            model.playAllAnimations();
+            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
 
+            if(!bAnimate)
+            {
+            model.setPausedForAllAnimations(true);
+            model.stopAllAnimations();
+            }
+            /*else if(bAnimate)
+            {
+            model.playAllAnimations();
+            model.setPausedForAllAnimations(false);
+            }
+            */
             ofTranslate(-model.getPosition().x, -model.getPosition().y, 0);
+            if(textureModes == 0) model.drawFaces();
+            else if(textureModes == 1) model.drawWireframe();
+            else if(textureModes == 2) model.drawVertices();
 
             ofPopMatrix();
             glPushAttrib(GL_ALL_ATTRIB_BITS);
             glPushClientAttrib(GL_CLIENT_ALL_ATTRIB_BITS);
             glEnable(GL_NORMALIZE);
 
-            if(textureModes == 0) model.drawFaces();
-            else if(textureModes == 1) model.drawWireframe();
-            else if(textureModes == 2) model.drawVertices();
 
 
             ofPushMatrix();
-             bAnimate = !bAnimate;
-            if(!bAnimate)
-            {
-            model.setPausedForAllAnimations(true);
-            }
-            else if(bAnimate)
-            {
-            //model.loadModel("astroBoy_walk.dae", true);
-            model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-            model.playAllAnimations();
-            }
-
             ofxAssimpMeshHelper & meshHelper = model.getMeshHelper(0);
 
             ofMultMatrix(model.getModelMatrix());
@@ -704,7 +704,6 @@ void quad::draw()
 
             texture.bind();
             material.begin();
-            //mesh.drawWireframe();
             material.end();
             texture.unbind();
 	        ofPopMatrix();
