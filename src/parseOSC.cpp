@@ -2443,6 +2443,7 @@ void testApp::parseOsc()
 
         //surface/0/mask
         else if (splittedAdress[2]=="timeline"){
+
             if (splittedAdress[3]=="color"){
             // argument is int32
                 int osc_quad_bTimelineColor = m.getArgAsInt32( 0 );
@@ -2499,6 +2500,99 @@ void testApp::parseOsc()
             }
         // end timeline
         }
+
+        // /surface/0/edgeblend
+        else if (splittedAdress[2]=="edgeblend"){
+
+                // /surface/0/edgeblend/show
+                if (splittedAdress[3]=="show")
+                {
+                    // argument is int32
+                    int osc_quad_edgeBlendBool = m.getArgAsInt32( 0 );
+                    if(osc_quad_edgeBlendBool == 0)
+                    {
+                        quads[surfaceIndex].edgeBlendBool = false;
+                    }
+                    else if(osc_quad_edgeBlendBool == 1)
+                    {
+                        quads[surfaceIndex].edgeBlendBool = true;
+                    }
+
+                }
+
+                else if (splittedAdress[3]=="power")
+                {
+                    // argument is float
+                    float osc_quad_edgeBlendExponent = m.getArgAsFloat( 0 );
+                    quads[surfaceIndex].edgeBlendExponent = osc_quad_edgeBlendExponent;
+                }
+
+                else if (splittedAdress[3]=="gamma")
+                {
+                    // argument is float
+                    float osc_quad_edgeBlendGamma = m.getArgAsFloat( 0 );
+                    quads[surfaceIndex].edgeBlendGamma = osc_quad_edgeBlendGamma;
+                }
+
+                else if (splittedAdress[3]=="luminance")
+                {
+                    // argument is float
+                    float osc_quad_edgeBlendLuminance = m.getArgAsFloat( 0 );
+                    quads[surfaceIndex].edgeBlendLuminance = osc_quad_edgeBlendLuminance;
+                }
+
+                else if (splittedAdress[3]=="amount")
+                {
+
+                    if (splittedAdress.size()<5)
+                    {
+
+                         // argument is ffff
+                        float osc_quad_edgeBlendAmountTop = m.getArgAsFloat( 0 );
+                        float osc_quad_edgeBlendAmountDx = m.getArgAsFloat( 1 );
+                        float osc_quad_edgeBlendAmountBottom = m.getArgAsFloat( 2 );
+                        float osc_quad_edgeBlendAmountSin = m.getArgAsFloat( 3 );
+                        quads[surfaceIndex].edgeBlendAmountTop = osc_quad_edgeBlendAmountTop;
+                        quads[surfaceIndex].edgeBlendAmountDx = osc_quad_edgeBlendAmountDx;
+                        quads[surfaceIndex].edgeBlendAmountBottom = osc_quad_edgeBlendAmountBottom;
+                        quads[surfaceIndex].edgeBlendAmountSin = osc_quad_edgeBlendAmountSin;
+                    }
+                    else if (splittedAdress[4]=="top")
+                    {
+                        // argument is float
+                        float osc_quad_edgeBlendAmountTop = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].edgeBlendAmountTop = osc_quad_edgeBlendAmountTop;
+                    }
+
+                    else if (splittedAdress[4]=="bottom")
+                    {
+                        // argument is float
+                        float osc_quad_edgeBlendAmountBottom = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].edgeBlendAmountBottom = osc_quad_edgeBlendAmountBottom;
+                    }
+
+                    else if (splittedAdress[4]=="right")
+                    {
+                        // argument is float
+                        float osc_quad_edgeBlendAmountDx = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].edgeBlendAmountDx = osc_quad_edgeBlendAmountDx;
+                    }
+
+                    else if (splittedAdress[4]=="left")
+                    {
+                        // argument is float
+                        float osc_quad_edgeBlendAmountSin = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].edgeBlendAmountSin = osc_quad_edgeBlendAmountSin;
+                    }
+
+                // end amount
+                }
+        //end edgeblend
+        }
+
+
+
+
 //end surface
     }
 
