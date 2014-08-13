@@ -2441,7 +2441,7 @@ void testApp::parseOsc()
         // end mask
         }
 
-        //surface/0/mask
+        //surface/0/timeline
         else if (splittedAdress[2]=="timeline"){
 
             if (splittedAdress[3]=="color"){
@@ -2590,8 +2590,617 @@ void testApp::parseOsc()
         //end edgeblend
         }
 
+		// /surface/0/slideshow
+		else if (splittedAdress[2]=="slideshow"){
+
+			if (splittedAdress.size()<4)
+			{
+				quads[surfaceIndex].slideshowBg = !quads[surfaceIndex].slideshowBg;
+			}
+			// surface/0/slideshow/show
+			else if (splittedAdress[3]=="show")
+			{
+				// argument is int32
+				int osc_quad_slideshowBg = m.getArgAsInt32( 0 );
+				if(osc_quad_slideshowBg == 0)
+				{
+					quads[surfaceIndex].slideshowBg = false;
+				}
+				else if(osc_quad_slideshowBg == 1)
+				{
+					quads[surfaceIndex].slideshowBg = true;
+				}
+
+			}
+			// surface/0/slideshow/folder
+			else if (splittedAdress[3]=="folder")
+			{
+				// argument is int32
+				int osc_quad_bgSlideshow = m.getArgAsInt32( 0 );
+				if(osc_quad_bgSlideshow <= slideshowFolders.size())
+				{
+					quads[surfaceIndex].bgSlideshow = osc_quad_bgSlideshow;
+				}
+
+			}
+			// surface/0/slideshow/fit
+			else if (splittedAdress[3]=="fit")
+			{
+				// argument is int32
+				int osc_quad_slideFit = m.getArgAsInt32( 0 );
+				if(osc_quad_slideFit == 0)
+				{
+					quads[surfaceIndex].slideFit = false;
+				}
+				else if(osc_quad_slideFit == 1)
+				{
+					quads[surfaceIndex].slideFit = true;
+				}
+
+			}
+			// surface/0/slideshow/keep_aspect
+			else if (splittedAdress[3]=="keep_aspect")
+			{
+				// argument is int32
+				int osc_quad_slideKeepAspect = m.getArgAsInt32( 0 );
+				if(osc_quad_slideKeepAspect == 0)
+				{
+					quads[surfaceIndex].slideKeepAspect = false;
+				}
+				else if(osc_quad_slideKeepAspect == 1)
+				{
+					quads[surfaceIndex].slideKeepAspect = true;
+				}
+
+			}
+			// surface/0/slideshow/duration
+			else if (splittedAdress[3]=="duration")
+			{
+				// arguments are f
+				float osc_quad_slideshowSpeed = m.getArgAsFloat( 0 );
+				quads[surfaceIndex].slideshowSpeed = osc_quad_slideshowSpeed;
+
+			}
 
 
+
+		//end slideshow
+		}
+
+		// /surface/0/blendmodes
+		else if (splittedAdress[2]=="blendmodes"){
+
+			// /surface/0/blendmodes/show
+			if (splittedAdress[3]=="show")
+			{
+				// argument is int32
+				int osc_quad_bBlendModes = m.getArgAsInt32( 0 );
+				if(osc_quad_bBlendModes == 0)
+				{
+					quads[surfaceIndex].bBlendModes = false;
+				}
+				else if(osc_quad_bBlendModes == 1)
+				{
+					quads[surfaceIndex].bBlendModes = true;
+				}
+			}
+			else if (splittedAdress[3]=="mode")
+			{
+				// argument is int32
+				int osc_quad_blendMode = m.getArgAsInt32( 0 );
+				if(osc_quad_blendMode < 4)
+				{
+					quads[surfaceIndex].blendMode = osc_quad_blendMode;
+				}
+			}
+
+		// end blendmodes
+		}
+
+		// /surface/0/deform
+		else if (splittedAdress[2]=="deform"){
+
+			// /surface/0/deform/show
+			if (splittedAdress[3]=="show")
+			{
+				// argument is int32
+				int osc_quad_bDeform = m.getArgAsInt32( 0 );
+				if(osc_quad_bDeform == 0)
+				{
+					quads[surfaceIndex].bDeform = false;
+				}
+				else if(osc_quad_bDeform == 1)
+				{
+					quads[surfaceIndex].bDeform = true;
+				}
+			}
+
+			// /surface/0/deform/bezier
+			else if (splittedAdress[3]=="bezier")
+			{
+				if (splittedAdress.size()<5)
+				{
+					// argument is int32
+					int osc_quad_bBezier = m.getArgAsInt32( 0 );
+					if(osc_quad_bBezier == 0)
+					{
+						quads[surfaceIndex].bBezier = false;
+					}
+					else if(osc_quad_bBezier == 1)
+					{
+						quads[surfaceIndex].bBezier = true;
+					}
+				}
+				// surface/0/deform/bezier/spherize/
+				else if (splittedAdress[4]=="spherize")
+				{
+					if (splittedAdress[5]=="light")
+					{
+						// no argument
+						quadBezierSpherize(surfaceIndex);
+					}
+					else if (splittedAdress[5]=="strong")
+					{
+						// no argument
+						quadBezierSpherizeStrong(surfaceIndex);
+					}
+				}
+				// surface/0/deform/bezier/reset
+				else if (splittedAdress[4]=="reset")
+				{
+					// no argument
+					quadBezierReset(surfaceIndex);
+				}
+
+
+			}
+
+			// /surface/0/deform/grid
+			else if (splittedAdress[3]=="grid")
+			{
+				if (splittedAdress.size()<5)
+				{
+					// argument is int32
+					int osc_quad_bGrid = m.getArgAsInt32( 0 );
+					if(osc_quad_bGrid == 0)
+					{
+						quads[surfaceIndex].bGrid = false;
+					}
+					else if(osc_quad_bGrid == 1)
+					{
+						quads[surfaceIndex].bGrid = true;
+					}
+				}
+				// surface/0/deform/bezier/grid/rows
+				else if (splittedAdress[4]=="rows")
+				{
+						 // argument is int32
+					int osc_quad_gridRows = m.getArgAsInt32( 0 );
+					if(osc_quad_gridRows >= 2 && osc_quad_gridRows <= 15)
+					{
+						quads[surfaceIndex].gridRows = osc_quad_gridRows;
+					}
+				}
+
+				// surface/0/deform/bezier/grid/columns
+				else if (splittedAdress[4]=="columns")
+				{
+					// argument is int32
+					int osc_quad_gridColumns = m.getArgAsInt32( 0 );
+					if(osc_quad_gridColumns >= 2 && osc_quad_gridColumns <= 20)
+					{
+						quads[surfaceIndex].gridColumns = osc_quad_gridColumns;
+					}
+				}
+
+
+			}
+
+		// end deform
+		}
+
+		// /surface/0/placement
+		else if (splittedAdress[2]=="placement"){
+
+			if (splittedAdress.size()<4)
+			{
+				// argument is int32 int32
+				int osc_quad_quadDispX = m.getArgAsInt32( 0 );
+				int osc_quad_quadDispY = m.getArgAsInt32( 1 );
+				quads[surfaceIndex].quadDispX = osc_quad_quadDispX;
+				quads[surfaceIndex].quadDispY = osc_quad_quadDispY;
+			}
+
+			// /surface/0/placement/x
+			else if (splittedAdress[3]=="x")
+			{
+				// argument is int32
+				int osc_quad_quadDispX = m.getArgAsInt32( 0 );
+				quads[surfaceIndex].quadDispX = osc_quad_quadDispX;
+			}
+
+			// /surface/0/placement/y
+			else if (splittedAdress[3]=="y")
+			{
+				// argument is int32
+				int osc_quad_quadDispY = m.getArgAsInt32( 0 );
+				quads[surfaceIndex].quadDispY = osc_quad_quadDispY;
+			}
+
+			// /surface/0/placement/w
+			else if (splittedAdress[3]=="w")
+			{
+				// argument is int32
+				int osc_quad_quadW = m.getArgAsInt32( 0 );
+				quads[surfaceIndex].quadW = osc_quad_quadW;
+			}
+
+			// /surface/0/placement/h
+			else if (splittedAdress[3]=="h")
+			{
+				// argument is int32
+				int osc_quad_quadH = m.getArgAsInt32( 0 );
+				quads[surfaceIndex].quadH = osc_quad_quadH;
+			}
+
+			// /surface/0/placement/dimensions
+			else if (splittedAdress[3]=="dimensions")
+			{
+				// argument is int32 int32
+				int osc_quad_quadW = m.getArgAsInt32( 0 );
+				int osc_quad_quadH = m.getArgAsInt32( 1 );
+				quads[surfaceIndex].quadW = osc_quad_quadW;
+				quads[surfaceIndex].quadH = osc_quad_quadH;
+			}
+
+			// /surface/0/placement/reset
+			else if (splittedAdress[3]=="reset")
+			{
+				// no argument
+				quadDimensionsReset(surfaceIndex);
+				quadPlacementReset(surfaceIndex);
+			}
+
+		// end placement
+		}
+
+		// /surface/0/crop
+		else if (splittedAdress[2]=="crop"){
+
+			//surface/0/crop/rectangular
+			if (splittedAdress[3]=="rectangular")
+			{
+				//surface/0/crop/rectangular/top
+				if (splittedAdress[4]=="top")
+				{
+					// arguments are f
+					float crop_top = m.getArgAsFloat(0);
+					quads[surfaceIndex].crop[0] = crop_top;
+				}
+
+				//surface/0/crop/rectangular/bottom
+				else if (splittedAdress[4]=="bottom")
+				{
+					// arguments are f
+					float crop_bottom = m.getArgAsFloat(0);
+					quads[surfaceIndex].crop[2] = crop_bottom;
+				}
+
+				//surface/0/crop/rectangular/right
+				else if (splittedAdress[4]=="right")
+				{
+					// arguments are f
+					float crop_right = m.getArgAsFloat(0);
+					quads[surfaceIndex].crop[1] = crop_right;
+				}
+
+				//surface/0/crop/rectangular/left
+				else if (splittedAdress[4]=="left")
+				{
+					// arguments are f
+					float crop_left = m.getArgAsFloat(0);
+					quads[surfaceIndex].crop[3] = crop_left;
+				}
+
+			}
+
+			//surface/0/crop/circular
+			else if (splittedAdress[3]=="circular")
+			{
+				//surface/0/crop/circular/x
+				if (splittedAdress[4]=="x")
+				{
+					// arguments are f
+					float crop_center_x = m.getArgAsFloat(0);
+					quads[surfaceIndex].circularCrop[0] = crop_center_x;
+				}
+
+				//surface/0/crop/circular/y
+				else if (splittedAdress[4]=="y")
+				{
+					// arguments are f
+					float crop_center_y = m.getArgAsFloat(0);
+					quads[surfaceIndex].circularCrop[1] = crop_center_y;
+				}
+
+				//surface/0/crop/circular/radius
+				else if (splittedAdress[4]=="radius")
+				{
+					// arguments are f
+					float crop_radius = m.getArgAsFloat(0);
+					quads[activeQuad].circularCrop[2] = crop_radius;
+				}
+
+			}
+
+		// end crop
+		}
+
+		// /surface/0/kinect
+		else if (splittedAdress[2]=="kinect"){
+
+			// /surface/0/kinect
+			if (splittedAdress.size()<4)
+			{
+                quads[surfaceIndex].kinectBg= !quads[surfaceIndex].kinectBg;
+			}
+
+			// /surface/0/kinect/show
+			else if (splittedAdress[3]=="show")
+			{
+			    if (splittedAdress.size()<5)
+                {
+                    // argument is int32
+                    int osc_quad_kinectBg = m.getArgAsInt32( 0 );
+                    if(osc_quad_kinectBg == 0)
+                    {
+                        quads[surfaceIndex].kinectBg = false;
+                    }
+                    else if(osc_quad_kinectBg == 1)
+                    {
+                        quads[surfaceIndex].kinectBg = true;
+                    }
+                }
+                // /surface/0/kinect/show/image
+                else if (splittedAdress[4]=="image")
+                {
+                    // argument is int32
+                    int osc_quad_kinectImg = m.getArgAsInt32( 0 );
+                    if(osc_quad_kinectImg == 0)
+                    {
+                        quads[surfaceIndex].kinectImg = false;
+                    }
+                    else if(osc_quad_kinectImg == 1)
+                    {
+                        quads[surfaceIndex].kinectImg = true;
+                    }
+                }
+                // /surface/0/kinect/show/grayscale
+                else if (splittedAdress[4]=="grayscale")
+                {
+                      // argument is int32
+                    int osc_quad_getKinectGrayImage = m.getArgAsInt32( 0 );
+                    if(osc_quad_getKinectGrayImage == 0)
+                    {
+                        quads[surfaceIndex].getKinectGrayImage = false;
+                    }
+                    else if(osc_quad_getKinectGrayImage == 1)
+                    {
+                        quads[surfaceIndex].getKinectGrayImage = true;
+                    }
+                }
+
+			}
+
+			// /surface/0/kinect/open
+			else if (splittedAdress[3]=="open")
+			{
+                // no argument
+                kinect.kinect.open();
+			}
+
+			// /surface/0/kinect/close
+			else if (splittedAdress[3]=="close")
+			{
+                // no argument
+                kinect.kinect.setCameraTiltAngle(0);
+                kinect.kinect.close();
+			}
+
+			// /surface/0/kinect/mask
+			else if (splittedAdress[3]=="mask")
+			{
+                // argument is int32
+                int osc_quad_kinectMask = m.getArgAsInt32( 0 );
+                if(osc_quad_kinectMask == 0)
+                {
+                    quads[surfaceIndex].kinectMask = false;
+                }
+                else if(osc_quad_kinectMask == 1)
+                {
+                    quads[surfaceIndex].kinectMask = true;
+                }
+			}
+
+			// /surface/0/kinect/mult|scale
+			else if ((splittedAdress[3]=="mult")||(splittedAdress[3]=="scale"))
+			{
+			    if (splittedAdress[4]=="x")
+                {
+                    // arguments are f
+                    float kinect_mult_x = m.getArgAsFloat( 0 );
+                    quads[surfaceIndex].kinectMultX = kinect_mult_x;
+                }
+                else if (splittedAdress[4]=="y")
+                {
+                    // arguments are f
+                    float kinect_mult_y = m.getArgAsFloat( 0 );
+                    quads[activeQuad].kinectMultY = kinect_mult_y;
+                }
+
+			}
+
+			// /surface/0/kinect/threshold
+			else if (splittedAdress[3]=="threshold")
+			{
+                if (splittedAdress[4]=="near")
+                {
+                    // arguments are int32
+                    int osc_quad_nearDepthTh = m.getArgAsInt32( 0 );
+                    quads[surfaceIndex].nearDepthTh = osc_quad_nearDepthTh;
+                }
+                else if (splittedAdress[4]=="far")
+                {
+                    // arguments are int32
+                    int osc_quad_farDepthTh = m.getArgAsInt32( 0 );
+                    quads[surfaceIndex].farDepthTh = osc_quad_farDepthTh;
+                }
+			}
+
+			// /surface/0/kinect/angle
+			else if (splittedAdress[3]=="angle")
+			{
+                // argument is int32
+                int osc_quad_kinectAngle = m.getArgAsInt32( 0 );
+                if(osc_quad_kinectAngle >= -30 && osc_quad_kinectAngle <= 30)
+                {
+                    kinect.kinectAngle = osc_quad_kinectAngle;
+                }
+			}
+
+			// /surface/0/kinect/blur
+			else if (splittedAdress[3]=="blur")
+			{
+                // argument is int32
+                int osc_quad_kinectBlur = m.getArgAsInt32( 0 );
+                if(osc_quad_kinectBlur >= 0 && osc_quad_kinectBlur <= 10)
+                {
+                    quads[surfaceIndex].kinectBlur = osc_quad_kinectBlur;
+                }
+			}
+
+			// /surface/0/kinect/contour
+			else if (splittedAdress[3]=="contour")
+			{
+                if (splittedAdress.size()<5)
+                {
+                     // argument is int32
+                    int osc_quad_getKinectContours = m.getArgAsInt32( 0 );
+                    if(osc_quad_getKinectContours == 0)
+                    {
+                        quads[surfaceIndex].getKinectContours = false;
+                    }
+                    else if(osc_quad_getKinectContours == 1)
+                    {
+                        quads[surfaceIndex].getKinectContours = true;
+                    }
+                }
+                // /surface/0/kinect/contour/curves
+                else if (splittedAdress[4]=="curves")
+                {
+                    // argument is int32
+                    int osc_quad_kinectContourCurved = m.getArgAsInt32( 0 );
+                    if(osc_quad_kinectContourCurved == 0)
+                    {
+                        quads[surfaceIndex].kinectContourCurved = false;
+                    }
+                    else if(osc_quad_kinectContourCurved == 1)
+                    {
+                        quads[surfaceIndex].kinectContourCurved = true;
+                    }
+                }
+                // /surface/0/kinect/contour/smooth
+                else if (splittedAdress[4]=="smooth")
+                {
+                     // argument is int32
+                    int osc_quad_kinectContourSmooth = m.getArgAsInt32( 0 );
+                    if(osc_quad_kinectContourSmooth >= 0 && osc_quad_kinectContourSmooth <= 20)
+                    {
+                        quads[surfaceIndex].kinectContourSmooth = osc_quad_kinectContourSmooth;
+                    }
+                }
+                // /surface/0/kinect/contour/simplify
+                else if (splittedAdress[4]=="simplify")
+                {
+                    // argument is f
+                    float osc_quad_kinectContourSimplify = m.getArgAsFloat( 0 );
+                    quads[surfaceIndex].kinectContourSimplify = osc_quad_kinectContourSimplify;
+                }
+                // /surface/0/kinect/contour/area
+                else if (splittedAdress[4]=="area")
+                {
+                    if (splittedAdress.size()<6)
+                    {
+                          // argument is f f
+                        float osc_quad_kinectContourMin = m.getArgAsFloat( 0 );
+                        float osc_quad_kinectContourMax = m.getArgAsFloat( 1 );
+                        quads[surfaceIndex].kinectContourMin = osc_quad_kinectContourMin;
+                        quads[surfaceIndex].kinectContourMax = osc_quad_kinectContourMax;
+                    }
+                    // /surface/0/kinect/contour/area/min
+                    else if (splittedAdress[5]=="min")
+                    {
+                        // argument is f
+                        float osc_quad_kinectContourMin = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].kinectContourMin = osc_quad_kinectContourMin;
+                    }
+                    // /surface/0/kinect/contour/area/max
+                    else if (splittedAdress[5]=="max")
+                    {
+                        // argument is f
+                        float osc_quad_kinectContourMin = m.getArgAsFloat( 0 );
+                        quads[surfaceIndex].kinectContourMin = osc_quad_kinectContourMin;
+                    }
+                }
+			}
+
+			// /surface/0/kinect/color
+			else if (splittedAdress[3]=="color")
+			{
+                if (splittedAdress.size()<5)
+                {
+                    // arguments are ffff
+                    float kinect_color_r = m.getArgAsFloat( 0 );
+                    float kinect_color_g = m.getArgAsFloat( 1 );
+                    float kinect_color_b = m.getArgAsFloat( 2 );
+                    float kinect_color_a = m.getArgAsFloat( 3 );
+                    quads[surfaceIndex].kinectColorize.r = kinect_color_r;
+                    quads[surfaceIndex].kinectColorize.g = kinect_color_g;
+                    quads[surfaceIndex].kinectColorize.b = kinect_color_b;
+                    quads[surfaceIndex].kinectColorize.a = kinect_color_a;
+                }
+                // /surface/0/kinect/color/1
+                else if (splittedAdress[4]=="1")
+                {
+                    // arguments are f
+                    float kinect_color_r = m.getArgAsFloat( 0 );
+                    quads[activeQuad].kinectColorize.r = kinect_color_r;
+                }
+                // /surface/0/kinect/color/2
+                else if (splittedAdress[4]=="2")
+                {
+                    // arguments are f
+                    float kinect_color_g = m.getArgAsFloat( 0 );
+                    quads[activeQuad].kinectColorize.g = kinect_color_g;
+                }
+                // /surface/0/kinect/color/3
+                else if (splittedAdress[4]=="3")
+                {
+                    // arguments are f
+                    float kinect_color_b = m.getArgAsFloat( 0 );
+                    quads[activeQuad].kinectColorize.b = kinect_color_b;
+                }
+                // /surface/0/kinect/color/1
+                else if (splittedAdress[4]=="4")
+                {
+                    // arguments are f
+                    float kinect_color_a = m.getArgAsFloat( 0 );
+                    quads[activeQuad].kinectColorize.a = kinect_color_a;
+                }
+			}
+
+		// end kinect
+		}
 
 //end surface
     }
