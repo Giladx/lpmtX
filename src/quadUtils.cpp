@@ -77,6 +77,7 @@ void quad::loadVideoFromFile(string videoName, string videoPath)
 
     video.play();
     loadedVideo = videoName;
+
 }
 
 // a func for reading a dir content to a vector of strings

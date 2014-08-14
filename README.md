@@ -1,3 +1,37 @@
+LPMTX is a new experiment with hva LPMT
+-----------------------------------------
+new stuff:
+
+*loads 3D Models *(I still have depth configuration problem).
+
+*new global grid (for multiprojection calibration)
+
+*new Display Number Banner (multiprojectionID)
+
+*gui has been removed from the first display 
+
+Todo  (7/14)
+----
+
+*undo/redo history
+
+*more shaders
+
+*and I have more plans ...
+
+Screenshots:
+------------
+model in Wire texture mode loaded to quad ... 
+
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
+
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
+
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d3.png)
+
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d4.png)        
+
+
 LPMT - Little Projection-Mapping Tool
 ---------------------------------------
 (C) 2011, HVA - Hermanitos Verdes Architetti / Modena, Italy

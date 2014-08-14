@@ -87,6 +87,16 @@ public:
     bool bAnimate;
     bool bAnimateMouse;
     float animationPosition;
+    float animationRotation;
+    float animaScalex;
+    float animaScaley;
+    float animaScalez;
+    float animaRotateX;
+    float animaRotateY;
+    float animaRotateZ;
+    int textureModes;
+
+
 
     ofMesh mesh;
     ofLight	light;
@@ -140,6 +150,9 @@ public:
     bool videoLoop;
     bool videoGreenscreen;
     bool animaBg;
+    bool animaFull;
+    bool animaWire;
+    bool animaDots;
     bool sharedVideoBg;
     int sharedVideoNum;
     int sharedVideoId;
