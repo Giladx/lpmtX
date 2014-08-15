@@ -1106,6 +1106,36 @@ void testApp::parseOsc()
         }
     }
 
+    // video fit
+    else if ( m.getAddress() == "/active/video/fit" )
+    {
+        // argument is int32
+        int osc_quad_videoFit = m.getArgAsInt32( 0 );
+        if(osc_quad_videoFit == 0)
+        {
+            quads[activeQuad].videoFit = false;
+        }
+        else if(osc_quad_videoFit == 1)
+        {
+            quads[activeQuad].videoFit = true;
+        }
+    }
+
+    // video keep aspect ration
+    else if ( m.getAddress() == "/active/video/keepaspect" )
+    {
+        // argument is int32
+        int osc_quad_videoKeepAspectRatio = m.getArgAsInt32( 0 );
+        if(osc_quad_videoKeepAspectRatio == 0)
+        {
+            quads[activeQuad].videoKeepAspect = false;
+        }
+        else if(osc_quad_videoKeepAspectRatio == 1)
+        {
+            quads[activeQuad].videoKeepAspect = true;
+        }
+    }
+
     // video greenscreen
     else if ( m.getAddress() == "/active/video/greenscreen" )
     {
@@ -1268,6 +1298,36 @@ void testApp::parseOsc()
         else if(osc_quad_camGreenscreen == 1)
         {
             quads[activeQuad].camGreenscreen = true;
+        }
+    }
+
+    // cam fit
+    else if ( m.getAddress() == "/active/cam/fit" )
+    {
+        // argument is int32
+        int osc_quad_camFit = m.getArgAsInt32( 0 );
+        if(osc_quad_camFit == 0)
+        {
+            quads[activeQuad].camFit = false;
+        }
+        else if(osc_quad_camFit == 1)
+        {
+            quads[activeQuad].camFit = true;
+        }
+    }
+
+    // cam keep aspect ration
+    else if ( m.getAddress() == "/active/cam/keepaspect" )
+    {
+        // argument is int32
+        int osc_quad_camKeepAspectRatio = m.getArgAsInt32( 0 );
+        if(osc_quad_camKeepAspectRatio == 0)
+        {
+            quads[activeQuad].camKeepAspect = false;
+        }
+        else if(osc_quad_camKeepAspectRatio == 1)
+        {
+            quads[activeQuad].camKeepAspect = true;
         }
     }
 
@@ -1975,6 +2035,33 @@ void testApp::parseOsc()
                 }
 
             }
+            // /surface/0/cam/fit
+            else if (splittedAdress[3]=="fit"){
+                // argument is int32
+                int osc_quad_camFit = m.getArgAsInt32( 0 );
+                if(osc_quad_camFit == 0)
+                {
+                    quads[surfaceIndex].camFit = false;
+                }
+                else if(osc_quad_camFit == 1)
+                {
+                    quads[surfaceIndex].camFit = true;
+                }
+            }
+
+            // /surface/0/video/keepaspect
+            else if (splittedAdress[3]=="keepaspect"){
+                // argument is int32
+                int osc_quad_camKeepAspect = m.getArgAsInt32( 0 );
+                if(osc_quad_camKeepAspect == 0)
+                {
+                    quads[surfaceIndex].camKeepAspect = false;
+                }
+                else if(osc_quad_camKeepAspect == 1)
+                {
+                    quads[surfaceIndex].camKeepAspect = true;
+                }
+            }
 
 
         //end cam
@@ -2169,6 +2256,34 @@ void testApp::parseOsc()
                 if((osc_quad_sharedVideoNum > 0)&&(osc_quad_sharedVideoNum < 9))
                 {
                     quads[surfaceIndex].sharedVideoNum = osc_quad_sharedVideoNum;
+                }
+            }
+
+            // /surface/0/video/fit
+            else if (splittedAdress[3]=="fit"){
+                // argument is int32
+                int osc_quad_videoFit = m.getArgAsInt32( 0 );
+                if(osc_quad_videoFit == 0)
+                {
+                    quads[surfaceIndex].videoFit = false;
+                }
+                else if(osc_quad_videoFit == 1)
+                {
+                    quads[surfaceIndex].videoFit = true;
+                }
+            }
+
+            // /surface/0/video/keepaspect
+            else if (splittedAdress[3]=="keepaspect"){
+                // argument is int32
+                int osc_quad_videoKeepAspect = m.getArgAsInt32( 0 );
+                if(osc_quad_videoKeepAspect == 0)
+                {
+                    quads[surfaceIndex].videoKeepAspect = false;
+                }
+                else if(osc_quad_videoKeepAspect == 1)
+                {
+                    quads[surfaceIndex].videoKeepAspect = true;
                 }
             }
         //end video
