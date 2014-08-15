@@ -756,6 +756,32 @@ void quad::draw()
 
         if (sharedVideoBg)
         {
+            if (videoFit)
+            {
+                float fitX = float(ofGetWidth()/vids[sharedVideoId].getWidth());
+                float fitY = float(ofGetHeight()/vids[sharedVideoId].getHeight());
+                if (videoKeepAspect)
+                    {
+                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                        if (fitX >= fitY)
+                        {
+                            videoMultX = fitY;
+                            videoMultX = fitY;
+                        }
+                        else
+                        {
+                            videoMultX = fitX;
+                            videoMultY = fitX;
+                        }
+                    }
+                    // this is for stretching image to whole quad size
+                    else
+                    {
+                        videoMultX = fitX;
+                        videoMultY = fitY;
+                    }
+
+            }
             if (videoHFlip || videoVFlip)
             {
                 glPushMatrix();
@@ -815,8 +841,8 @@ void quad::draw()
         {
             if (camFit)
             {
-                float fitX = ofGetWidth()/camWidth;
-                float fitY = ofGetHeight()/camHeight;
+                float fitX = float(ofGetWidth()/cams[camNumber].getWidth());
+                float fitY = float(ofGetHeight()/cams[camNumber].getHeight());
                 if (camKeepAspect)
                     {
                         // we calculate the factor for fitting the image in quad respecting img aspect ratio
