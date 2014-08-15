@@ -465,6 +465,8 @@ void testApp::setup()
         gui.addButton("load video", bVideoLoad);
         gui.addSlider("video scale X", quads[i].videoMultX, 0.1, 10.0);
         gui.addSlider("video scale Y", quads[i].videoMultY, 0.1, 10.0);
+        gui.addToggle("fit into quad", quads[i].videoFit);
+        gui.addToggle("keep aspect ratio",quads[i].videoKeepAspect);
         gui.addToggle("H mirror", quads[i].videoHFlip);
         gui.addToggle("V mirror", quads[i].videoVFlip);
         gui.addColorPicker("video color", &quads[i].videoColorize.r);
@@ -484,6 +486,8 @@ void testApp::setup()
             }
             gui.addSlider("camera scale X", quads[i].camMultX, 0.1, 10.0);
             gui.addSlider("camera scale Y", quads[i].camMultY, 0.1, 10.0);
+            gui.addToggle("fit into quad", quads[i].camFit);
+            gui.addToggle("keep aspect ratio",quads[i].camKeepAspect);
             gui.addToggle("H mirror", quads[i].camHFlip);
             gui.addToggle("V mirror", quads[i].camVFlip);
             gui.addColorPicker("cam color", &quads[i].camColorize.r);

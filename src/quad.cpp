@@ -124,6 +124,7 @@
     camNumber = prevCamNumber = 0;
     camMultX = 1;
     camMultY = 1;
+    camFit = False;
     if (camAvailable)
     {
         setupCamera();
@@ -137,6 +138,7 @@
     videoSpeed = 1.0;
     previousSpeed = 1.0;
     videoVolume = 0;
+    videoFit = False;
 
     currentSlide = 0;
     slideshowSpeed = 1.0;
@@ -565,6 +567,32 @@ void quad::draw()
         //if a video content is chosen it draws it
         if (videoBg)
         {
+            if (videoFit)
+            {
+                float fitX = ofGetWidth()/video.getWidth();
+                float fitY = ofGetHeight()/video.getHeight();
+                if (videoKeepAspect)
+                    {
+                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                        if (fitX >= fitY)
+                        {
+                            videoMultX = fitY;
+                            videoMultX = fitY;
+                        }
+                        else
+                        {
+                            videoMultX = fitX;
+                            videoMultY = fitX;
+                        }
+                    }
+                    // this is for stretching image to whole quad size
+                    else
+                    {
+                        videoMultX = fitX;
+                        videoMultY = fitY;
+                    }
+
+            }
             if (videoHFlip || videoVFlip)
             {
                 glPushMatrix();
@@ -657,7 +685,7 @@ void quad::draw()
                     }
 
 
-            }
+        }
         //--------------------------animation---------------------------
         if(animaBg){
 
@@ -785,6 +813,32 @@ void quad::draw()
         // camera stuff
         if (camAvailable && camBg && cams[camNumber].width > 0)
         {
+            if (camFit)
+            {
+                float fitX = ofGetWidth()/camWidth;
+                float fitY = ofGetHeight()/camHeight;
+                if (camKeepAspect)
+                    {
+                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                        if (fitX >= fitY)
+                        {
+                            camMultX = fitY;
+                            camMultX = fitY;
+                        }
+                        else
+                        {
+                            camMultX = fitX;
+                            camMultY = fitX;
+                        }
+                    }
+                    // this is for stretching image to whole quad size
+                    else
+                    {
+                        camMultX = fitX;
+                        camMultY = fitY;
+                    }
+
+            }
             if (camHFlip || camVFlip)
             {
                 glPushMatrix();
