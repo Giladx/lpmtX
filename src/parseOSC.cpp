@@ -1331,6 +1331,13 @@ void testApp::parseOsc()
         }
     }
 
+    else if ( m.getAddress() == "/active/cam/num" )
+    {
+        // arguments are int32
+        int cam_num = m.getArgAsFloat( 0 );
+        quads[activeQuad].camNumber = cam_num;
+    }
+
     // greenscreen stuff
 
     // greenscreen threshold
@@ -2061,6 +2068,13 @@ void testApp::parseOsc()
                 {
                     quads[surfaceIndex].camKeepAspect = true;
                 }
+            }
+
+            // /surface/0/cam/num
+            else if (splittedAdress[3]=="num"){
+                // arguments are int32
+                int cam_num = m.getArgAsFloat( 0 );
+                quads[surfaceIndex].camNumber = cam_num;
             }
 
 
