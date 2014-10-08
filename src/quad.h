@@ -144,6 +144,10 @@ public:
     bool transUp;
     bool camBg;
     bool camGreenscreen;
+    bool camFit;
+    bool camKeepAspect;
+    bool videoFit;
+    bool videoKeepAspect;
     bool imgBg;
     bool videoBg;
     bool videoSound;

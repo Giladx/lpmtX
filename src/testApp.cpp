@@ -465,6 +465,8 @@ void testApp::setup()
         gui.addButton("load video", bVideoLoad);
         gui.addSlider("video scale X", quads[i].videoMultX, 0.1, 10.0);
         gui.addSlider("video scale Y", quads[i].videoMultY, 0.1, 10.0);
+        gui.addToggle("fit into quad", quads[i].videoFit);
+        gui.addToggle("keep aspect ratio",quads[i].videoKeepAspect);
         gui.addToggle("H mirror", quads[i].videoHFlip);
         gui.addToggle("V mirror", quads[i].videoVFlip);
         gui.addColorPicker("video color", &quads[i].videoColorize.r);
@@ -476,23 +478,25 @@ void testApp::setup()
         gui.addSlider("shared video", quads[i].sharedVideoNum, 1, 8);
         if (cameras.size()>0)
         {
-        gui.addTitle("Camera").setNewColumn(true);
-        gui.addToggle("cam on/off", quads[i].camBg);
-        if(cameras.size()>1)
-        {
-           gui.addComboBox("select camera", quads[i].camNumber, cameras.size(), &cameraIDs[0]);
-        }
-        gui.addSlider("camera scale X", quads[i].camMultX, 0.1, 10.0);
-        gui.addSlider("camera scale Y", quads[i].camMultY, 0.1, 10.0);
-        gui.addToggle("H mirror", quads[i].camHFlip);
-        gui.addToggle("V mirror", quads[i].camVFlip);
-        gui.addColorPicker("cam color", &quads[i].camColorize.r);
-        gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
-        gui.addTitle("Greenscreen");
+            gui.addTitle("Camera").setNewColumn(true);
+            gui.addToggle("cam on/off", quads[i].camBg);
+            if(cameras.size()>1)
+            {
+                gui.addComboBox("select camera", quads[i].camNumber, cameras.size(), &cameraIDs[0]);
+            }
+            gui.addSlider("camera scale X", quads[i].camMultX, 0.1, 10.0);
+            gui.addSlider("camera scale Y", quads[i].camMultY, 0.1, 10.0);
+            gui.addToggle("fit into quad", quads[i].camFit);
+            gui.addToggle("keep aspect ratio",quads[i].camKeepAspect);
+            gui.addToggle("H mirror", quads[i].camHFlip);
+            gui.addToggle("V mirror", quads[i].camVFlip);
+            gui.addColorPicker("cam color", &quads[i].camColorize.r);
+            gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
+            gui.addTitle("Greenscreen");
         }
         else
         {
-        gui.addTitle("Greenscreen").setNewColumn(true);
+            gui.addTitle("Greenscreen").setNewColumn(true);
         }
         gui.addSlider("g-screen threshold", quads[i].thresholdGreenscreen, 0.0, 255.0);
         gui.addColorPicker("greenscreen col", &quads[i].colorGreenscreen.r);
@@ -774,7 +778,10 @@ void testApp::prepare()
         {
             if (cameras[i].getHeight() > 0)  // isLoaded check
             {
+                /*using equivalent cameras[i].update() in of v0.8
                 cameras[i].grabFrame();
+                */
+                cameras[i].update();
             }
         }
 
@@ -1113,7 +1120,10 @@ void testApp::keyPressed(int key)
         snapshotOn = !snapshotOn;
         if (snapshotOn == 1)
         {
+            /*using equivalent cameras[i].update() in of v0.8
             cameras[0].grabFrame();
+            */
+            cameras[0].update();
             snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
             unsigned char * pixels = cameras[0].getPixels();
             snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);
