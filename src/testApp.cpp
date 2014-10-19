@@ -250,7 +250,8 @@ void testApp::setup()
     //timeline defaults
     #ifdef WITH_TIMELINE
     useTimeline = true;
-    timelineDurationSeconds = timelinePreviousDuration = 100.0;
+    //timelineDurationSeconds = timelinePreviousDuration = 100.0;
+    timelineDurationSeconds = timelinePreviousDuration = XML.getValue("TIMELINE:DURATION",0.0);
     #endif
 
     // texture for snapshot background

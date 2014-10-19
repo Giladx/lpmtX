@@ -62,6 +62,8 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:HEIGHT",quads[i].camHeight);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_X",quads[i].camMultX);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_Y",quads[i].camMultY);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:FIT",quads[i].camFit);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:KEEP_ASPECT",quads[i].camKeepAspect);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_X",quads[i].imgMultX);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_Y",quads[i].imgMultY);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_X",quads[i].videoMultX);
@@ -69,7 +71,8 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:SPEED",quads[i].videoSpeed);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:VOLUME",quads[i].videoVolume);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOOP",quads[i].videoLoop);
-
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FIT",quads[i].videoFit);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:KEEP_ASPECT",quads[i].videoKeepAspect);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_X",quads[i].animaScalex);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Y",quads[i].animaScaley);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Z",quads[i].animaScalez);
@@ -262,6 +265,8 @@ void testApp::getXml(string xmlFile)
 
         quads[i].camMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_X",1.0);
         quads[i].camMultY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:MULT_Y",1.0);
+        quads[i].camFit = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:FIT", 0);
+        quads[i].camKeepAspect = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:KEEP_ASPECT", 1);
         quads[i].imgMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_X",1.0);
         quads[i].imgMultY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:MULT_Y",1.0);
         quads[i].videoMultX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:MULT_X",1.0);
@@ -269,6 +274,8 @@ void testApp::getXml(string xmlFile)
         quads[i].videoSpeed = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:SPEED",1.0);
         quads[i].videoVolume = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:VOLUME",0);
         quads[i].videoLoop = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOOP",1);
+        quads[i].videoFit = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FIT", 0);
+        quads[i].videoKeepAspect = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:KEEP_ASPECT", 1);
 
         quads[i].animaScalex = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_X",1.0);
         quads[i].animaScaley = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Y",1.0);
