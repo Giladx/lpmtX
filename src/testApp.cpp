@@ -40,7 +40,7 @@ void testApp::setup()
 
     ofSetEscapeQuitsApp(false);
     ofSetWindowTitle("lpmt remiX by GiladX");
-    ofSetLogLevel(OF_LOG_WARNING);
+    ofSetLogLevel(OF_LOG_NOTICE);
     autoStart = false;
     bdrawGrid = false;
 
@@ -74,7 +74,10 @@ void testApp::setup()
             XML.popTag();
             ofVideoGrabber cam;
             cam.setDeviceID(camID);
-            bCameraOk = cam.initGrabber(reqCamWidth,reqCamHeight);
+            //cam.setVerbose(true);
+            cam.setPixelFormat(OF_PIXELS_I420);
+            //bCameraOk = cam.initGrabber(reqCamWidth,reqCamHeight);
+            bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
             camWidth = cam.width;
             camHeight= cam.height;
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
@@ -219,10 +222,14 @@ void testApp::setup()
 
     // load shaders
     edgeBlendShader.load("shaders/blend.vert", "shaders/blend.frag");
+    cout<<"edgleblend loaded"<<endl;
     quadMaskShader.load("shaders/mask.vert", "shaders/mask.frag");
+    cout<<"quadmask loaded"<<endl;
     chromaShader.load("shaders/chroma.vert", "shaders/chroma.frag");
+    cout<<"chroma loaded"<<endl;
     //noiseShader.load("shaders/noise.vert", "shaders/noise.frag");
     brickShader.load("shaders/new/brick.vert", "shaders/new/brick.frag");
+    cout<<"brick loaded"<<endl;
     //EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
     //fisheyeShader.load("shaders/new/fisheye.vert", "shaders/new/fisheye.frag");
 
@@ -779,10 +786,7 @@ void testApp::prepare()
         {
             if (cameras[i].getHeight() > 0)  // isLoaded check
             {
-                /*using equivalent cameras[i].update() in of v0.8
-                cameras[i].grabFrame();
-                */
-                cameras[i].update();
+               cameras[i].update();
             }
         }
 

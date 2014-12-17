@@ -379,11 +379,7 @@ void quad::update()
 
             if (video.isLoaded())
             {
-                /*seems it doesn't exist in OF v0.8
-                video.idleMovie();
-                using instead*/
                 video.update();
-
             }
 
             // changevideo speed
@@ -676,8 +672,8 @@ void quad::draw()
 
                     if (brickwallShader)
                     {
-                    brickwallShader->begin();
-                    brickwallShader->end();
+                    /*brickwallShader->begin();
+                    brickwallShader->end();*/
                     }
                     else
                     {
@@ -827,8 +823,8 @@ void quad::draw()
             }
             if(videoBrick)
             {
-            brickwallShader->begin();
-            brickwallShader->end();
+            /*brickwallShader->begin();
+            brickwallShader->end();*/
             }
 
 }
@@ -908,9 +904,9 @@ void quad::draw()
             }
             if(camBrick)
             {
-                brickwallShader->begin();
+              /*  brickwallShader->begin();
               //  brickwallShader.setUniform3f("BrickColor",1.0,1.0,1.0);
-                brickwallShader->end();
+                brickwallShader->end();*/
             }
             else
             {
