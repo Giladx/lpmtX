@@ -1,4 +1,5 @@
 ofxXmlSettings
+ofxPlaymodes
 ofxNetwork
 ofxMostPixelsEver
 ofxMSAInteractiveObject
