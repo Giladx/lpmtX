@@ -10,9 +10,11 @@
 #define NUM_BUFFER 4
 
 
-class VideoSampler : public ofBaseApp{
+class VideoSampler /*: public ofBaseApp*/{
 
 public:
+    VideoSampler();
+    virtual ~VideoSampler();
     void setup();
     //void setup(int _grabberID);
     void setup(int _grabberID, int _grabberHeight, int _grabberWidth, ofPixelFormat _grabberPixelFormat);

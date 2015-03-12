@@ -4,6 +4,7 @@
 
 #include "ofMain.h"
 #include "ofGraphics.h"
+#include "VideoSampler.h"
 
 #include "ofxAssimpModelLoader.h"
 #include "ofVboMesh.h"
@@ -160,6 +161,9 @@ public:
     bool sharedVideoBg;
     int sharedVideoNum;
     int sharedVideoId;
+    bool sharedSamplerBg;
+    int sharedSamplerNum;
+    int sharedSamplerBufferNum;
     bool slideshowBg;
     bool slideFit;
     bool slideKeepAspect;
@@ -178,6 +182,7 @@ public:
     bool kinectContourCurved;
     bool videoBrick;
     bool camBrick;
+//    bool samplerBrick; -> doesn't need that since sampler will take cam parameters as sharedVideo does with videos
 
     bool videoHFlip;
     bool imgHFlip;
@@ -185,6 +190,8 @@ public:
     bool videoVFlip;
     bool imgVFlip;
     bool camVFlip;
+//    bool samplerHFlip;
+//    bool samplerVFlip;
     bool edgeBlendBool;
 
     bool bBlendModes;
@@ -217,6 +224,7 @@ public:
     vector<ofVideoGrabber> cams;
     vector<ofVideoPlayer> vids;
     vector<ofxAssimpModelLoader> mods;
+    vector <VideoSampler*> sampler;
 
     string bgImg;
     string bgVideo;
@@ -268,15 +276,15 @@ public:
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon, vector<VideoSampler> &sharedVideoSampler);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, vector<VideoSampler> &sharedVideoSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon, vector<VideoSampler> &sharedVideoSampler);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, vector<VideoSampler> &sharedVideoSampler);
         #endif
     #endif
 

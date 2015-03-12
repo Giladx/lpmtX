@@ -198,15 +198,15 @@ void testApp::getXml(string xmlFile)
 
         #ifdef WITH_KINECT
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
             #endif
         #else
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
             #endif
         #endif
         quads[i].quadNumber = XML.getValue("QUADS:QUAD_"+ofToString(i)+":NUMBER", 0);

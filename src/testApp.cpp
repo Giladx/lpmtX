@@ -78,8 +78,13 @@ void testApp::setup()
             cam.setPixelFormat(OF_PIXELS_I420);
             //bCameraOk = cam.initGrabber(reqCamWidth,reqCamHeight);
             bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
+
             camWidth = cam.width;
             camHeight= cam.height;
+
+            //setup Sampler
+            VideoSampler _sampler;
+            _sampler.setup(camID, camHeight, camWidth, OF_PIXELS_I420);
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
             strcpy(buf,message.c_str());
@@ -95,6 +100,9 @@ void testApp::setup()
                 cameras.push_back(cam);
                 // following vector is used for the combo box in SimpleGuiToo gui
                 cameraIDs.push_back(ofToString(camID));
+
+                //populate shared sampler vector
+                sharedSampler.push_back(_sampler);
             }
         }
         XML.popTag();
@@ -108,6 +116,7 @@ void testApp::setup()
         sharedVideos.push_back(video);
         sharedVideosFiles.push_back("");
     }
+
 
     //double click time
     doubleclickTime = 500;
@@ -275,57 +284,57 @@ void testApp::setup()
     // defines the first 4 default quads
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
         #else
-        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+        quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
         #endif
     #endif
     quads[0].quadNumber = 0;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
         #else
-        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+        quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
         #endif
     #endif
     quads[1].quadNumber = 1;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
         #else
-        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+        quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
         #endif
     #endif
     quads[2].quadNumber = 2;
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
         #else
-        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+        quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
         #endif
     #endif
     quads[3].quadNumber = 3;
@@ -380,6 +389,20 @@ void testApp::setup()
     gui.addButton("load shared video 6", bSharedVideoLoad5);
     gui.addButton("load shared video 7", bSharedVideoLoad6);
     gui.addButton("load shared video 8", bSharedVideoLoad7);
+    gui.addTitle("Cam Sampler");
+    for (int i = 0 ;i< sharedSampler.size()-1; i++){
+        gui.addTitle("Sampler"+ofToString(i));
+        gui.addToggle("Record", sharedSampler[i].bRecLiveInput);
+        gui.addSlider("REC Buffer",sharedSampler[i].currentBufferNum, 0, 3);
+        gui.addToggle("Play", sharedSampler[i].bPlayAnyBuffer);
+        gui.addToggle("Pause", sharedSampler[i].bPauseBuffer);
+        for(int j = 0; j < 3; j++)
+        {
+            //gui.addToggle("Play Buffer "+ofToString(j), sharedSampler[i].bPlayBuffer[j]);
+        }
+
+    }
+
     #ifdef WITH_TIMELINE
     gui.addTitle("Timeline");
     gui.addToggle("use timeline", useTimeline);
@@ -500,7 +523,12 @@ void testApp::setup()
             gui.addToggle("V mirror", quads[i].camVFlip);
             gui.addColorPicker("cam color", &quads[i].camColorize.r);
             gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
+            gui.addToggle("shared sampler on/off", quads[i].sharedSamplerBg);
+            gui.addSlider("shared sampler", quads[i].sharedSamplerNum, 0, cameras.size()-1);
+            gui.addSlider("shared buffer", quads[i].sharedSamplerNum, 0, 3);
+
             gui.addTitle("Greenscreen");
+
         }
         else
         {
@@ -1273,15 +1301,15 @@ void testApp::keyPressed(int key)
             {
                 #ifdef WITH_KINECT
                     #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, syphClient, sharedSampler);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, kinect, sharedSampler);
                     #endif
                 #else
                     #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, syphClient, sharedSampler);
                     #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, brickShader, cameras, models, sharedVideos, sharedSampler);
                     #endif
                 #endif
                 quads[nOfQuads].quadNumber = nOfQuads;

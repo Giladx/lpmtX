@@ -207,6 +207,7 @@ public:
 
     vector<ofVideoPlayer> sharedVideos;
     vector<string> sharedVideosFiles;
+    vector<VideoSampler> sharedSampler;
 
     int camID;
     int reqCamWidth;
