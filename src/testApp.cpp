@@ -81,10 +81,14 @@ void testApp::setup()
 
             camWidth = cam.width;
             camHeight= cam.height;
-
+cout<<"=============creation de la cam=============="<<endl;
             //setup Sampler
             VideoSampler _sampler;
+cout<<"=============creation du sampler=============="<<endl;
+
             _sampler.setup(camID, camHeight, camWidth, OF_PIXELS_I420);
+cout<<"=============setup sampler=============="<<endl;
+
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
             strcpy(buf,message.c_str());
@@ -102,7 +106,7 @@ void testApp::setup()
                 cameraIDs.push_back(ofToString(camID));
 
                 //populate shared sampler vector
-                sharedSampler.push_back(_sampler);
+                sharedSampler.push_back(& _sampler);
             }
         }
         XML.popTag();
@@ -392,10 +396,10 @@ void testApp::setup()
     gui.addTitle("Cam Sampler");
     for (int i = 0 ;i< sharedSampler.size()-1; i++){
         gui.addTitle("Sampler"+ofToString(i));
-        gui.addToggle("Record", sharedSampler[i].bRecLiveInput);
-        gui.addSlider("REC Buffer",sharedSampler[i].currentBufferNum, 0, 3);
-        gui.addToggle("Play", sharedSampler[i].bPlayAnyBuffer);
-        gui.addToggle("Pause", sharedSampler[i].bPauseBuffer);
+        gui.addToggle("Record", sharedSampler[i]->bRecLiveInput);
+        gui.addSlider("REC Buffer",sharedSampler[i]->currentBufferNum, 0, 3);
+        gui.addToggle("Play", sharedSampler[i]->bPlayAnyBuffer);
+        gui.addToggle("Pause", sharedSampler[i]->bPauseBuffer);
         for(int j = 0; j < 3; j++)
         {
             //gui.addToggle("Play Buffer "+ofToString(j), sharedSampler[i].bPlayBuffer[j]);

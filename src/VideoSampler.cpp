@@ -1,5 +1,18 @@
 #include "VideoSampler.h"
 
+VideoSampler::VideoSampler(){
+        bufferSize=512;
+        playStart=0;
+        playEnd=1.0;
+        bPauseBuffer=false;
+        fps=30;
+}
+
+VideoSampler::~VideoSampler(){
+
+}
+
+
 void VideoSampler::setup(){
         bufferSize=512;
         playStart=0;
