@@ -395,16 +395,17 @@ cout<<"=============setup sampler=============="<<endl;
     gui.addButton("load shared video 7", bSharedVideoLoad6);
     gui.addButton("load shared video 8", bSharedVideoLoad7);
     gui.addTitle("Cam Sampler");
-    for (int i = 0 ;i< sharedSampler.size()-1; i++){
+    for (int i = 0 ;i< sharedSampler.size(); i++){
         gui.addTitle("Sampler"+ofToString(i));
         gui.addToggle("Record", sharedSampler[i]->bRecLiveInput);
         gui.addSlider("REC Buffer",sharedSampler[i]->currentBufferNum, 0, 3);
         gui.addToggle("Play", sharedSampler[i]->bPlayAnyBuffer);
         gui.addToggle("Pause", sharedSampler[i]->bPauseBuffer);
-        for(int j = 0; j < 3; j++)
+        for(int j = 0; j < 4; j++)
         {
-            //gui.addToggle("Play Buffer "+ofToString(j), sharedSampler[i].bPlayBuffer[j]);
+            gui.addToggle("Play Buffer "+ofToString(j), (sharedSampler[i]->bPlayBuffer[j]));
         }
+
 
     }
 
