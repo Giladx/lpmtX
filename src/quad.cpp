@@ -898,7 +898,7 @@ void quad::draw()
                 greenscreenShader->setUniform1f("tintG", camColorize.g);
                 greenscreenShader->setUniform1f("tintB", camColorize.b);
                 greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
-                                cout<<"drawing cam "<<camNumber<<endl;
+                                cout<<"drawing cam --"<<camNumber<<endl;
                 cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
                 //cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
@@ -907,7 +907,7 @@ void quad::draw()
             else
             {
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
-                                cout<<"drawing cam "<<camNumber<<endl;
+                                cout<<"drawing cam ++"<<camNumber<<endl;
                 cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
                 //cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
@@ -922,8 +922,8 @@ void quad::draw()
             else
             {
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
-                cout<<"drawing cam "<<camNumber<<endl;
-                cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                cout<<"drawing cam =="<<camNumber<<endl;
+                //cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
                 //cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
