@@ -125,6 +125,7 @@ void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _Buff
     if ((vBuffer[_BufferNum]->getVideoFrame(playHead)!= NULL)&&(bPlayBuffer[_BufferNum])){
 
         vBuffer[_BufferNum]->getVideoFrame((int)playHead).getTextureRef().draw(_x , _y, _height, _width);
+        cout<<"normally drawing=========================================="<<endl;
 
     }
 }
@@ -182,6 +183,7 @@ void VideoSampler::updatePlayHead(){
 
             bRecLiveInput=false;
         }
+        cout<<"playhead "<<playHead<<" recliveinput "<<bRecLiveInput<<endl;
     }
 
 

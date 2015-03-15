@@ -818,15 +818,15 @@ void testApp::prepare()
             kinect.kinect.open();
         }
         #endif
-cout<<"cameras.size "<<cameras.size()<<endl;
+//cout<<"cameras.size "<<cameras.size()<<endl;
         for (int i=0; i < cameras.size(); i++)
         {
-            cout<<"i "<<i<<endl;
-            cout<<"cameras[i]"<<cameras[i]<<endl;
+            //cout<<"i "<<i<<endl;
+          //  cout<<"cameras[i]"<<cameras[i]<<endl;
             //cout<<"cameras.getheight "<<cameras[i]->getHeight()<<endl;
             if (cameras[i]->getHeight() > 0)  // isLoaded check
             {
-                cout<<"testapp::prepare, cameras[i].update"<<endl;
+                //cout<<"testapp::prepare, cameras[i].update"<<endl;
                cameras[i]->update();
             }
         }
@@ -860,7 +860,7 @@ cout<<"cameras.size "<<cameras.size()<<endl;
             timelineUpdate();
         }
         #endif
-cout<<"testapp::prepare initquads"<<endl;
+
         // loops through initialized quads and runs update, setting the border color as well
         for(int j = 0; j < 36; j++)
         {

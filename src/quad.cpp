@@ -995,6 +995,7 @@ void quad::draw()
                 greenscreenShader->setUniform1f("tintB", camColorize.b);
                 greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
                 //cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                cout<<"draw sampler++"<<endl;
                 sampler[sharedSamplerNum]->drawBuffer(0,0,camWidth*camMultX,camHeight*camMultY, sharedSamplerBufferNum);
                 greenscreenShader->end();
             }
@@ -1002,6 +1003,8 @@ void quad::draw()
             {
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
                 //cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                                cout<<"draw sampler--"<<endl;
+
                 sampler[sharedSamplerNum]->drawBuffer(0,0,camWidth*camMultX,camHeight*camMultY, sharedSamplerBufferNum);
 
             }
@@ -1015,7 +1018,9 @@ void quad::draw()
             {
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
                 //cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
-                sampler[sharedSamplerNum]->drawBuffer(0,0,camWidth*camMultX,camHeight*camMultY, sharedSamplerBufferNum);
+                                cout<<"draw sampler=="<<endl;
+
+                //sampler[sharedSamplerNum]->drawBuffer(0,0,camWidth*camMultX,camHeight*camMultY, sharedSamplerBufferNum);
 
             }
             if (camHFlip || camVFlip)
