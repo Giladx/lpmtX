@@ -55,7 +55,7 @@ public:
     float recordPosition;
 
     //Playing
-    vector <bool> bPlayBuffer;// (NUM_BUFFER);
+    array <bool, NUM_BUFFER> bPlayBuffer ;// (NUM_BUFFER);
     bool bPlayAnyBuffer;    //increment playhead regerdless of current buffer
     bool bPauseBuffer;
     float playStart;

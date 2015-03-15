@@ -30,8 +30,8 @@ void VideoSampler::setup(){
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            bPlayBuffer.push_back(false);
-
+            //bPlayBuffer.push_back(false);
+            bPlayBuffer[i]=false;
         }
 
 }
@@ -55,8 +55,8 @@ void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, 
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            bPlayBuffer.push_back(false);
-
+            //bPlayBuffer.push_back(false);
+            bPlayBuffer[i]=false;
         }
 
 }
@@ -77,7 +77,8 @@ void VideoSampler::setup(ofxPm::VideoGrabber & _VideoGrabber, ofPixelFormat _gra
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            bPlayBuffer.push_back(false);
+            //bPlayBuffer.push_back(false);
+            bPlayBuffer[i]=false;
 
         }
 
