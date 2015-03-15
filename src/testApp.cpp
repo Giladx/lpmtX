@@ -701,6 +701,15 @@ void testApp::prepare()
             }
         }
 
+        //update each sampler
+            for (int i = 0 ;i< sharedSampler.size(); i++){
+                    cout<<"update sharedSampler avt test "<<i<<endl;
+                    if (sharedSampler[i]->vBuffer.size()>0){
+                        cout<<"update sharedSampler "<<i<<endl;
+                        //sharedSampler[i]->update();
+                    }
+            }
+
 
         //check if quad dimensions reset button on GUI is pressed
         if(bQuadReset)
@@ -828,6 +837,7 @@ void testApp::prepare()
             {
                 //cout<<"testapp::prepare, cameras[i].update"<<endl;
                cameras[i]->update();
+
             }
         }
 
@@ -928,7 +938,7 @@ void testApp::dostuff()
 //--------------------------------------------------------------
 void testApp::update()
 {
-    cout<<"test app update"<<endl;
+    cout<<"test app update"<< " shared sampler play"<<sharedSampler[0]->bPlayAnyBuffer <<"sahred buffer 0"<<sharedSampler[0]->bPlayBuffer[0]<<endl;
     if (!bMpe)
     {
         if (bSplash)
