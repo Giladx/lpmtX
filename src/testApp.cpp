@@ -704,9 +704,9 @@ void testApp::prepare()
         //update each sampler
             for (int i = 0 ;i< sharedSampler.size(); i++){
                     cout<<"update sharedSampler avt test "<<i<<endl;
-                    if (sharedSampler[i]->vBuffer.size()>0){
+                    if ((sharedSampler[i]->vBuffer.size()>0)&&(cameras[i]->getHeight() > 0)){
                         cout<<"update sharedSampler "<<i<<endl;
-                        //sharedSampler[i]->update();
+                        sharedSampler[i]->update();
                     }
             }
 

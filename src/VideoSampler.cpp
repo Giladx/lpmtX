@@ -131,8 +131,9 @@ void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _Buff
 }
 
 void VideoSampler::update(){
-    vGrabber->update();
-
+    cout<<"dans vs update"<<endl;
+    //vGrabber->update();
+cout<<"dans vs grabber updated"<<endl;
     if (bRecLiveInput){
 
         vBuffer[currentBufferNum]->resume();
