@@ -22,11 +22,11 @@ void VideoSampler::setup(){
 
         //setup grabber
         //vGrabber.setPixelFormat(OF_PIXELS_I420);
-        vGrabber.initGrabber(640,480);
-        vGrabber.setVerbose(true);
+        vGrabber->initGrabber(640,480);
+        vGrabber->setVerbose(true);
 
         //setup Buffer
-        vRate.setup(vGrabber,fps);
+        vRate.setup(*vGrabber,fps);
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
@@ -35,7 +35,7 @@ void VideoSampler::setup(){
         }
 
 }
-//draw function with both grabbers and buffers
+//setup internal grabber
 void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, ofPixelFormat _grabberPixelFormat){
         bufferSize=512;
         playStart=0;
@@ -45,13 +45,13 @@ void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, 
         GrabberDeviceID= _grabberID;
 
         //setup grabber
-        vGrabber.setPixelFormat(_grabberPixelFormat);
-        vGrabber.setDeviceID(GrabberDeviceID);
-        vGrabber.initGrabber(_grabberHeight, _grabberWidth);
-        vGrabber.setVerbose(true);
+        vGrabber->setPixelFormat(_grabberPixelFormat);
+        vGrabber->setDeviceID(GrabberDeviceID);
+        vGrabber->initGrabber(_grabberHeight, _grabberWidth);
+        vGrabber->setVerbose(true);
 
         //setup Buffer
-        vRate.setup(vGrabber,fps);
+        vRate.setup(*vGrabber,fps);
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
@@ -60,6 +60,33 @@ void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, 
         }
 
 }
+
+//setup external grabber
+void VideoSampler::setup(ofxPm::VideoGrabber & _VideoGrabber, ofPixelFormat _grabberPixelFormat){
+        bufferSize=512;
+        playStart=0;
+        playEnd=1.0;
+        bPauseBuffer=false;
+        fps=30;
+//        GrabberDeviceID= _grabberID;
+
+        //setup grabber
+        /*vGrabber.setPixelFormat(_grabberPixelFormat);
+        vGrabber.setDeviceID(GrabberDeviceID);
+        vGrabber.initGrabber(_grabberHeight, _grabberWidth);
+        vGrabber.setVerbose(true);*/
+
+        //setup Buffer
+        vRate.setup(_VideoGrabber,fps);
+        for (int i=0;i<NumBuffer; i++){
+
+            vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
+            bPlayBuffer.push_back(false);
+
+        }
+
+}
+
 //draw function with both grabbers and buffers
 
 void VideoSampler::draw(){
@@ -67,7 +94,7 @@ void VideoSampler::draw(){
         ofSetColor(255,255,255);
 
         //draw grabber
-        vGrabber.getNextVideoFrame().getTextureRef().draw(320,0,320,240);
+        vGrabber->getNextVideoFrame().getTextureRef().draw(320,0,320,240);
 
         //draw player videoframe
     for (int i; i<vBuffer.size();i++){
@@ -106,7 +133,7 @@ void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _Buff
 }
 
 void VideoSampler::update(){
-    vGrabber.update();
+    vGrabber->update();
 
     if (bRecLiveInput){
 

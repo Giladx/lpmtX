@@ -221,7 +221,7 @@ public:
     //vector<string> slideshows;
     vector<string> slidesnames;
     vector<ofImage> slides;
-    vector<ofVideoGrabber> cams;
+    vector<ofxPm::VideoGrabber *> cams;
     vector<ofVideoPlayer> vids;
     vector<ofxAssimpModelLoader> mods;
     vector <VideoSampler*> sampler;
@@ -276,15 +276,15 @@ public:
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon, vector<VideoSampler *> &sharedVideoSampler);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofxPm::VideoGrabber* > &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon, vector<VideoSampler *> &sharedVideoSampler);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, vector<VideoSampler *> &sharedVideoSampler);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofxPm::VideoGrabber* > &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, vector<VideoSampler *> &sharedVideoSampler);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon, vector<VideoSampler *> &sharedVideoSampler);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofxPm::VideoGrabber* > &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon, vector<VideoSampler *> &sharedVideoSampler);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, vector<VideoSampler *> &sharedVideoSampler);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofxPm::VideoGrabber* > &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, vector<VideoSampler *> &sharedVideoSampler);
         #endif
     #endif
 

@@ -202,7 +202,7 @@ public:
     ofTexture camTexture;
     ofTexture snapshotTexture;
     int numOfCams;
-	vector<ofVideoGrabber> cameras;
+	vector<ofxPm::VideoGrabber *> cameras;
 	vector<string> cameraIDs;
 
     vector<ofVideoPlayer> sharedVideos;

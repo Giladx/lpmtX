@@ -72,21 +72,21 @@ void testApp::setup()
             reqCamHeight = XML.getValue("HEIGHT",480);
             camID = XML.getValue("ID",0);
             XML.popTag();
-            ofVideoGrabber cam;
-            cam.setDeviceID(camID);
-            //cam.setVerbose(true);
-            cam.setPixelFormat(OF_PIXELS_I420);
-            //bCameraOk = cam.initGrabber(reqCamWidth,reqCamHeight);
-            bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
+            ofxPm::VideoGrabber* cam=new ofxPm::VideoGrabber;
+            cam->setDeviceID(camID);
+            cam->setVerbose(true);
+            cam->setPixelFormat(OF_PIXELS_I420);
+            bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
+            //bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
 
-            camWidth = cam.width;
-            camHeight= cam.height;
-cout<<"=============creation de la cam=============="<<endl;
+            camWidth = cam->width;
+            camHeight= cam->height;
+cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<&cam<<"cam.height"<<cam->height<<endl;
             //setup Sampler
             VideoSampler _sampler;
 cout<<"=============creation du sampler=============="<<endl;
 
-            _sampler.setup(camID, camHeight, camWidth, OF_PIXELS_I420);
+           // _sampler.setup(camID, camHeight, camWidth, OF_PIXELS_I420);
 cout<<"=============setup sampler=============="<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
@@ -653,6 +653,8 @@ cout<<"=============setup sampler=============="<<endl;
         ofSetFullscreen(true);
     }
 
+    cout<<"end setup"<<endl;
+
 }
 
 void testApp::exit()
@@ -678,6 +680,7 @@ void testApp::mpeSetup()
 //--------------------------------------------------------------
 void testApp::prepare()
 {
+    cout<<"testapp::prepare"<<endl;
     // check for waiting OSC messages
     while( receiver.hasWaitingMessages() )
     {
@@ -813,12 +816,16 @@ void testApp::prepare()
             kinect.kinect.open();
         }
         #endif
-
+cout<<"cameras.size "<<cameras.size()<<endl;
         for (int i=0; i < cameras.size(); i++)
         {
-            if (cameras[i].getHeight() > 0)  // isLoaded check
+            cout<<"i "<<i<<endl;
+            cout<<"cameras[i]"<<cameras[i]<<endl;
+            //cout<<"cameras.getheight "<<cameras[i]->getHeight()<<endl;
+            if (cameras[i]->getHeight() > 0)  // isLoaded check
             {
-               cameras[i].update();
+                cout<<"testapp::prepare, cameras[i].update"<<endl;
+               cameras[i]->update();
             }
         }
 
@@ -851,7 +858,7 @@ void testApp::prepare()
             timelineUpdate();
         }
         #endif
-
+cout<<"testapp::prepare initquads"<<endl;
         // loops through initialized quads and runs update, setting the border color as well
         for(int j = 0; j < 36; j++)
         {
@@ -919,6 +926,7 @@ void testApp::dostuff()
 //--------------------------------------------------------------
 void testApp::update()
 {
+    cout<<"test app update"<<endl;
     if (!bMpe)
     {
         if (bSplash)
@@ -1160,9 +1168,9 @@ void testApp::keyPressed(int key)
             /*using equivalent cameras[i].update() in of v0.8
             cameras[0].grabFrame();
             */
-            cameras[0].update();
+            cameras[0]->update();
             snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
-            unsigned char * pixels = cameras[0].getPixels();
+            unsigned char * pixels = cameras[0]->getPixels();
             snapshotTexture.loadData(pixels, camWidth,camHeight, GL_RGB);
         }
     }
@@ -1554,13 +1562,13 @@ void testApp::keyPressed(int key)
 
     if(key == '*' && !bTimeline)
     {
-        if(cameras[quads[activeQuad].camNumber].getPixelFormat() == OF_PIXELS_RGBA)
+        if(cameras[quads[activeQuad].camNumber]->getPixelFormat() == OF_PIXELS_RGBA)
         {
-            cameras[quads[activeQuad].camNumber].setPixelFormat(OF_PIXELS_BGRA);
+            cameras[quads[activeQuad].camNumber]->setPixelFormat(OF_PIXELS_BGRA);
         }
-        else if(cameras[quads[activeQuad].camNumber].getPixelFormat() == OF_PIXELS_BGRA)
+        else if(cameras[quads[activeQuad].camNumber]->getPixelFormat() == OF_PIXELS_BGRA)
         {
-            cameras[quads[activeQuad].camNumber].setPixelFormat(OF_PIXELS_RGBA);
+            cameras[quads[activeQuad].camNumber]->setPixelFormat(OF_PIXELS_RGBA);
         }
 
     }
