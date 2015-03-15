@@ -63,21 +63,17 @@ void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, 
 
 //setup external grabber
 void VideoSampler::setup(ofxPm::VideoGrabber & _VideoGrabber, ofPixelFormat _grabberPixelFormat){
+
         bufferSize=512;
         playStart=0;
         playEnd=1.0;
         bPauseBuffer=false;
         fps=30;
-//        GrabberDeviceID= _grabberID;
-
-        //setup grabber
-        /*vGrabber.setPixelFormat(_grabberPixelFormat);
-        vGrabber.setDeviceID(GrabberDeviceID);
-        vGrabber.initGrabber(_grabberHeight, _grabberWidth);
-        vGrabber.setVerbose(true);*/
 
         //setup Buffer
+
         vRate.setup(_VideoGrabber,fps);
+
         for (int i=0;i<NumBuffer; i++){
 
             vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));

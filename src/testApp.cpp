@@ -83,10 +83,11 @@ void testApp::setup()
             camHeight= cam->height;
 cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<&cam<<"cam.height"<<cam->height<<endl;
             //setup Sampler
-            VideoSampler _sampler;
+            VideoSampler * _sampler=new VideoSampler;
 cout<<"=============creation du sampler=============="<<endl;
 
-           // _sampler.setup(camID, camHeight, camWidth, OF_PIXELS_I420);
+           // _sampler->setup(camID, camHeight, camWidth, OF_PIXELS_I420);
+           _sampler->setup(*cam, OF_PIXELS_I420);
 cout<<"=============setup sampler=============="<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
@@ -106,7 +107,7 @@ cout<<"=============setup sampler=============="<<endl;
                 cameraIDs.push_back(ofToString(camID));
 
                 //populate shared sampler vector
-                sharedSampler.push_back(& _sampler);
+                sharedSampler.push_back( _sampler);
             }
         }
         XML.popTag();
