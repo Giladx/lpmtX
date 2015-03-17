@@ -71,8 +71,10 @@ void VideoSampler::setup(ofxPm::VideoGrabber & _VideoGrabber, ofPixelFormat _gra
         fps=30;
 
         //setup Buffer
+        vGrabber= &_VideoGrabber;
+        //vRate.setup(_VideoGrabber,fps);
+        vRate.setup(*vGrabber,fps);
 
-        vRate.setup(_VideoGrabber,fps);
 
         for (int i=0;i<NumBuffer; i++){
 
@@ -125,15 +127,12 @@ void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _Buff
     if ((vBuffer[_BufferNum]->getVideoFrame(playHead)!= NULL)&&(bPlayBuffer[_BufferNum])){
 
         vBuffer[_BufferNum]->getVideoFrame((int)playHead).getTextureRef().draw(_x , _y, _height, _width);
-        cout<<"normally drawing=========================================="<<endl;
 
     }
 }
 
 void VideoSampler::update(){
-    cout<<"dans vs update"<<endl;
-    //vGrabber->update();
-cout<<"dans vs grabber updated"<<endl;
+    vGrabber->update();
     if (bRecLiveInput){
 
         vBuffer[currentBufferNum]->resume();
@@ -184,7 +183,6 @@ void VideoSampler::updatePlayHead(){
 
             bRecLiveInput=false;
         }
-        cout<<"playhead "<<playHead<<" recliveinput "<<bRecLiveInput<<endl;
     }
 
 

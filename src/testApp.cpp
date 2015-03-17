@@ -81,14 +81,14 @@ void testApp::setup()
 
             camWidth = cam->width;
             camHeight= cam->height;
-cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<&cam<<"cam.height"<<cam->height<<endl;
+cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<cam<<"cam.height"<<cam->height<<endl;
             //setup Sampler
             VideoSampler * _sampler=new VideoSampler;
 cout<<"=============creation du sampler=============="<<endl;
 
            // _sampler->setup(camID, camHeight, camWidth, OF_PIXELS_I420);
            _sampler->setup(*cam, OF_PIXELS_I420);
-cout<<"=============setup sampler=============="<<endl;
+cout<<"=============setup sampler=============="<<_sampler->vGrabber<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
@@ -655,7 +655,6 @@ cout<<"=============setup sampler=============="<<endl;
         ofSetFullscreen(true);
     }
 
-    cout<<"end setup"<<endl;
 
 }
 
@@ -682,7 +681,6 @@ void testApp::mpeSetup()
 //--------------------------------------------------------------
 void testApp::prepare()
 {
-    cout<<"testapp::prepare"<<endl;
     // check for waiting OSC messages
     while( receiver.hasWaitingMessages() )
     {
@@ -702,13 +700,11 @@ void testApp::prepare()
         }
 
         //update each sampler
-            for (int i = 0 ;i< sharedSampler.size(); i++){
-                    cout<<"update sharedSampler avt test "<<i<<endl;
-                    if ((sharedSampler[i]->vBuffer.size()>0)&&(cameras[i]->getHeight() > 0)){
-                        cout<<"update sharedSampler "<<i<<endl;
-                        sharedSampler[i]->update();
-                    }
+        for (int i = 0 ;i< sharedSampler.size(); i++){
+            if ((sharedSampler[i]->vBuffer.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
+                sharedSampler[i]->update();
             }
+        }
 
 
         //check if quad dimensions reset button on GUI is pressed
@@ -827,17 +823,12 @@ void testApp::prepare()
             kinect.kinect.open();
         }
         #endif
-//cout<<"cameras.size "<<cameras.size()<<endl;
         for (int i=0; i < cameras.size(); i++)
         {
-            //cout<<"i "<<i<<endl;
-          //  cout<<"cameras[i]"<<cameras[i]<<endl;
-            //cout<<"cameras.getheight "<<cameras[i]->getHeight()<<endl;
+
             if (cameras[i]->getHeight() > 0)  // isLoaded check
             {
-                //cout<<"testapp::prepare, cameras[i].update"<<endl;
                cameras[i]->update();
-
             }
         }
 
@@ -938,7 +929,6 @@ void testApp::dostuff()
 //--------------------------------------------------------------
 void testApp::update()
 {
-    cout<<"test app update"<< " shared sampler play"<<sharedSampler[0]->bPlayAnyBuffer <<"sahred buffer 0"<<sharedSampler[0]->bPlayBuffer[0]<<endl;
     if (!bMpe)
     {
         if (bSplash)
@@ -963,6 +953,10 @@ void testApp::update()
 //--------------------------------------------------------------
 void testApp::draw()
 {
+    /*ofDrawBitmapString("FPS: " + ofToString(int(ofGetFrameRate()))
+                       + " || cameraBuffer FPS " + ofToString(sharedSampler[0]->vBuffer[0]->getFps())
+                       + " || videoframes pool size: " + ofToString(sharedSampler[0]->vBuffer[0]->getTotalFrames())
+                       + " || total frames: " +ofToString(NUM_FRAMES),20,ofGetHeight()-40);*/
 
     // in setup mode writes the number of active quad at the bottom of the window
     if (isSetup)
