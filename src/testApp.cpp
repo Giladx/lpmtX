@@ -75,7 +75,7 @@ void testApp::setup()
             ofxPm::VideoGrabber* cam=new ofxPm::VideoGrabber;
             cam->setDeviceID(camID);
             cam->setVerbose(true);
-            cam->setPixelFormat(OF_PIXELS_I420);
+            //cam->setPixelFormat(OF_PIXELS_I420);
             bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
             //bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
 
@@ -87,7 +87,7 @@ cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<cam<
 cout<<"=============creation du sampler=============="<<endl;
 
            // _sampler->setup(camID, camHeight, camWidth, OF_PIXELS_I420);
-           _sampler->setup(*cam, OF_PIXELS_I420);
+           _sampler->setup(*cam, OF_PIXELS_RGB);
 cout<<"=============setup sampler=============="<<_sampler->vGrabber<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
