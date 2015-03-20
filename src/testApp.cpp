@@ -531,7 +531,7 @@ cout<<"=============setup sampler=============="<<_sampler->vGrabber<<endl;
             gui.addToggle("camera greenscreen", quads[i].camGreenscreen);
             gui.addToggle("shared sampler on/off", quads[i].sharedSamplerBg);
             gui.addSlider("shared sampler", quads[i].sharedSamplerNum, 0, cameras.size()-1);
-            gui.addSlider("shared buffer", quads[i].sharedSamplerNum, 0, 3);
+            gui.addSlider("shared buffer", quads[i].sharedSamplerBufferNum, 0, 3);
 
             gui.addTitle("Greenscreen");
 
