@@ -9,6 +9,71 @@ void testApp::parseOsc()
     //cout << endl << "OSC message '" << m.getAddress() << " args " << m.getArgAsFloat(0) << "  " << m.getArgAsFloat(1) << " numargs " << m.getNumArgs() << endl;
 
 
+
+    //check for sampler message
+
+    if (ofIsStringInString (m.getAddress(), "/sharedsampler/")){
+            //split address " ","surface","index","show|"
+        vector<string> splittedAdress = ofSplitString(m.getAddress(),"/");
+        // erase first element (empty string), we have after split address "sharedsampler","index","record|play|playbuffernum|pause|"
+        splittedAdress.erase(splittedAdress.begin());
+        int sharedSamplerIndex=ofToInt(splittedAdress[1]);
+
+        // /sharedsampler/0/record
+        if (splittedAdress[2]=="record"){
+                if (splittedAdress.size()<3){
+                    sharedSampler[sharedSamplerIndex]->bRecLiveInput = !sharedSampler[sharedSamplerIndex]->bRecLiveInput;
+                }
+                else{
+                        //shared/sampler/0/record/0 0|1
+                    int sharedSamplerBufferIndex=ofToInt(splittedAdress[3]);
+                    int osc_recliveinput = m.getArgAsInt32(0);
+                    sharedSampler[sharedSamplerIndex]->currentBufferNum = sharedSamplerBufferIndex;
+                    if (osc_recliveinput == 0){
+                        sharedSampler[sharedSamplerIndex]->bRecLiveInput = false;
+                    }
+                    else{
+                        sharedSampler[sharedSamplerIndex]->bRecLiveInput = true;
+                    }
+                }
+        }
+        // /sharedsampler/0/play
+        if (splittedAdress[2]=="play"){
+                sharedSampler[sharedSamplerIndex]->bPlayAnyBuffer = !sharedSampler[sharedSamplerIndex]->bPlayAnyBuffer;
+        }
+        // /sharedsampler/0/pause
+        if (splittedAdress[2]=="pause"){
+                sharedSampler[sharedSamplerIndex]->bPauseBuffer = !sharedSampler[sharedSamplerIndex]->bPauseBuffer;
+        }
+        // /sharedsampler/0/playbuffer index
+        if (splittedAdress[2]=="playbuffer"){
+                if (splittedAdress.size()<3){
+                    // play current buffer
+                    int osc_bplaybufferindex = m.getArgAsInt32(0);
+                    sharedSampler[sharedSamplerIndex]->bPlayBuffer[osc_bplaybufferindex] = !sharedSampler[sharedSamplerIndex]->bPlayBuffer[osc_bplaybufferindex];
+                    /*if (osc_bplaycurrent == 0){
+                        sharedSampler[sharedSamplerIndex]->bPlayBuffer[currentBufferNum]= false;
+                    }
+                    else {
+                        sharedSampler[sharedSamplerIndex]->bPlayBuffer[currentBufferNum]= true;
+                    }*/
+                }
+                else{
+                        // /shared/sampler/0/playbuffer/0 0|1
+                    int sharedSamplerBufferIndex=ofToInt(splittedAdress[3]);
+                    int osc_bplaybuffer = m.getArgAsInt32(0);
+                    if (osc_bplaybuffer == 0){
+                        sharedSampler[sharedSamplerIndex]->bPlayBuffer[sharedSamplerBufferIndex]= false;
+                    }
+                    else{
+                        sharedSampler[sharedSamplerIndex]->bPlayBuffer[sharedSamplerBufferIndex]= true;
+
+                    }
+
+                }
+
+        }
+    }
     // check for quads corner x movements
     if ( m.getAddress() == "/corners/x" )
     {
