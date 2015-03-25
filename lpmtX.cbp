@@ -1129,6 +1129,12 @@
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
+		<Unit filename="src/VideoSampler.cpp">
+			<Option virtualFolder="src/" />
+		</Unit>
+		<Unit filename="src/VideoSampler.h">
+			<Option virtualFolder="src/" />
+		</Unit>
 		<Unit filename="src/appUtils.cpp">
 			<Option virtualFolder="src/" />
 		</Unit>
