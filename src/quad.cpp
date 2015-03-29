@@ -897,17 +897,17 @@ void quad::draw()
                 greenscreenShader->setUniform1f("tintG", camColorize.g);
                 greenscreenShader->setUniform1f("tintB", camColorize.b);
                 greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
-                cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                //cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
-                //cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
                 greenscreenShader->end();
             }
             else
             {
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
-                cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                //cams[camNumber]->getNextVideoFrame().getTextureRef().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
-                //cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
+                cams[camNumber]->getTexture().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
             }
             if(camBrick)
