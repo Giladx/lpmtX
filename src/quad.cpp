@@ -8,15 +8,15 @@
 
 #ifdef WITH_KINECT
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
     #endif
 #else
     #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
     #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
+    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
     #endif
 #endif
 {
@@ -24,7 +24,7 @@
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
-    brickwallShader = &brickShader;
+//    brickwallShader = &brickShader;
 
     //camera = &camGrabber;
     #ifdef WITH_KINECT
@@ -103,8 +103,8 @@
     imgBg = False;
     videoBg = False;
     videoLoop = True;
-    videoBrick = False;
-    camBrick = False;
+    //videoBrick = False;
+    //camBrick = False;
     videoGreenscreen = False;
     animaBg = False;
     sharedVideoBg = false;
@@ -673,7 +673,7 @@ void quad::draw()
                 glPopMatrix();
             }
             //--------------------------brickwall---------------------------
-
+/*
                     if (brickwallShader)
                     {
                     brickwallShader->begin();
@@ -682,7 +682,7 @@ void quad::draw()
                     else
                     {
                         video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
-                    }
+                    }*/
 
 
         }
@@ -756,16 +756,16 @@ void quad::draw()
 
         if (sharedVideoBg)
         {
-            if (videoFit)
+            if (sVideoFit)
             {
                 float fitX = float(ofGetWidth()/vids[sharedVideoId].getWidth());
                 float fitY = float(ofGetHeight()/vids[sharedVideoId].getHeight());
-                if (videoKeepAspect)
+                if (sVideoKeepAspect)
                     {
                         // we calculate the factor for fitting the image in quad respecting img aspect ratio
                         if (fitX >= fitY)
                         {
-                            videoMultX = fitY;
+                            videoMultY = fitY;
                             videoMultX = fitY;
                         }
                         else
@@ -782,15 +782,15 @@ void quad::draw()
                     }
 
             }
-            if (videoHFlip || videoVFlip)
+            if (sVideoHFlip || sVideoVFlip)
             {
                 glPushMatrix();
-                if(videoHFlip && !videoVFlip)
+                if(sVideoHFlip && !sVideoVFlip)
                 {
                     ofTranslate(vids[sharedVideoId].width*videoMultX,0);
                     glScalef(-1,1,1);
                 }
-                else if(videoVFlip && !videoHFlip)
+                else if(sVideoVFlip && !sVideoHFlip)
                 {
                     ofTranslate(0,vids[sharedVideoId].height*videoMultY);
                     glScalef(1,-1,1);
@@ -802,7 +802,7 @@ void quad::draw()
                 }
             }
             ofSetColor(videoColorize.r * 255 * timelineRed, videoColorize.g * 255 * timelineGreen, videoColorize.b * 255 * timelineBlu, videoColorize.a * 255 * timelineAlpha);
-            if (videoGreenscreen)
+            if (sVideoGreenscreen)
             {
                 greenscreenShader->begin();
                 greenscreenShader->setUniformTexture("tex", vids[sharedVideoId].getTextureReference(),0 );
@@ -821,15 +821,15 @@ void quad::draw()
             {
                 vids[sharedVideoId].draw(0,0,vids[sharedVideoId].width*videoMultX, vids[sharedVideoId].height*videoMultY);
             }
-            if (videoHFlip || videoVFlip)
+            if (sVideoHFlip || sVideoVFlip)
             {
                 glPopMatrix();
             }
-            if(videoBrick)
+            /*if(videoBrick)
             {
             brickwallShader->begin();
             brickwallShader->end();
-            }
+            }*/
 
 }
 
@@ -906,7 +906,7 @@ void quad::draw()
                 cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
             }
-            if(camBrick)
+            /*if(camBrick)
             {
                 brickwallShader->begin();
               //  brickwallShader.setUniform3f("BrickColor",1.0,1.0,1.0);
@@ -917,7 +917,7 @@ void quad::draw()
                 //camTexture.draw(0,0,camWidth*camMultX,camHeight*camMultY); // orig
                 cams[camNumber].getTextureReference().draw(0,0,camWidth*camMultX,camHeight*camMultY);
 
-            }
+            }*/
             if (camHFlip || camVFlip)
             {
                 glPopMatrix();
@@ -1573,3 +1573,4 @@ void quad::draw()
 
     }
 }
+

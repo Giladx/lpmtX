@@ -76,8 +76,8 @@ public:
 
     ofTrueTypeFont ttf;
 
-    quad quads[36];
-    int layers[36];
+    quad quads[72];
+    int layers[72];
 
     int activeQuad;
     int nOfQuads;
@@ -156,7 +156,7 @@ public:
     ofShader quadMaskShader;
     ofShader chromaShader;
     //ofShader noiseShader;
-    ofShader brickShader;
+    //ofShader brickShader;
     //ofShader EnvBMShader;
     //ofShader fisheyeShader;
 
@@ -220,6 +220,7 @@ public:
     ofxXmlSettings XML;
     void setXml();
     void getXml(string xmlFile);
+    string originalFileExtension;
 
     // double-click stuff
     unsigned long doubleclickTime;

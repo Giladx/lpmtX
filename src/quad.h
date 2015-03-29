@@ -121,6 +121,9 @@ public:
     float videoMultX;
     float videoMultY;
     float videoSpeed;
+    float sVideoMultX;
+    float sVideoMultY;
+    float sVideoSpeed;
     float previousSpeed;
     float slideshowSpeed;
     float transDuration;
@@ -148,6 +151,8 @@ public:
     bool camKeepAspect;
     bool videoFit;
     bool videoKeepAspect;
+    bool sVideoFit;
+    bool sVideoKeepAspect;
     bool imgBg;
     bool videoBg;
     bool videoSound;
@@ -157,6 +162,9 @@ public:
     bool animaFull;
     bool animaWire;
     bool animaDots;
+    bool sVideoSound;
+    bool sVideoLoop;
+    bool sVideoGreenscreen;
     bool sharedVideoBg;
     int sharedVideoNum;
     int sharedVideoId;
@@ -183,8 +191,10 @@ public:
     bool imgHFlip;
     bool camHFlip;
     bool videoVFlip;
+    bool sVideoHFlip;
     bool imgVFlip;
     bool camVFlip;
+    bool sVideoVFlip;
     bool edgeBlendBool;
 
     bool bBlendModes;
@@ -268,15 +278,15 @@ public:
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &brickShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
         #endif
     #endif
 

@@ -153,7 +153,7 @@ void testApp::timelineTriggerReceived(ofxTLBangEventArgs& trigger){
             }
             else if (tlMsg == "videos_reset")
             {
-                for(int j=0; j<36; j++)
+                for(int j=0; j<72; j++)
                 {
                     if(quads[j].video.isLoaded())
                     {

@@ -55,7 +55,7 @@ void testApp::openSharedVideoFile(int i)
             sharedVideos[i].setLoopState(OF_LOOP_NORMAL);
             sharedVideos[i].play();
             sharedVideos[i].setVolume(0);
-            for(int j=0; j<36; j++)
+            for(int j=0; j<72; j++)
             {
                 if (quads[j].initialized)
                 {
@@ -81,7 +81,7 @@ void testApp::openSharedVideoFile(string path, int i)
             sharedVideos[i].setLoopState(OF_LOOP_NORMAL);
             sharedVideos[i].play();
             sharedVideos[i].setVolume(0);
-            for(int j=0; j<36; j++)
+            for(int j=0; j<72; j++)
             {
                 if (quads[j].initialized)
                 {
@@ -130,7 +130,7 @@ void testApp::resync()
     }
     #endif
 
-    for(int i = 0; i < 36; i++)
+    for(int i = 0; i < 72; i++)
     {
         if (quads[i].initialized)
         {
@@ -173,7 +173,7 @@ void testApp::startProjection()
         timeline.play();
     }
     #endif
-    for(int i = 0; i < 36; i++)
+    for(int i = 0; i < 72; i++)
     {
         if (quads[i].initialized)
         {
@@ -206,7 +206,7 @@ void testApp::stopProjection()
         timeline.disable();
     }
     #endif
-    for(int i = 0; i < 36; i++)
+    for(int i = 0; i < 72; i++)
     {
         if (quads[i].initialized)
         {

@@ -82,7 +82,7 @@ void testApp::parseOsc()
             gui.hide();
             bGui = False;
             bdrawGrid = False;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -96,7 +96,7 @@ void testApp::parseOsc()
             gui.hide();
             bGui = False;
             bdrawGrid = False;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -181,7 +181,7 @@ void testApp::parseOsc()
         if (!bGui)
         {
             maskSetup = !maskSetup;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -196,7 +196,7 @@ void testApp::parseOsc()
         if (!bGui)
         {
             maskSetup = true;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -211,7 +211,7 @@ void testApp::parseOsc()
         if (!bGui)
         {
             maskSetup = false;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -227,7 +227,7 @@ void testApp::parseOsc()
         if (isSetup)
         {
             isSetup = False;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -238,7 +238,7 @@ void testApp::parseOsc()
         else
         {
             isSetup = True;
-            for(int i = 0; i < 36; i++)
+            for(int i = 0; i < 72; i++)
             {
                 if (quads[i].initialized)
                 {
@@ -251,7 +251,7 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/mode/setup/on" )
     {
         isSetup = True;
-        for(int i = 0; i < 36; i++)
+        for(int i = 0; i < 72; i++)
         {
             if (quads[i].initialized)
             {
@@ -263,7 +263,7 @@ void testApp::parseOsc()
     else if ( m.getAddress() == "/projection/mode/setup/off" )
     {
         isSetup = False;
-        for(int i = 0; i < 36; i++)
+        for(int i = 0; i < 72; i++)
         {
             if (quads[i].initialized)
             {
