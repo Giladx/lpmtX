@@ -350,3 +350,21 @@ void testApp::copyQuadSettings(int sourceQuad)
     }
     }
 }
+
+ofPixelFormat testApp::parseDesiredPixelFormat(string stringFromXML)
+{
+    ofPixelFormat format = OF_PIXELS_RGB;
+    if (stringFromXML == "I420"){
+        format = OF_PIXELS_I420;
+    }else if (stringFromXML == "MONO"){
+        format = OF_PIXELS_MONO;
+    }
+
+    return format;
+}
+
+
+
+
+
+
