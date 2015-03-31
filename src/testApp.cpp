@@ -78,20 +78,12 @@ void testApp::setup()
             cam->setVerbose(true);
             //set pixel Format
             cam->setPixelFormat(parseDesiredPixelFormat(cam_pix_format));
-            //cam->setPixelFormat(OF_PIXELS_I420);
             bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
-            //bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
-
             camWidth = cam->width;
             camHeight= cam->height;
-cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<cam<<"cam.height"<<cam->height<<endl;
             //setup Sampler
             VideoSampler * _sampler=new VideoSampler;
-cout<<"=============creation du sampler=============="<<endl;
-
-           // _sampler->setup(camID, camHeight, camWidth, OF_PIXELS_I420);
            _sampler->setup(*cam, parseDesiredPixelFormat(cam_pix_format));
-cout<<"=============setup sampler=============="<<_sampler->vGrabber<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
@@ -956,10 +948,6 @@ void testApp::update()
 //--------------------------------------------------------------
 void testApp::draw()
 {
-    /*ofDrawBitmapString("FPS: " + ofToString(int(ofGetFrameRate()))
-                       + " || cameraBuffer FPS " + ofToString(sharedSampler[0]->vBuffer[0]->getFps())
-                       + " || videoframes pool size: " + ofToString(sharedSampler[0]->vBuffer[0]->getTotalFrames())
-                       + " || total frames: " +ofToString(NUM_FRAMES),20,ofGetHeight()-40);*/
 
     // in setup mode writes the number of active quad at the bottom of the window
     if (isSetup)
@@ -1174,9 +1162,6 @@ void testApp::keyPressed(int key)
         snapshotOn = !snapshotOn;
         if (snapshotOn == 1)
         {
-            /*using equivalent cameras[i].update() in of v0.8
-            cameras[0].grabFrame();
-            */
             cameras[0]->update();
             snapshotTexture.allocate(camWidth,camHeight, GL_RGB);
             unsigned char * pixels = cameras[0]->getPixels();

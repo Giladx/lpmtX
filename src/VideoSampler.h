@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-//#include "PlayModes.h"
 #include "VideoBuffer.h"
 #include "VideoGrabber.h"
 #include "VideoRate.h"
@@ -10,13 +9,12 @@
 #define NUM_BUFFER 4
 
 
-class VideoSampler /*: public ofBaseApp*/{
+class VideoSampler{
 
 public:
     VideoSampler();
     virtual ~VideoSampler();
     void setup();
-    //void setup(int _grabberID);
     void setup(int _grabberID, int _grabberHeight, int _grabberWidth, ofPixelFormat _grabberPixelFormat);
     void setup(ofxPm::VideoGrabber &_vGrabber, ofPixelFormat _grabberPixelFormat);
 
@@ -29,7 +27,6 @@ public:
     void drawCurrentBuffer(int _x, int _y, int _height, int _width);
     void drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum);
 
-    //PlayModes playModes;
     // Grabber and Buffer
     ofxPm::VideoGrabber * vGrabber;
     int GrabberDeviceID;
