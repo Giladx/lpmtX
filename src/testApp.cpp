@@ -71,10 +71,13 @@ void testApp::setup()
             reqCamWidth = XML.getValue("WIDTH",640);
             reqCamHeight = XML.getValue("HEIGHT",480);
             camID = XML.getValue("ID",0);
+            string cam_pix_format = XML.getValue("PIXEL_FORMAT","RGB");
             XML.popTag();
             ofxPm::VideoGrabber* cam=new ofxPm::VideoGrabber;
             cam->setDeviceID(camID);
             cam->setVerbose(true);
+            //set pixel Format
+            cam->setPixelFormat(parseDesiredPixelFormat(cam_pix_format));
             //cam->setPixelFormat(OF_PIXELS_I420);
             bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
             //bCameraOk = cam.setup(reqCamWidth,reqCamHeight);
@@ -87,7 +90,7 @@ cout<<"=============creation de la cam=============="<<bCameraOk<<"& cam "<<cam<
 cout<<"=============creation du sampler=============="<<endl;
 
            // _sampler->setup(camID, camHeight, camWidth, OF_PIXELS_I420);
-           _sampler->setup(*cam, OF_PIXELS_RGB);
+           _sampler->setup(*cam, parseDesiredPixelFormat(cam_pix_format));
 cout<<"=============setup sampler=============="<<_sampler->vGrabber<<endl;
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
