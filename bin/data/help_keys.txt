@@ -41,3 +41,6 @@ KEY COMMANDS:
 ‘l’ – loads project from xml file
 'L' – loads project from xml file (with dialog)
 
+F10 – toggle timeline 
+F11 – timeline clean screen
+F12 - timeline play/stop

@@ -158,7 +158,7 @@ public:
     //ofShader noiseShader;
     //ofShader brickShader;
     //ofShader EnvBMShader;
-    //ofShader fisheyeShader;
+    ofShader fisheyeShader;
 
     //ofxAssimpModelLoader obj;
 

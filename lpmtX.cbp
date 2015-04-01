@@ -13,7 +13,7 @@
 				<Option working_dir="bin" />
 				<Option object_output="obj/Debug/" />
 				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworksDebug.a;" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 			</Target>
@@ -22,7 +22,7 @@
 				<Option working_dir="bin" />
 				<Option object_output="obj/Release/" />
 				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworks.a;" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 			</Target>
@@ -1096,6 +1096,12 @@
 		<Unit filename="bin/data/shaders/chroma.vert">
 			<Option virtualFolder="shaders/" />
 		</Unit>
+		<Unit filename="bin/data/shaders/fisheye.frag">
+			<Option virtualFolder="shaders/" />
+		</Unit>
+		<Unit filename="bin/data/shaders/fisheye.vert">
+			<Option virtualFolder="shaders/" />
+		</Unit>
 		<Unit filename="bin/data/shaders/mask.frag">
 			<Option virtualFolder="shaders/" />
 		</Unit>
@@ -1166,7 +1172,10 @@
 			<Option virtualFolder="src/" />
 		</Unit>
 		<Extensions>
-			<code_completion />
+			<code_completion>
+				<search_path add="../../../libs/openFrameworks" />
+				<search_path add="../../../../../../usr/include" />
+			</code_completion>
 			<envvars />
 			<debugger />
 			<DoxyBlocks>

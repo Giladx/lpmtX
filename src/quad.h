@@ -60,6 +60,7 @@ public:
     ofFloatColor endColor;
     ofFloatColor transColor;
     ofFloatColor imgColorize;
+    ofFloatColor imgBgColorize;
     ofFloatColor videoColorize;
     ofFloatColor camColorize;
     ofFloatColor colorGreenscreen;
@@ -134,7 +135,7 @@ public:
     float edgeBlendAmountBottom;
     float edgeBlendGamma;
     float edgeBlendLuminance;
-
+    float fisheyeRadius;
     int quadNumber;
 
     bool initialized;
@@ -154,10 +155,12 @@ public:
     bool sVideoFit;
     bool sVideoKeepAspect;
     bool imgBg;
+    bool imgBgGreenscreen;
     bool videoBg;
     bool videoSound;
     bool videoLoop;
     bool videoGreenscreen;
+    bool videoFishEye;
     bool animaBg;
     bool animaFull;
     bool animaWire;
@@ -186,6 +189,7 @@ public:
     bool kinectContourCurved;
     bool videoBrick;
     bool camBrick;
+    bool imgGreenscreen;
 
     bool videoHFlip;
     bool imgHFlip;
@@ -238,7 +242,8 @@ public:
     string slideshowName;
 
     ofShader * shaderBlend;
-//    ofShader * fisheye;
+    ofShader * fisheye;
+    ofShader * noise;
     ofFbo   quadFbo;
     ofFbo::Settings settings;
 
@@ -271,22 +276,22 @@ public:
     int quadH;
 
     ofShader * greenscreenShader;
-    ofShader * brickwallShader;
+    //ofShader * brickwallShader;
 
     // a func for reading a dir content to a vector of strings
     int getdir (string dir, vector<string> &files);
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
         #endif
     #endif
 
