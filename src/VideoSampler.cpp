@@ -168,7 +168,7 @@ void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _Buff
 
     if (buffers.size() != 0){
             cout<<"play head dans drawbuffer"<<playHead<<endl;
-        buffers[_BufferNum]->buffer[(int)playHead].draw(_x , _y, _height, _width);
+        buffers[_BufferNum]->draw(_x , _y, _height, _width);
     }
     else cout<<"vs drawbuffer null"<<endl;
     //buffers[_BufferNum].draw(_x , _y, _height, _width);
@@ -186,7 +186,7 @@ void VideoSampler::update(){
             //increment recordPosition
         if (recordPosition<NUM_FRAMES){
                 buffers[currentBufferNum]->getNewImage(vGrabber->getPixelsRef(),pix_type);;
-                recordPosition++;
+                //recordPosition++;
 
 
         }else {
@@ -208,9 +208,30 @@ void VideoSampler::update(){
     }
     if (bPlayAnyBuffer){
 
-                updatePlayHead();
-
+               // updatePlayHead();
+        for (int i = 0; i < buffers.size(); i++)
+        {
+            if (buffers[i]->isFinished())
+            {
+                buffers[i]->reset();
+            }
+            if (bPlayBuffer[i])
+            {
+                buffers[i]->start();
+                cout<<"buffer i update"<<buffers[i]->isPlaying()<<endl;
+                buffers[i]->update();
+            }else{
+                buffers[i]->stop();
+            }
         }
+    }else{
+        for (int i = 0; i < buffers.size(); i++)
+        {
+            buffers[i]->stop();
+        }
+    }
+
+
 
     //vRate.setSpeed(speed);*/
        // vGrabber->update();
@@ -231,7 +252,7 @@ cout<<"buffer current nb frame current frame "<<buffers[currentBufferNum]->getNu
     }
     else  {   }*/
     // Keep the Buffers looping
-   /* if (!buffers.empty())
+    /*if (!buffers.empty())
     {
         for (int i = 0; i < buffers.size(); i++)
         {
@@ -239,17 +260,23 @@ cout<<"buffer current nb frame current frame "<<buffers[currentBufferNum]->getNu
             {
                 buffers[i]->reset();
             }
+            if (bPlayBuffer[i])
+            {
+                cout<<"buffer i update"<<buffers[i]->isPlaying()<<endl;
+                buffers[i]->update();
+            }
         }
-    }*/
+
+    }
     // Update all the Buffers
-    if (!buffers.empty())
+    /*if (!buffers.empty())
     {
         for(int i = 0; i < buffers.size(); i++)
         {
             buffers[i]->update();
         }
     }
-
+*/
 
 }
 
