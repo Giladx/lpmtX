@@ -21,18 +21,8 @@ void VideoSampler::setup(){
         fps=30;
 
         //setup grabber
-        //vGrabber.setPixelFormat(OF_PIXELS_I420);
         vGrabber->initGrabber(640,480);
         vGrabber->setVerbose(true);
-
-        //setup Buffer
-       /* vRate.setup(*vGrabber,fps);
-        for (int i=0;i<NumBuffer; i++){
-
-            vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            //bPlayBuffer.push_back(false);
-            bPlayBuffer[i]=false;
-        }*/
 
 }
 //setup internal grabber
@@ -50,14 +40,6 @@ void VideoSampler::setup(int _grabberID, int _grabberHeight, int _grabberWidth, 
         vGrabber->initGrabber(_grabberHeight, _grabberWidth);
         vGrabber->setVerbose(true);
 
-        //setup Buffer
-       /* vRate.setup(*vGrabber,fps);
-        for (int i=0;i<NumBuffer; i++){
-
-            vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            //bPlayBuffer.push_back(false);
-            bPlayBuffer[i]=false;
-        }*/
 
 }
 
@@ -72,17 +54,7 @@ void VideoSampler::setup(ofVideoGrabber & _VideoGrabber, ofPixelFormat _grabberP
 
         //setup Buffer
         vGrabber= &_VideoGrabber;
-        //vRate.setup(_VideoGrabber,fps);
-        /*vRate.setup(*vGrabber,fps);
 
-
-        for (int i=0;i<NumBuffer; i++){
-
-            vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            //bPlayBuffer.push_back(false);
-            bPlayBuffer[i]=false;
-
-        }*/
 
 }
 
@@ -102,21 +74,9 @@ void VideoSampler::setup(ofVideoGrabber & _VideoGrabber, ofImageType _samplerPix
         for (int i=0;i<NumBuffer; i++){
 
             buffers.push_back(new ofxVideoBuffers());
-            //bPlayBuffer.push_back(false);
             bPlayBuffer[i]=false;
 
         }
-        //vRate.setup(_VideoGrabber,fps);
-        /*vRate.setup(*vGrabber,fps);
-
-
-        for (int i=0;i<NumBuffer; i++){
-
-            vBuffer.push_back(new ofxPm::VideoBuffer(vRate,NUM_FRAMES));
-            //bPlayBuffer.push_back(false);
-            bPlayBuffer[i]=false;
-
-        }*/
 
 }
 
@@ -150,28 +110,20 @@ void VideoSampler::draw(){
 
 }
 
-/*void VideoSampler::drawCurrentBuffer(int _x, int _y, int _height, int _width){
-    if ((vBuffer[currentBufferNum]->getVideoFrame(playHead)!= NULL)&&(bPlayBuffer[currentBufferNum])){
-
-        vBuffer[currentBufferNum]->getVideoFrame((int)playHead).getTextureRef().draw(_x , _y, _height, _width);
-
-    }
-}*/
-
-void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum){
-    /*if ((vBuffer[_BufferNum]->getVideoFrame(playHead)!= NULL)&&(bPlayBuffer[_BufferNum])){
-
-        vBuffer[_BufferNum]->getVideoFrame((int)playHead).getTextureRef().draw(_x , _y, _height, _width);
-
-    }*/
-                cout<<"play head dans drawbuffer"<<playHead<<endl;
+void VideoSampler::drawCurrentBuffer(int _x, int _y, int _height, int _width){
 
     if (buffers.size() != 0){
-            cout<<"play head dans drawbuffer"<<playHead<<endl;
+        buffers[currentBufferNum]->draw(_x , _y, _height, _width);
+    }
+}
+
+void VideoSampler::drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum){
+
+    if (buffers.size() != 0){
         buffers[_BufferNum]->draw(_x , _y, _height, _width);
     }
     else cout<<"vs drawbuffer null"<<endl;
-    //buffers[_BufferNum].draw(_x , _y, _height, _width);
+
 }
 
 void VideoSampler::update(){
@@ -180,15 +132,10 @@ void VideoSampler::update(){
     vGrabber->update();
     if (bRecLiveInput){
 
-        /*vBuffer[currentBufferNum]->resume();
-        vBuffer[currentBufferNum]->setFramePos((int)recordPosition);*/
-
             //increment recordPosition
         if (recordPosition<NUM_FRAMES){
                 buffers[currentBufferNum]->getNewImage(vGrabber->getPixelsRef(),pix_type);;
                 //recordPosition++;
-
-
         }else {
 
                 bRecLiveInput=false;
@@ -202,13 +149,9 @@ void VideoSampler::update(){
     else{
 
         //buffers[currentBufferNum]->stop();
-
-
-
     }
     if (bPlayAnyBuffer){
 
-               // updatePlayHead();
         for (int i = 0; i < buffers.size(); i++)
         {
             if (buffers[i]->isFinished())
@@ -230,53 +173,6 @@ void VideoSampler::update(){
             buffers[i]->stop();
         }
     }
-
-
-
-    //vRate.setSpeed(speed);*/
-       // vGrabber->update();
-cout<<"buffer current nb frame current frame "<<buffers[currentBufferNum]->getNumberOfFrames()<<" "<<buffers[currentBufferNum]->getCurrentFrameNumber()<<endl;
-    // When recording starts grab new image
-   /* if (bRecLiveInput)
-    {
-        buffer.getNewImage(vGrabber->getPixelsRef(),pix_type);
-
-    }
-    // When finished recording and Buffer size is greater the 30 frames
-    else if (!bRecLiveInput && buffer.getNumberOfFrames() > 30)
-    {
-        buffers.push_back(& buffer);
-        // Clear the single buffer object
-        buffer.clear();
-        //buffers[0].start();
-    }
-    else  {   }*/
-    // Keep the Buffers looping
-    /*if (!buffers.empty())
-    {
-        for (int i = 0; i < buffers.size(); i++)
-        {
-            if (buffers[i]->isFinished())
-            {
-                buffers[i]->reset();
-            }
-            if (bPlayBuffer[i])
-            {
-                cout<<"buffer i update"<<buffers[i]->isPlaying()<<endl;
-                buffers[i]->update();
-            }
-        }
-
-    }
-    // Update all the Buffers
-    /*if (!buffers.empty())
-    {
-        for(int i = 0; i < buffers.size(); i++)
-        {
-            buffers[i]->update();
-        }
-    }
-*/
 
 }
 

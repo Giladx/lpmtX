@@ -25,8 +25,8 @@ public:
 
 
     float getRecordPostion();
-    /*void drawPlayerData(float _playhead);
-    void drawCurrentBuffer(int _x, int _y, int _height, int _width);*/
+    /*void drawPlayerData(float _playhead);*/
+    void drawCurrentBuffer(int _x, int _y, int _height, int _width);
     void drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum);
 
     // Grabber and Buffer
