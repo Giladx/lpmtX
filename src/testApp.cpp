@@ -73,7 +73,7 @@ void testApp::setup()
             camID = XML.getValue("ID",0);
             string cam_pix_format = XML.getValue("PIXEL_FORMAT","RGB");
             XML.popTag();
-            ofxPm::VideoGrabber* cam=new ofxPm::VideoGrabber;
+            ofVideoGrabber* cam=new ofVideoGrabber;
             cam->setDeviceID(camID);
             cam->setVerbose(true);
             //set pixel Format
@@ -83,7 +83,7 @@ void testApp::setup()
             camHeight= cam->height;
             //setup Sampler
             VideoSampler * _sampler=new VideoSampler;
-           _sampler->setup(*cam, parseDesiredPixelFormat(cam_pix_format));
+           _sampler->setup(*cam, OF_IMAGE_GRAYSCALE);
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
@@ -696,9 +696,10 @@ void testApp::prepare()
 
         //update each sampler
         for (int i = 0 ;i< sharedSampler.size(); i++){
-            if ((sharedSampler[i]->vBuffer.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
+            cout << "sharedSampler[i]->buffers.size()"<<sharedSampler[i]->buffers.size()<<endl;
+            if ((sharedSampler[i]->buffers.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
                 sharedSampler[i]->update();
-            }
+            }else cout<<"sharedSampler updated"<<endl;
         }
 
 

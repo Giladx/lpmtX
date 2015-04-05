@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ofMain.h"
-#include "VideoBuffer.h"
+/*#include "VideoBuffer.h"
 #include "VideoGrabber.h"
-#include "VideoRate.h"
+#include "VideoRate.h"*/
+#include "ofxVideoBuffers.h"
 
 #define NUM_FRAMES 300
 #define NUM_BUFFER 4
@@ -16,24 +17,29 @@ public:
     virtual ~VideoSampler();
     void setup();
     void setup(int _grabberID, int _grabberHeight, int _grabberWidth, ofPixelFormat _grabberPixelFormat);
-    void setup(ofxPm::VideoGrabber &_vGrabber, ofPixelFormat _grabberPixelFormat);
+    void setup(ofVideoGrabber &_vGrabber, ofPixelFormat _grabberPixelFormat);
+    void setup(ofVideoGrabber & _VideoGrabber, ofImageType _samplerPixType);
 
     void update();
     void draw();
 
 
     float getRecordPostion();
-    void drawPlayerData(float _playhead);
-    void drawCurrentBuffer(int _x, int _y, int _height, int _width);
+    /*void drawPlayerData(float _playhead);
+    void drawCurrentBuffer(int _x, int _y, int _height, int _width);*/
     void drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum);
 
     // Grabber and Buffer
-    ofxPm::VideoGrabber * vGrabber;
+    //ofVideoGrabber * vGrabber;
     int GrabberDeviceID;
     int getGrabberDeviceID ();
-    //ofVideoGrabber vGrabber;
-    vector <ofxPm::VideoBuffer*> vBuffer ;
-    ofxPm::VideoRate vRate;
+    ofVideoGrabber * vGrabber;
+    //vector <ofxPm::VideoBuffer*> vBuffer ;
+    //ofxPm::VideoRate vRate;
+    ofxVideoBuffers     buffer;
+    vector<ofxVideoBuffers *> buffers;
+
+    ofImageType pix_type;
 
     int fps;
 	float speed;
