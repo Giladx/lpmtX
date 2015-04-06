@@ -162,7 +162,12 @@ void VideoSampler::update(){
             {
                 buffers[i]->start();
                 cout<<"buffer i update"<<buffers[i]->isPlaying()<<endl;
-                buffers[i]->update();
+                // we grab frames at 30fps, app is running at 60,
+                //so update buffers only once every two frames
+                if (ofGetFrameNum() % 2 == 0)
+                {
+                    buffers[i]->update();
+                }
             }else{
                 buffers[i]->stop();
             }

@@ -38,7 +38,7 @@ int getdir (string dir, vector<string> &files)
 void testApp::setup()
 {
 
-    ofSetFrameRate(30);
+    ofSetFrameRate(60);
     //ofSetVerticalSync(false);
     ofSetEscapeQuitsApp(false);
     ofSetWindowTitle("lpmt remiX by GiladX");
@@ -80,7 +80,7 @@ void testApp::setup()
             cam->setVerbose(true);
             //set pixel Format
             cam->setPixelFormat(parseDesiredPixelFormat(cam_pix_format));
-           	cam->setDesiredFrameRate(30);
+           	//cam->setDesiredFrameRate(30);
 
             bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
             camWidth = cam->width;
