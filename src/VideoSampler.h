@@ -1,9 +1,6 @@
 #pragma once
 
 #include "ofMain.h"
-/*#include "VideoBuffer.h"
-#include "VideoGrabber.h"
-#include "VideoRate.h"*/
 #include "ofxVideoBuffers.h"
 
 #define NUM_FRAMES 300
@@ -25,37 +22,26 @@ public:
 
 
     float getRecordPostion();
-    /*void drawPlayerData(float _playhead);*/
     void drawCurrentBuffer(int _x, int _y, int _height, int _width);
     void drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum);
 
-    // Grabber and Buffer
-    //ofVideoGrabber * vGrabber;
+    // Grabber
+    ofVideoGrabber * vGrabber;
     int GrabberDeviceID;
     int getGrabberDeviceID ();
-    ofVideoGrabber * vGrabber;
-    //vector <ofxPm::VideoBuffer*> vBuffer ;
-    //ofxPm::VideoRate vRate;
-    ofxVideoBuffers     buffer;
+
+    // Buffers
     vector<ofxVideoBuffers *> buffers;
-
-    ofImageType pix_type;
-
-    int fps;
-	float speed;
-	float playHead;
-	float loopSize;
-	//Bool event for Recording Toggle/ resets play position relative to current Rec position
-    void updatePlayHead();
-    bool bUpdatePlayheadEvent;
-
     int NumBuffer=4;
     int currentBufferNum=0;
+
+    // Buffers pixel type
+    ofImageType pix_type;
+
     //Recording
     bool bSetPosition;
     bool bRecLiveInput;
-    float recMix;
-    float recordPosition;
+    int recordPosition;
 
     //Playing
     array <bool, NUM_BUFFER> bPlayBuffer ;// (NUM_BUFFER);
@@ -65,10 +51,8 @@ public:
     float playEnd;
     int bufferSize;
 	int	sampleRate;
-
-	//Drawing
-    int curXpos, curYpos;
-    int prevXpos, prevYpos;
+    int fps;
+	float speed;
 
 
 };
