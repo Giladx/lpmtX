@@ -87,7 +87,7 @@ void testApp::setup()
             camHeight= cam->height;
             //setup Sampler
             VideoSampler * _sampler=new VideoSampler;
-           _sampler->setup(*cam, OF_IMAGE_GRAYSCALE);
+           _sampler->setup(*cam, parseDesiredImageType(cam_pix_format));
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];

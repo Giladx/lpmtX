@@ -363,6 +363,18 @@ ofPixelFormat testApp::parseDesiredPixelFormat(string stringFromXML)
     return format;
 }
 
+ofImageType testApp::parseDesiredImageType(string stringFromXML)
+{
+    ofImageType format = OF_IMAGE_COLOR;
+    if (stringFromXML == "I420"){
+        format = OF_IMAGE_GRAYSCALE;
+    }else if (stringFromXML == "MONO"){
+        format = OF_IMAGE_GRAYSCALE;
+    }
+
+    return format;
+}
+
 
 
 

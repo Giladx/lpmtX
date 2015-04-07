@@ -194,6 +194,7 @@ public:
     void quadBezierSpherizeStrong(int q);
     void quadBezierReset(int q);
     ofPixelFormat parseDesiredPixelFormat(string s);
+    ofImageType parseDesiredImageType(string s);
 
     float totRotationAngle;
     ofPolyline rotationSector;
