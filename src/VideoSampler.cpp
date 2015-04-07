@@ -145,7 +145,7 @@ void VideoSampler::update(){
 
         //buffers[currentBufferNum]->stop();
     }
-    if (bPlayAnyBuffer){
+    if (bPlayAnyBuffer ){
 
         for (int i = 0; i < buffers.size(); i++)
         {
@@ -158,7 +158,7 @@ void VideoSampler::update(){
                 buffers[i]->start();
                 // we grab frames at 30fps, app is running at 60,
                 //so update buffers only once every two frames
-                if (ofGetFrameNum() % 2 == 0)
+                if ((ofGetFrameNum() % 2 == 0)&& !bPauseBuffer)
                 {
                     buffers[i]->update();
                 }
