@@ -43,6 +43,7 @@ void testApp::setup()
     ofSetEscapeQuitsApp(false);
     ofSetWindowTitle("lpmt remiX by GiladX");
     ofSetLogLevel(OF_LOG_NOTICE);
+   // ofSetLogLevel(OF_LOG_VERBOSE);
     autoStart = false;
     bdrawGrid = false;
 
@@ -700,10 +701,9 @@ void testApp::prepare()
 
         //update each sampler
         for (int i = 0 ;i< sharedSampler.size(); i++){
-            cout << "sharedSampler[i]->buffers.size()"<<sharedSampler[i]->buffers.size()<<endl;
             if ((sharedSampler[i]->buffers.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
                 sharedSampler[i]->update();
-            }else cout<<"sharedSampler updated"<<endl;
+            }else cout<<"sharedSampler not updated"<<endl;
         }
 
 
