@@ -7,8 +7,10 @@ int main( )
 {
 
     ofAppGlutWindow window;
-    ofSetupOpenGL(&window, 1024, 768, OF_FULLSCREEN);			// <-------- setup the GL context
+
+    ofSetupOpenGL(&window, 640, 480, OF_WINDOW);			// <-------- setup the GL context
     //ofSetWindowPosition(1400,150);
+    ofSetWindowTitle("LpmtX recoded by Gil@d.X");
 
 
 

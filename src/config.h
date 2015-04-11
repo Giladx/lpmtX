@@ -8,3 +8,5 @@
 #endif
 
 #define WITH_MIDI
+
+#define WITH_VIDEO

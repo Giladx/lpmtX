@@ -124,12 +124,39 @@ void testApp::parseOsc()
         XML.saveFile("_lpmt_settings.xml");
         cout<<"saved settings to data/_lpmt_settings.xml"<<endl;
     }
+    else if ( m.getAddress() == "/projection/savefile" )
+    {
+        ofFileDialogResult saveFileResult = ofSystemSaveDialog(ofGetTimestampString() + "." + ofToLower(originalFileExtension), "Save as - XML Project");
+            if(saveFileResult.bSuccess)
+            {
+                //ofImage img;
+                setXml();
+                string fileName = saveFileResult.getName();
+                string filePath = saveFileResult.getPath();
+                XML.saveFile(filePath);
+                gui.setPage((activeQuad*4)+2);
+            }
+    }
+
 
     // load
     else if ( m.getAddress() == "/projection/load" )
     {
         getXml("_lpmt_settings.xml");
         gui.setPage((activeQuad*4)+2);
+    }
+
+    else if ( m.getAddress() == "/projection/loadfile" )
+    {
+        ofFileDialogResult dialog_result = ofSystemLoadDialog("Load XML Project", false);
+            if(dialog_result.bSuccess)
+            {
+                ofImage img;
+                string fileName = dialog_result.getName();
+                string filePath = dialog_result.getPath();
+                getXml(filePath);
+                gui.setPage((activeQuad*4)+2);
+            }
     }
 
     // toggle fullscreen
@@ -486,6 +513,19 @@ void testApp::parseOsc()
             quads[activeQuad].imgVFlip = true;
         }
     }
+    else if ( m.getAddress() == "/active/img/greenscreen" )
+    {
+        // argument is int32
+        int osc_quad_imgGreenscreen = m.getArgAsInt32( 0 );
+        if(osc_quad_imgGreenscreen == 0)
+        {
+            quads[activeQuad].imgBgGreenscreen = false;
+        }
+        else if(osc_quad_imgGreenscreen == 1)
+        {
+            quads[activeQuad].imgBgGreenscreen = true;
+        }
+    }
 
     else if ( m.getAddress() == "/active/img/color" )
     {
@@ -751,6 +791,23 @@ void testApp::parseOsc()
         {
             quads[activeQuad].bDeform = true;
         }
+    }
+
+    //deform edit
+    else if ( m.getAddress() == "/active/deform/edit" )
+    {
+        // argument is int32
+        if (!bGui)
+            {
+                gridSetup = !gridSetup;
+                for(int i = 0; i < 72; i++)
+                {
+                    if (quads[i].initialized)
+                    {
+                        quads[i].isBezierSetup = !quads[i].isBezierSetup;
+                    }
+                }
+            }
     }
 
     // deform bezier
@@ -1021,7 +1078,6 @@ void testApp::parseOsc()
     }
 
 
-
     else if ( m.getAddress() == "/active/video/color" )
     {
         // arguments are ffff
@@ -1136,6 +1192,26 @@ void testApp::parseOsc()
         }
     }
 
+    // video reset
+    else if ( m.getAddress() == "/active/video/reset" )
+    {
+        //no argument
+        quads[activeQuad].video.setPosition(0.0);
+    }
+
+    //video stop
+    else if (m.getAddress() == "/active/video/stop")
+    {
+        quads[activeQuad].video.stop();
+    }
+    //video play
+    //video stop
+    else if (m.getAddress() == "/active/video/play")
+    {
+        quads[activeQuad].video.play();
+    }
+
+
     // video greenscreen
     else if ( m.getAddress() == "/active/video/greenscreen" )
     {
@@ -1214,7 +1290,7 @@ void testApp::parseOsc()
         }
     }
 
-    // video VFlip
+    // camera VFlip
     else if ( m.getAddress() == "/active/cam/vmirror" )
     {
         // argument is int32
@@ -1228,7 +1304,6 @@ void testApp::parseOsc()
             quads[activeQuad].camVFlip = true;
         }
     }
-
 
     else if ( m.getAddress() == "/active/cam/color" )
     {
@@ -1754,6 +1829,60 @@ void testApp::parseOsc()
         quads[activeQuad].circularCrop[2] = crop_radius;
     }
 
+    //3D
+    else if ( m.getAddress() == "/active/3d/load" )
+    {
+        // no argument
+        openAnimaFile();
+    }
+    else if ( m.getAddress() == "/active/3d/scale/x" )
+    {
+        // arguments are f
+        float scale_x_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaScalex = scale_x_3d;
+    }
+    else if ( m.getAddress() == "/active/3d/scale/y" )
+    {
+        // arguments are f
+        float scale_y_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaScaley = scale_y_3d;
+    }
+    else if ( m.getAddress() == "/active/3d/scale/z" )
+    {
+        // arguments are f
+        float scale_z_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaScalez = scale_z_3d;
+    }
+    else if ( m.getAddress() == "/active/3d/rotate/x" )
+    {
+        // arguments are f
+        float rotate_x_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaRotateX = rotate_x_3d;
+    }
+    else if ( m.getAddress() == "/active/3d/rotate/y" )
+    {
+        // arguments are f
+        float rotate_y_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaRotateY = rotate_y_3d;
+    }
+    else if ( m.getAddress() == "/active/3d/rotate/z" )
+    {
+        // arguments are f
+        float rotate_z_3d = m.getArgAsFloat(0);
+        quads[activeQuad].animaRotateZ = rotate_z_3d;
+    }
+        // texture modes
+    else if ( m.getAddress() == "/active/3d/texture/mode" )
+    {
+        // argument is int32
+        int osc_quad_texmod = m.getArgAsInt32( 0 );
+        if(osc_quad_texmod < 4)
+        {
+            quads[activeQuad].textureModes = osc_quad_texmod;
+        }
+    }
+
+
     //messages to address surface directly
     else if (ofIsStringInString (m.getAddress(), "/surface/")){
             //split address " ","surface","index","show|"
@@ -2056,7 +2185,7 @@ void testApp::parseOsc()
                 }
             }
 
-            // /surface/0/video/keepaspect
+            // /surface/0/cam/keepaspect
             else if (splittedAdress[3]=="keepaspect"){
                 // argument is int32
                 int osc_quad_camKeepAspect = m.getArgAsInt32( 0 );
@@ -2271,6 +2400,21 @@ void testApp::parseOsc()
                 {
                     quads[surfaceIndex].sharedVideoNum = osc_quad_sharedVideoNum;
                 }
+            }
+            //surface/0/video/reset
+            else if (splittedAdress[3] == "reset"){
+            //no argument
+            quads[surfaceIndex].video.setPosition(0.0);
+            }
+            //surface/0/video/stop
+            else if (splittedAdress[3] == "stop"){
+            //no argument
+            quads[surfaceIndex].video.stop();
+            }
+            //surface/0/video/play
+            else if (splittedAdress[3] == "play"){
+            //no argument
+            quads[surfaceIndex].video.play();
             }
 
             // /surface/0/video/fit

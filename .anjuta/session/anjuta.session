@@ -2,16 +2,16 @@
 Maximized=1
 Geometry=1366x716+0+24
 
-[File Loader]
-Files=../../src/testApp.h#1%%%../../src/testApp.cpp#1%%%../../src/quadUtils.cpp#1%%%../../src/quad.h#1%%%../../src/quad.cpp#648
-
-[Document Manager]
-bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
-
 [Execution]
 Program uri=../../bin/lpmtX
 Run in terminal=2
 Working directories=../../../lpmtX
+
+[File Loader]
+Files=../../src/testApp.h#1%%%../../src/testApp.cpp#1%%%../../src/quadUtils.cpp#1%%%../../src/quad.h#1%%%../../src/quad.cpp#626
+
+[Document Manager]
+bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
 
 [Build]
 Configuration list=1:Default:%%%1:Debug:Debug%%%1:Profiling:Profiling%%%1:Optimized:Optimized

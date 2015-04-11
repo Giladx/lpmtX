@@ -12,7 +12,8 @@ bool kinectManager::setup()
     //enable depth->rgb image calibration
     kinect.setRegistration(true);
 
-    kinect.init(false,false,true);
+    kinect.init();
+    colorImg.allocate(kinect.width, kinect.height);
     //kinect.init(true); // shows infrared instead of RGB video image
     //kinect.init(false, false); // disable video image (faster fps)
     kinect.open();

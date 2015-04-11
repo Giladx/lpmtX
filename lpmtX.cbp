@@ -6,15 +6,16 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons/;src/;build config/;addons/ofxMSAInteractiveObject/src/;addons/ofxMostPixelsEver/src/;addons/ofxNetwork/src/;addons/ofxOsc/src/;addons/ofxSimpleGuiToo/src/Controls/;addons/ofxSimpleGuiToo/src/;addons/ofxXmlSettings/src/;shaders/;addons/ofxMidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxTimeline/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxKinect/libs/libfreenect/;addons/ofxKinect/src/;addons/ofxOpenCv/src/;addons/ofxTween/src/Easings/;addons/ofxTimeline/libs/kiss/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxTween/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxXmlSettings/libs/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxTimecode/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxTimeline/libs/kiss/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxTextInputField/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxMSATimer/src/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxRange/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxTimeline/libs/sndfile/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxKinect/libs/libusb/osx/include/libusb-1.0/;addons/ofxFenster/libs/ghost/include/Cocoa/;addons/ofxFenster/libs/ghost/include/;addons/ofxFenster/libs/ghost/include/WIN32/;addons/ofxFenster/libs/ghost/include/X11/;addons/ofxFenster/libs/string/include/;addons/ofxFenster/src/;addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/;addons/ofxAssimpModelLoader/libs/assimp/include/;addons/ofxAssimpModelLoader/src/;addons/ofxTimeline/libs/;addons/ofxMidi/src/;" />
+		<Option virtualFolders="addons/;src/;build config/;addons/ofxMSAInteractiveObject/src/;addons/ofxMostPixelsEver/src/;addons/ofxNetwork/src/;addons/ofxOsc/src/;addons/ofxSimpleGuiToo/src/Controls/;addons/ofxSimpleGuiToo/src/;addons/ofxXmlSettings/src/;shaders/;addons/ofxMidi/;addons/ofxOpenCv/libs/opencv/include/opencv2/flann/;addons/ofxTimeline/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/core/;addons/ofxOsc/libs/oscpack/src/osc/;addons/ofxKinect/libs/libfreenect/;addons/ofxKinect/src/;addons/ofxOpenCv/src/;addons/ofxTween/src/Easings/;addons/ofxTimeline/libs/kiss/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/ts/;addons/ofxTween/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/legacy/;addons/ofxXmlSettings/libs/;addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/;addons/ofxTimecode/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/gpu/;addons/ofxOsc/libs/oscpack/src/ip/;addons/ofxOpenCv/libs/opencv/include/opencv/;addons/ofxOpenCv/libs/opencv/include/opencv2/video/;addons/ofxTimeline/libs/kiss/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/highgui/;addons/ofxTextInputField/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/features2d/;addons/ofxOsc/libs/oscpack/src/ip/win32/;addons/ofxMSATimer/src/;addons/ofxOsc/libs/oscpack/src/ip/posix/;addons/ofxOpenCv/libs/opencv/include/opencv2/objdetect/;addons/ofxRange/src/;addons/ofxOpenCv/libs/opencv/include/opencv2/ml/;addons/ofxOpenCv/libs/opencv/include/opencv2/;addons/ofxTimeline/libs/sndfile/include/;addons/ofxOpenCv/libs/opencv/include/opencv2/calib3d/;addons/ofxOpenCv/libs/opencv/include/opencv2/contrib/;addons/ofxKinect/libs/libusb/osx/include/libusb-1.0/;addons/ofxAssimpModelLoader/libs/assimp/include/Compiler/;addons/ofxAssimpModelLoader/libs/assimp/include/;addons/ofxAssimpModelLoader/src/;addons/ofxTimeline/libs/;addons/ofxMidi/src/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="bin" />
 				<Option object_output="obj/Debug/" />
 				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworksDebug.a;" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Option projectLinkerOptionsRelation="2" />
 			</Target>
 			<Target title="Release">
@@ -22,8 +23,9 @@
 				<Option working_dir="bin" />
 				<Option object_output="obj/Release/" />
 				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux64/libopenFrameworks.a;" />
-				<Option type="0" />
+				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Option projectLinkerOptionsRelation="2" />
 			</Target>
 		</Build>
@@ -1175,6 +1177,7 @@
 			<code_completion>
 				<search_path add="../../../libs/openFrameworks" />
 				<search_path add="../../../../../../usr/include" />
+				<search_path add="../../../addons" />
 			</code_completion>
 			<envvars />
 			<debugger />

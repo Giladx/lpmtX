@@ -6,10 +6,10 @@ void testApp::timelineSetup(float duration){
 
     timeline.setup();
     timeline.setSpacebarTogglePlay(false);
-    timeline.setWorkingFolder("timeline");
+    timeline.setWorkingFolder("timeline/");
     timeline.setDurationInSeconds(duration);
     timeline.setPageName("main"); //changes the first page name
-    timeline.addFlags("trigger_main", "main_trigger.xml");
+    timeline.addFlags("trigger_main", "timeline/main_trigger.xml");
 
     for(int i = 0; i < 4; i++)
     {
@@ -22,7 +22,7 @@ void testApp::timelineSetup(float duration){
 
     timeline.setLoopType(OF_LOOP_NORMAL);
     timeline.enableSnapToBPM(120.0);
-    timeline.enableSnapToOtherKeyframes(false);
+    timeline.enableSnapToOtherKeyframes(true);
     timeline.setEditableHeaders(true);
     //timeline.collapseAllTracks();
     //initialize the shader
@@ -161,6 +161,27 @@ void testApp::timelineTriggerReceived(ofxTLBangEventArgs& trigger){
                     }
                 }
             }
+            else if (tlMsg == "videos_stop")
+            {
+                for(int j=0; j<72; j++)
+                {
+                    if(quads[j].video.isLoaded())
+                    {
+                        quads[j].video.stop();
+                    }
+                }
+            }
+            else if (tlMsg == "videos_play")
+            {
+                for(int j=0; j<72; j++)
+                {
+                    if(quads[j].video.isLoaded())
+                    {
+                        quads[j].video.play();
+                    }
+                }
+            }
+
 
         }
     }
@@ -169,12 +190,12 @@ void testApp::timelineTriggerReceived(ofxTLBangEventArgs& trigger){
 //--------------------------------------------------------------
 void testApp::timelineAddQuadPage(int i) {
     timeline.addPage(ofToString(i), true);
-    timeline.addCurves("red_"+ofToString(i), ofToString(i)+"_red.xml", ofRange(0, 1.0));
-	timeline.addCurves("green_"+ofToString(i), ofToString(i)+"_green.xml", ofRange(0, 1.0));
-	timeline.addCurves("blu_"+ofToString(i), ofToString(i)+"_blu.xml", ofRange(0, 1.0));
-	timeline.addCurves("alpha_"+ofToString(i), ofToString(i)+"_alpha.xml", ofRange(0, 1.0));
-	timeline.addFlags("trigger_"+ofToString(i), ofToString(i)+"_trigger.xml");
-	timeline.addColors("color_"+ofToString(i), ofToString(i)+"_color.xml");
+    timeline.addCurves("red_"+ofToString(i), ofToString(i)+"timeline/_red.xml", ofRange(0, 1.0));
+	timeline.addCurves("green_"+ofToString(i), ofToString(i)+"timeline/_green.xml", ofRange(0, 1.0));
+	timeline.addCurves("blu_"+ofToString(i), ofToString(i)+"timeline/_blu.xml", ofRange(0, 1.0));
+	timeline.addCurves("alpha_"+ofToString(i), ofToString(i)+"timeline/_alpha.xml", ofRange(0, 1.0));
+	timeline.addFlags("trigger_"+ofToString(i), ofToString(i)+"timeline/_trigger.xml");
+	timeline.addColors("color_"+ofToString(i), ofToString(i)+"timeline/_color.xml");
 	timeline.addCurves("brightness"+ofToString(i), ofToString(i), ofRange(0.0, 2.0), 1.0);
     timeline.addCurves("contrast"+ofToString(i), ofToString(i), ofRange(.5, 2.0), 1.0);
     timeline.addCurves("saturation"+ofToString(i), ofToString(i), ofRange(0.0, 1.5), 1.0);

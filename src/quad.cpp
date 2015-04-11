@@ -698,7 +698,7 @@ void quad::draw()
 
             ofPushMatrix();
             model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
-            ofTranslate(-model.getPosition().x+1280, -model.getPosition().y+1600);
+            ofTranslate(-model.getPosition().x+1280, -model.getPosition().y+1300);
 
             //ofRotate(animationRotation, 0, 1, 0);
             ofScale(animaScalex, animaScaley, animaScalez);

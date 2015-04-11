@@ -173,7 +173,7 @@ void testApp::getXml(string xmlFile)
     nOfQuads = XML.getValue("GENERAL:N_OF_QUADS", 0);
     activeQuad = XML.getValue("GENERAL:ACTIVE_QUAD", 0);
     useTimeline = XML.getValue("TIMELINE:USE_TIMELINE",0);
-    timelineDurationSeconds = XML.getValue("TIMELINE:DURATION",100);
+    timelineDurationSeconds = XML.getValue("TIMELINE:DURATION",500);
 
     for(int j=0; j<4; j++)
     {

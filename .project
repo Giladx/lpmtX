@@ -24,4 +24,10 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>OF_LOC</name>
+			<value>file:/home/sudoman/of_v0.8.4_linux64_release/libs/openFrameworks</value>
+		</variable>
+	</variableList>
 </projectDescription>

@@ -39,7 +39,6 @@ void testApp::setup()
 {
 
     ofSetEscapeQuitsApp(false);
-    ofSetWindowTitle("lpmt remiX by GiladX");
     ofSetLogLevel(OF_LOG_WARNING);
     autoStart = false;
     bdrawGrid = false;
@@ -469,6 +468,7 @@ void testApp::setup()
         gui.addPage("surface "+ofToString(i)+" - 3/4");
         gui.addTitle("Video");
         gui.addToggle("video on/off", quads[i].videoBg);
+
         //gui.addComboBox("video bg", quads[i].bgVideo, videoFiles.size(), videos);
         gui.addButton("load video", bVideoLoad);
         gui.addSlider("video scale X", quads[i].videoMultX, 0.1, 10.0);
@@ -640,14 +640,14 @@ void testApp::exit()
 
 void testApp::mpeSetup()
 {
-    //stopProjection();
+    stopProjection();
     bMpe = True;
     // MPE stuff
     lastFrameTime = ofGetElapsedTimef();
     client.setup("mpe_client_settings.xml", true); //false means you can use backthread
     ofxMPERegisterEvents(this);
     //resync();
-    startProjection();
+    //startProjection();
     client.start();
     ofSetBackgroundAuto(false);
 }
