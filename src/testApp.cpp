@@ -401,6 +401,7 @@ void testApp::setup()
         gui.addSlider("REC Buffer",sharedSampler[i]->currentBufferNum, 0, 3);
         gui.addToggle("Play", sharedSampler[i]->bPlayAnyBuffer);
         gui.addToggle("Pause", sharedSampler[i]->bPauseBuffer);
+        //gui.addButton("Clear", sharedSampler[i]->clearBuffer());
         for(int j = 0; j < 4; j++)
         {
             gui.addToggle("Play Buffer "+ofToString(j), (sharedSampler[i]->bPlayBuffer[j]));

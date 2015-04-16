@@ -182,3 +182,11 @@ float VideoSampler::getRecordPostion(){
 int VideoSampler::getGrabberDeviceID (){
     return GrabberDeviceID;
 }
+
+void VideoSampler::clearBuffer(){
+    buffers[currentBufferNum]->clear();
+}
+
+void VideoSampler::clearBuffer(int bufferNum){
+    buffers[bufferNum]->clear();
+}

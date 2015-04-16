@@ -24,6 +24,9 @@ public:
     float getRecordPostion();
     void drawCurrentBuffer(int _x, int _y, int _height, int _width);
     void drawBuffer(int _x, int _y, int _height, int _width, int _BufferNum);
+    void clearBuffer();
+    void clearBuffer(int bufferNum);
+
 
     // Grabber
     ofVideoGrabber * vGrabber;
