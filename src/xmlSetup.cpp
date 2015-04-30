@@ -78,6 +78,11 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Z",quads[i].animaScalez);
 
 
+            //Sampler settings
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:ACTIVE",quads[i].sharedSamplerBg);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:NUM",quads[i].sharedSamplerNum);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:BUFFERNUM",quads[i].sharedSamplerBufferNum);
+
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",quads[i].bgColor.r);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:G",quads[i].bgColor.g);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:B",quads[i].bgColor.b);
@@ -280,6 +285,11 @@ void testApp::getXml(string xmlFile)
         quads[i].animaScalex = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_X",1.0);
         quads[i].animaScaley = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Y",1.0);
         quads[i].animaScalez = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Z",1.0);
+
+        //sampler settings
+        quads[i].sharedSamplerBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:ACTIVE", 0);
+        quads[i].sharedSamplerNum = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:NUM", 0.0);
+        quads[i].sharedSamplerBufferNum = XML.getValue("QUADS:QUAD_"+ofToString(i)+":SAMPLER:BUFFERNUM", 0.0);
 
 
         quads[i].bgColor.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",0.0);
