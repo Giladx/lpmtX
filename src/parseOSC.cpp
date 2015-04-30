@@ -45,6 +45,10 @@ void testApp::parseOsc()
         if (splittedAdress[2]=="pause"){
                 sharedSampler[sharedSamplerIndex]->bPauseBuffer = !sharedSampler[sharedSamplerIndex]->bPauseBuffer;
         }
+        // /sharedsampler/0/clear
+        if (splittedAdress[2]=="clear"){
+                sharedSampler[sharedSamplerIndex]->clearBuffer();
+        }
         // /sharedsampler/0/playbuffer index
         if (splittedAdress[2]=="playbuffer"){
                 if (splittedAdress.size()<3){

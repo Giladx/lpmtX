@@ -38,9 +38,12 @@ int getdir (string dir, vector<string> &files)
 void testApp::setup()
 {
 
+    ofSetFrameRate(60);
+    //ofSetVerticalSync(false);
     ofSetEscapeQuitsApp(false);
     ofSetWindowTitle("lpmt remiX by GiladX");
     ofSetLogLevel(OF_LOG_NOTICE);
+   // ofSetLogLevel(OF_LOG_VERBOSE);
     autoStart = false;
     bdrawGrid = false;
 
@@ -73,17 +76,19 @@ void testApp::setup()
             camID = XML.getValue("ID",0);
             string cam_pix_format = XML.getValue("PIXEL_FORMAT","RGB");
             XML.popTag();
-            ofxPm::VideoGrabber* cam=new ofxPm::VideoGrabber;
+            ofVideoGrabber* cam=new ofVideoGrabber;
             cam->setDeviceID(camID);
             cam->setVerbose(true);
             //set pixel Format
             cam->setPixelFormat(parseDesiredPixelFormat(cam_pix_format));
+           	//cam->setDesiredFrameRate(30);
+
             bCameraOk = cam->initGrabber(reqCamWidth,reqCamHeight);
             camWidth = cam->width;
             camHeight= cam->height;
             //setup Sampler
             VideoSampler * _sampler=new VideoSampler;
-           _sampler->setup(*cam, parseDesiredPixelFormat(cam_pix_format));
+           _sampler->setup(*cam, parseDesiredImageType(cam_pix_format));
 
             string message = "camera with id "+ ofToString(camID) +" asked for %i by %i - actual size is %i by %i \n";
             char *buf = new char[message.length()];
@@ -396,6 +401,7 @@ void testApp::setup()
         gui.addSlider("REC Buffer",sharedSampler[i]->currentBufferNum, 0, 3);
         gui.addToggle("Play", sharedSampler[i]->bPlayAnyBuffer);
         gui.addToggle("Pause", sharedSampler[i]->bPauseBuffer);
+        //gui.addButton("Clear", sharedSampler[i]->clearBuffer());
         for(int j = 0; j < 4; j++)
         {
             gui.addToggle("Play Buffer "+ofToString(j), (sharedSampler[i]->bPlayBuffer[j]));
@@ -696,9 +702,9 @@ void testApp::prepare()
 
         //update each sampler
         for (int i = 0 ;i< sharedSampler.size(); i++){
-            if ((sharedSampler[i]->vBuffer.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
+            if ((sharedSampler[i]->buffers.size()>0)&&(cameras[i]->getHeight() > 0)){//is loaded check
                 sharedSampler[i]->update();
-            }
+            }else cout<<"sharedSampler not updated"<<endl;
         }
 
 

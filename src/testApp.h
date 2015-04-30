@@ -194,6 +194,7 @@ public:
     void quadBezierSpherizeStrong(int q);
     void quadBezierReset(int q);
     ofPixelFormat parseDesiredPixelFormat(string s);
+    ofImageType parseDesiredImageType(string s);
 
     float totRotationAngle;
     ofPolyline rotationSector;
@@ -203,7 +204,7 @@ public:
     ofTexture camTexture;
     ofTexture snapshotTexture;
     int numOfCams;
-	vector<ofxPm::VideoGrabber *> cameras;
+	vector<ofVideoGrabber *> cameras;
 	vector<string> cameraIDs;
 
     vector<ofVideoPlayer> sharedVideos;

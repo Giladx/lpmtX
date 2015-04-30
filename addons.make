@@ -1,5 +1,5 @@
 ofxXmlSettings
-ofxPlaymodes
+ofxVideoBuffer
 ofxNetwork
 ofxMostPixelsEver
 ofxMSAInteractiveObject
