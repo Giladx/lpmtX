@@ -1,36 +1,60 @@
-LPMTX is a new experiment with hva LPMT
------------------------------------------
-new stuff:
+# lpmtX
+
+LPMTX2 is a new experiment with hva LPMT updated to of0.8.4
+------------------------------------------------------------
+
+done 
+----
 
 *loads 3D Models *(I still have depth configuration problem).
 
-*new global grid (for multiprojection calibration)
+*global grid (for multiprojection calibration)
 
-*new Display Number Banner (multiprojectionID)
+*Display Number Banner (multiprojectionID)
 
-*gui has been removed from the first display 
+*gui has been linked in every quad to second page
 
-Todo  (7/14)
+
+Todo 
 ----
 
 *undo/redo history
 
-*more shaders
+*autosave 
 
-*and I have more plans ...
+*enable saving deform grid dots 
+
+*run while load/save dialog active
+
+*mask paintbrush mode
+
+*fix 3d Smooth Render
+
+*more shaders 
+
+*interactive quad 
+ 
+*quads presets
+
+*DMX control (as already claimed)
+
+*midi mapping
+
 
 Screenshots:
 ------------
-model in Wire texture mode loaded to quad ... 
+model in Wire texture mode loaded to quad ...
 
-![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)   
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d1.png)
 
-![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png) 
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d2.png)
 
 ![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d3.png)
 
-![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d4.png)        
+![Alt tag](https://raw.github.com/giladx/lpmt/master/bin/data/img/3d4.png)
 
+The Source
+-----------
 
 LPMT - Little Projection-Mapping Tool
 ---------------------------------------
@@ -152,3 +176,8 @@ __________________________________
 HVA - hermanitos verdes architetti
 modena - italy
 www.hv-a.com
+=======
+
+# lpmtX2
+the new version of hva lpmt
+updated to of0.8.4
