@@ -1,7 +1,6 @@
 # lpmtX
 
 LPMTX2 is a new experiment with hva LPMT updated to of0.8.4
-------------------------------------------------------------
 
 done 
 ----
