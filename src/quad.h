@@ -48,8 +48,8 @@ public:
     // img and video stuff
     ofImage img;
     ofImage slide;
+    ofPath imgPath;
     ofVideoPlayer video;
-
     int videoWidth;
     int videoHeight;
 
@@ -68,6 +68,7 @@ public:
     ofFloatColor timelineColor;
     ofFloatColor brickColor;
     ofFloatColor mortarColor;
+    ofFloatColor animationCol;
 
 
 
@@ -95,6 +96,9 @@ public:
     float animaRotateX;
     float animaRotateY;
     float animaRotateZ;
+    float animaMovex;
+    float animaMovey;
+    float animaMovez;
     int textureModes;
 
 
@@ -135,7 +139,6 @@ public:
     float edgeBlendAmountBottom;
     float edgeBlendGamma;
     float edgeBlendLuminance;
-    float fisheyeRadius;
     int quadNumber;
 
     bool initialized;
@@ -156,11 +159,11 @@ public:
     bool sVideoKeepAspect;
     bool imgBg;
     bool imgBgGreenscreen;
+    bool imgMask;
     bool videoBg;
     bool videoSound;
     bool videoLoop;
     bool videoGreenscreen;
-    bool videoFishEye;
     bool animaBg;
     bool animaFull;
     bool animaWire;
@@ -231,18 +234,20 @@ public:
     vector<ofVideoGrabber> cams;
     vector<ofVideoPlayer> vids;
     vector<ofxAssimpModelLoader> mods;
+    vector<ofURLFileLoader> urls;
 
     string bgImg;
     string bgVideo;
     string bgAnima;
+    string bgUrl;
     string loadedImg;
     string loadedVideo;
+    string loadedUrl;
     string loadedAnima;
     string loadedSlideshow;
     string slideshowName;
 
     ofShader * shaderBlend;
-    ofShader * fisheye;
     ofShader * noise;
     ofFbo   quadFbo;
     ofFbo::Settings settings;
@@ -250,6 +255,8 @@ public:
     ofShader * maskShader;
     ofFbo maskFbo;
     ofFbo::Settings maskFboSettings;
+
+    ofURLFileLoader url;
 
     #ifdef WITH_KINECT
     kinectManager * quadKinect;
@@ -283,15 +290,15 @@ public:
 
     #ifdef WITH_KINECT
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect);
         #endif
     #else
         #ifdef WITH_SYPHON
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon);
         #else
-        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
+        void setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos);
         #endif
     #endif
 
@@ -333,7 +340,7 @@ public:
 
     bool bGrid;
     vector<vector<vector<float> > > gridPoints;
-    //vector<GLfloat> gridCtrlPoints;
+    vector<GLfloat> gridCtrlPoints;
     int gridRows;
     int gridColumns;
     void gridSurfaceSetup();

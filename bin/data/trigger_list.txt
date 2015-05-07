@@ -2,8 +2,8 @@
 {
         timeline on = on
         timeline off = off
-	Image on = img_on
-	Image off = img_off
+	    Image on = img_on
+	    Image off = img_off
         Color on = col_on
         Color off = col_off
         Video_on = video_on

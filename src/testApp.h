@@ -30,10 +30,9 @@
 #endif
 #ifdef WITH_MIDI
 #include "ofxMidi.h"
-//#include "ofxFenster.h"
+#endif
 #include "ofxAssimpModelLoader.h"
 #include "ofVboMesh.h"
-#endif
 
 //#include <GL/glut.h>
 #ifdef WITH_MIDI
@@ -96,6 +95,7 @@ public:
 
     bool isSetup;
     bool bFullscreen;
+    bool bGameMode;
     bool bGui;
     bool bTimeline;
     bool snapshotOn;
@@ -158,7 +158,6 @@ public:
     //ofShader noiseShader;
     //ofShader brickShader;
     //ofShader EnvBMShader;
-    ofShader fisheyeShader;
 
     //ofxAssimpModelLoader obj;
 
@@ -175,6 +174,7 @@ public:
     bool bSharedVideoLoad5;
     bool bSharedVideoLoad6;
     bool bSharedVideoLoad7;
+    bool bSharedVideoLoad8;
     bool bQuadReset;
     bool bQuadBezierSpherize;
     bool bQuadBezierSpherizeStrong;
@@ -196,6 +196,7 @@ public:
 
     float totRotationAngle;
     ofPolyline rotationSector;
+
 
     // camera grabber
     //ofVideoGrabber camGrabber;

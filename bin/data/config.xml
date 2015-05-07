@@ -7,8 +7,18 @@
 <CAMERA>  
     <WIDTH>720</WIDTH>  
     <HEIGHT>480</HEIGHT>  
+    <ID>1</ID>  
+</CAMERA> 
+<CAMERA>  
+    <WIDTH>720</WIDTH>  
+    <HEIGHT>480</HEIGHT>  
+    <ID>2</ID>  
+</CAMERA>
+<CAMERA>  
+    <WIDTH>720</WIDTH>  
+    <HEIGHT>480</HEIGHT>  
     <ID>3</ID>  
-</CAMERA>  
+</CAMERA>   
 </CAMERAS>
 
 <OSC>

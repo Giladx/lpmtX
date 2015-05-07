@@ -104,7 +104,7 @@ void testApp::setup()
 
     // shared videos setup
     sharedVideos.clear();
-    for(int i=0; i<8; i++)
+    for(int i=0; i<9; i++)
     {
         ofVideoPlayer video;
         sharedVideos.push_back(video);
@@ -125,8 +125,8 @@ void testApp::setup()
     }
     else
     {
-        WINDOW_W = 800;
-        WINDOW_H = 600;
+        WINDOW_W = 640;
+        WINDOW_H = 480;
     }
 
     //we run at 60 fps!
@@ -229,7 +229,6 @@ void testApp::setup()
 //    noiseShader.load("shaders/noise.vert", "shaders/noise.frag");
     //brickShader.load("shaders/new/brick.vert", "shaders/new/brick.frag");
     //EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
-    fisheyeShader.load("shaders/fisheye.vert", "shaders/fisheye.frag");
 
     //ttf.loadFont("type/frabk.ttf", 11);
     ttf.loadFont("type/OpenSans-Regular.ttf", 11);
@@ -243,6 +242,7 @@ void testApp::setup()
     bMpe = False;
     // starts in windowed mode
     bFullscreen	= 0;
+    bGameMode = 0;
     // gui is on at start
     bGui = 1;
     ofSetWindowShape(WINDOW_W, WINDOW_H);
@@ -273,57 +273,57 @@ void testApp::setup()
     // defines the first 4 default quads
 #ifdef WITH_KINECT
 #ifdef WITH_SYPHON
-    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, cameras, models, sharedVideos, kinect, syphClient);
 #else
-    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
 #endif
 #else
 #ifdef WITH_SYPHON
-    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
 #else
-    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+    quads[0].setup(0.0,0.0,0.5,0.0,0.5,0.5,0.0,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
 #endif
 #endif
     quads[0].quadNumber = 0;
 #ifdef WITH_KINECT
 #ifdef WITH_SYPHON
-    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
 #else
-    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
 #endif
 #else
 #ifdef WITH_SYPHON
-    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
 #else
-    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+    quads[1].setup(0.5,0.0,1.0,0.0,1.0,0.5,0.5,0.5, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
 #endif
 #endif
     quads[1].quadNumber = 1;
 #ifdef WITH_KINECT
 #ifdef WITH_SYPHON
-    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
 #else
-    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
 #endif
 #else
 #ifdef WITH_SYPHON
-    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
 #else
-    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+    quads[2].setup(0.0,0.5,0.5,0.5,0.5,1.0,0.0,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
 #endif
 #endif
     quads[2].quadNumber = 2;
 #ifdef WITH_KINECT
 #ifdef WITH_SYPHON
-    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
 #else
-    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
 #endif
 #else
 #ifdef WITH_SYPHON
-    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
 #else
-    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+    quads[3].setup(0.5,0.5,1.0,0.5,1.0,1.0,0.5,1.0, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
 #endif
 #endif
     quads[3].quadNumber = 3;
@@ -349,13 +349,13 @@ void testApp::setup()
     // GUI STUFF ---------------------------------------------------
 
     // general page
-    gui.addTitle("show/hide quads");
+    gui.addTitle("Locked");
     // overriding default theme
-    //gui.bDrawHeader = false;
-    gui.config->toggleHeight = 16;
+//    gui.bDrawHeader = false;
+    gui.config->toggleHeight = 12;
     gui.config->buttonHeight = 18;
     gui.config->sliderTextHeight = 18;
-    gui.config->titleHeight = 18;
+    gui.config->titleHeight = 12;
     //gui.config->fullActiveColor = 0x6B404B;
     //gui.config->fullActiveColor = 0x5E4D3E;
     gui.config->fullActiveColor = 0x008080;
@@ -378,6 +378,8 @@ void testApp::setup()
     gui.addButton("load shared video 6", bSharedVideoLoad5);
     gui.addButton("load shared video 7", bSharedVideoLoad6);
     gui.addButton("load shared video 8", bSharedVideoLoad7);
+    gui.addButton("load shared video 9", bSharedVideoLoad8);
+
 #ifdef WITH_TIMELINE
     gui.addTitle("Timeline");
     gui.addToggle("use timeline", useTimeline);
@@ -415,6 +417,7 @@ void testApp::setup()
         gui.addSlider("img scale Y", quads[i].imgMultY, 0.1, 10.0);
         gui.addToggle("H mirror", quads[i].imgHFlip);
         gui.addToggle("V mirror", quads[i].imgVFlip);
+        gui.addToggle("use image as mask", quads[i].imgMask);
         gui.addColorPicker("img color", &quads[i].imgColorize.r);
         gui.addToggle("greenscreen", quads[i].imgBgGreenscreen);
         gui.addTitle("Blending modes");
@@ -482,7 +485,6 @@ void testApp::setup()
         gui.addSlider("video speed", quads[i].videoSpeed, -2.0, 4.0);
         gui.addToggle("video loop", quads[i].videoLoop);
         gui.addToggle("video greenscreen", quads[i].videoGreenscreen);
-        gui.addToggle("video fisheye", quads[i].videoFishEye);
         gui.addTitle("Shared Video");
         gui.addSlider("scale X", quads[i].videoMultX, 0.1, 10.0);
         gui.addSlider("scale Y", quads[i].videoMultY, 0.1, 10.0);
@@ -492,7 +494,7 @@ void testApp::setup()
         gui.addToggle("H mirror", quads[i].sVideoHFlip);
         gui.addToggle("V mirror", quads[i].sVideoVFlip);
         gui.addToggle("green screen on/off", quads[i].sVideoGreenscreen);
-        gui.addSlider("shared video", quads[i].sharedVideoNum, 1, 8);
+        gui.addSlider("shared video", quads[i].sharedVideoNum, 1, 9);
         if (cameras.size()>0)
         {
             gui.addTitle("Camera").setNewColumn(true);
@@ -534,6 +536,10 @@ void testApp::setup()
         gui.addSlider("model rotate x", quads[i].animaRotateX,0.0, 360);
         gui.addSlider("model rotate y", quads[i].animaRotateY,0.0, 360);
         gui.addSlider("model rotate z", quads[i].animaRotateZ,0.0, 360);
+        gui.addSlider("model move x", quads[i].animaMovex,0.0, 3600);
+        gui.addSlider("model move y", quads[i].animaMovey,0.0, 3600);
+        gui.addSlider("model move z", quads[i].animaMovez,-3600, 3600);
+        gui.addColorPicker("model color", &quads[i].animationCol.r);
         gui.addToggle("animate", quads[i].bAnimate);
         gui.addTitle("texture");
         gui.addComboBox("model texture", quads[i].textureModes,3,0);
@@ -635,6 +641,9 @@ void testApp::setup()
 
 void testApp::exit()
 {
+    setXml();
+    XML.saveFile("autosave1*.xml");
+    cout<<"saved settings to projects/autosave1*.xml"<<endl;
 
 }
 
@@ -666,7 +675,7 @@ void testApp::prepare()
     {
 
         // updates shared video sources
-        for(int i=0; i<8; i++)
+        for(int i=0; i<9; i++)
         {
             if(sharedVideos[i].isLoaded())
             {
@@ -765,6 +774,11 @@ void testApp::prepare()
         {
             bSharedVideoLoad7 = false;
             openSharedVideoFile(7);
+        }
+        else if(bSharedVideoLoad8)
+        {
+            bSharedVideoLoad7 = false;
+            openSharedVideoFile(8);
         }
         // check if image load button on GUI is pressed
         if(bSlideshowLoad)
@@ -1199,6 +1213,40 @@ void testApp::keyPressed(int key)
                 quads[activeQuad].corners[3].y = 1.0;
             }
         }
+        if ( (key =='/') && !bTimeline)
+        {
+            if (isSetup)
+            {
+                quads[activeQuad].corners[0].x = 0.25;
+                quads[activeQuad].corners[0].y = 0.25;
+
+                quads[activeQuad].corners[1].x = 0.75;
+                quads[activeQuad].corners[1].y = 0.25;
+
+                quads[activeQuad].corners[2].x = 0.75;
+                quads[activeQuad].corners[2].y = 0.75;
+
+                quads[activeQuad].corners[3].x = 0.25;
+                quads[activeQuad].corners[3].y = 0.75;
+            }
+        }
+        if ( (key =='(') && !bTimeline)
+        {
+            if (isSetup)
+            {
+                quads[activeQuad].corners[0].x = 0.24;
+                quads[activeQuad].corners[0].y = 0.28;
+
+                quads[activeQuad].corners[1].x = 0.76;
+                quads[activeQuad].corners[1].y = 0.28;
+
+                quads[activeQuad].corners[2].x = 0.76;
+                quads[activeQuad].corners[2].y = 0.72;
+
+                quads[activeQuad].corners[3].x = 0.24;
+                quads[activeQuad].corners[3].y = 0.72;
+            }
+        }
 
         // activates next quad
         if ( key =='>' && !bTimeline)
@@ -1317,15 +1365,15 @@ void testApp::keyPressed(int key)
                 {
 #ifdef WITH_KINECT
 #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
 #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
 #endif
 #else
 #ifdef WITH_SYPHON
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
 #else
-                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+                    quads[nOfQuads].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
 #endif
 #endif
                     quads[nOfQuads].quadNumber = nOfQuads;
@@ -1346,7 +1394,40 @@ void testApp::keyPressed(int key)
                 }
             }
         }
+        //reset quad to the center
+/*if ( key == '@')
+    {
+    if (isSetup)
+        {
+         #ifdef WITH_KINECT
+         #ifdef WITH_SYPHON
+                    quads[activeQuad].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
+        #else
+                    quads[activeQuad].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
+        #endif
+        #else
+        #ifdef WITH_SYPHON
+                    quads[activeQuad].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
+        #else
+                    quads[activeQuad].setup(0.25,0.25,0.75,0.25,0.75,0.75,0.25,0.75, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
+        #endif
+        #endif
+                    quads[activeQuad].isActive = true;
+                    layers[activeQuad] = activeQuad;
+                    quads[activeQuad].layer = activeQuad;
+                    quads[activeQuad].isActive = True;
+                    activeQuad = activeQuad;
+                    gui.setPage((activeQuad*4)+2);
+                    // add timeline page for new quad
+         #ifdef WITH_TIMELINE
+                    timelineAddQuadPage(activeQuad);
+         #endif
+                    // next line fixes a bug i've been tracking down for a looong time
+                    glDisable(GL_DEPTH_TEST);
 
+
+        }
+    }*/
         // toggles setup mode
         if ( key ==' ' && !bTimeline)
         {
@@ -1400,7 +1481,26 @@ void testApp::keyPressed(int key)
                 ofSetFullscreen(true);
             }
         }
+        //toggle GameMode
+/*        if(key == '|' && !bTimeline)
+        {
 
+            bGameMode = !bGameMode;
+
+            if(!bGameMode)
+            {
+                ofSetWindowShape(WINDOW_W, WINDOW_H);
+                ofSetFullscreen(false);
+                // figure out how to put the window in the center:
+                int screenW = ofGetScreenWidth();
+                int screenH = ofGetScreenHeight();
+                ofSetWindowPosition(screenW/2-WINDOW_W/2, screenH/2-WINDOW_H/2);
+            }
+            else if(bGameMode == 1)
+
+            int mode = ofWindowMode();
+
+        }*/
         // toggles gui
         if(key == 'g' && !bTimeline)
         {
@@ -1486,10 +1586,10 @@ void testApp::keyPressed(int key)
             stopProjection();
         }
 
-        if(key == 'n' && !bTimeline)
+/*        if(key == 'n' && !bTimeline)
         {
             mpeSetup();
-        }
+        }*/
 
         // displays help in system dialog
         if((key == 'h') && !bTimeline)
@@ -1498,7 +1598,7 @@ void testApp::keyPressed(int key)
             ofSystemAlertDialog(buf);
         }
         // displays triggers in system dialog
-        if((key == 't') && bTimeline)
+        if((key == 't') && !bTimeline)
         {
             ofBuffer buf = ofBufferFromFile("trigger_list.txt");
             ofSystemAlertDialog(buf);
@@ -1628,11 +1728,11 @@ void testApp::keyPressed(int key)
         }
 
         if ( key == OF_KEY_F4)
-        {
+/*        {
             bMidiHotkeyCoupling = !bMidiHotkeyCoupling;
             bMidiHotkeyLearning = false;
             midiHotkeyPressed = -1;
-        }
+          }*/
         if ((key == '8') && !bTimeline)
         {
             bdrawGrid = !bdrawGrid;
@@ -1641,6 +1741,10 @@ void testApp::keyPressed(int key)
         {
             bSplash2 = !bSplash2;
         }
+        if((key == '!') && !bTimeline)
+            {
+            quads[activeQuad].video.isPaused();
+            }
 
 
     }

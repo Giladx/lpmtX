@@ -1098,12 +1098,6 @@
 		<Unit filename="bin/data/shaders/chroma.vert">
 			<Option virtualFolder="shaders/" />
 		</Unit>
-		<Unit filename="bin/data/shaders/fisheye.frag">
-			<Option virtualFolder="shaders/" />
-		</Unit>
-		<Unit filename="bin/data/shaders/fisheye.vert">
-			<Option virtualFolder="shaders/" />
-		</Unit>
 		<Unit filename="bin/data/shaders/mask.frag">
 			<Option virtualFolder="shaders/" />
 		</Unit>
@@ -1178,6 +1172,17 @@
 				<search_path add="../../../libs/openFrameworks" />
 				<search_path add="../../../../../../usr/include" />
 				<search_path add="../../../addons" />
+				<search_path add="../../../libs/openFrameworks/3d" />
+				<search_path add="../../../libs/openFrameworks/app" />
+				<search_path add="../../../libs/openFrameworks/communication" />
+				<search_path add="../../../libs/openFrameworks/events" />
+				<search_path add="../../../libs/openFrameworks/gl" />
+				<search_path add="../../../libs/openFrameworks/graphics" />
+				<search_path add="../../../libs/openFrameworks/math" />
+				<search_path add="../../../libs/openFrameworks/sound" />
+				<search_path add="../../../libs/openFrameworks/types" />
+				<search_path add="../../../libs/openFrameworks/utils" />
+				<search_path add="../../../libs/openFrameworks/video" />
 			</code_completion>
 			<envvars />
 			<debugger />

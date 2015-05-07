@@ -7,34 +7,33 @@
 #include <string>
 
 #ifdef WITH_KINECT
-    #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
-    #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
-    #endif
+#ifdef WITH_SYPHON
+void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader,  vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect, ofxSyphonClient &syphon)
 #else
-    #ifdef WITH_SYPHON
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
-    #else
-    void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, ofShader &fisheyeShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
-    #endif
+void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, kinectManager &kinect)
+#endif
+#else
+#ifdef WITH_SYPHON
+void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos, ofxSyphonClient &syphon)
+#else
+void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, ofShader &edgeBlendShader, ofShader &quadMaskShader, ofShader &chromaShader, vector<ofVideoGrabber> &cameras, vector<ofxAssimpModelLoader> &models, vector<ofVideoPlayer> &sharedVideos)
+#endif
 #endif
 {
 
     shaderBlend = &edgeBlendShader;
     maskShader = &quadMaskShader;
     greenscreenShader = &chromaShader;
-    fisheye = &fisheyeShader;
 //    noise = &noiseShader;
 //    brickwallShader = &brickShader;
 
     //camera = &camGrabber;
-    #ifdef WITH_KINECT
+#ifdef WITH_KINECT
     quadKinect = &kinect;
-    #endif
-    #ifdef WITH_SYPHON
+#endif
+#ifdef WITH_SYPHON
     syphClientTex = &syphon;
-    #endif
+#endif
     vids = sharedVideos;
     cams = cameras;
 
@@ -212,14 +211,14 @@
     getKinectGrayImage = false;
     kinectContourCurved = false;
 
-    #ifdef WITH_SYPHON
+#ifdef WITH_SYPHON
     // syphon variables
-	bSyphon = false;
-	syphonPosX = 0.0;
-	syphonPosY = 0.0;
-	syphonScaleX = 1.0;
-	syphonScaleY = 1.0;
-	#endif
+    bSyphon = false;
+    syphonPosX = 0.0;
+    syphonPosY = 0.0;
+    syphonScaleX = 1.0;
+    syphonScaleY = 1.0;
+#endif
 
     edgeBlendBool = False;
     edgeBlendExponent = 1.0;
@@ -299,15 +298,18 @@
     animaRotateX = 0;
     animaRotateY = 0;
     animaRotateZ = 0;
+    animaMovex = 612;
+    animaMovey= 612;
+    animaMovez = 0;
 
 
     if(animaBg)
     {
-    ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    glShadeModel(GL_SMOOTH); //some model / light stuff
-    light.enable();
-    ofEnableSeparateSpecularLight();
+        ofDisableArbTex(); // we need GL_TEXTURE_2D for our models coords.
+        //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+        //glShadeModel(GL_SMOOTH); //some model / light stuff
+        light.enable();
+        ofEnableSeparateSpecularLight();
     }
 }
 
@@ -385,7 +387,6 @@ void quad::update()
                 video.idleMovie();
                 using instead*/
                 video.update();
-
             }
 
             // changevideo speed
@@ -396,127 +397,127 @@ void quad::update()
             }
         }
 
-}
-        // animation -----------------------------------------------------------------
+    }
+    // animation -----------------------------------------------------------------
 
-        if(animaBg)
-        {
+    if(animaBg)
+    {
         model.update();
 
         /*if(bAnimateMouse)
         {
         model.setPositionForAllAnimations(animationPosition);
         }
-*/
+        */
         mesh = model.getCurrentAnimatedMesh(0);
 
-         }
-        // slideshow -----------------------------------------------------------------
+    }
+    // slideshow -----------------------------------------------------------------
 
-        if (slideshowBg)
+    if (slideshowBg)
+    {
+        // put it to off while loading images
+        slideshowBg = False;
+        // if a different slideshow has been chosen in gui we do load its images
+        if ((slideshowName != loadedSlideshow) && slideshowName != "")
         {
-            // put it to off while loading images
-            slideshowBg = False;
-            // if a different slideshow has been chosen in gui we do load its images
-            if ((slideshowName != loadedSlideshow) && slideshowName != "")
+            // we exclude "." and ".." directories if present
+            if (slideshowName != "." && slideshowName != "..")
             {
-                // we exclude "." and ".." directories if present
-                if (slideshowName != "." && slideshowName != "..")
+                // we scan the img dir for images
+                string slidesDir = slideshowName;
+                // make two arrays, one for imgs names and one for images
+                slidesnames = vector<string>();
+                slides = vector<ofImage>();
+                // read all content of show folder
+                getdir(slidesDir,slidesnames);
+                // for each name found loads the image and populates the imgs array (excluding "." an "..")
+                for (unsigned int i = 0; i < slidesnames.size(); i++)
                 {
-                    // we scan the img dir for images
-                    string slidesDir = slideshowName;
-                    // make two arrays, one for imgs names and one for images
-                    slidesnames = vector<string>();
-                    slides = vector<ofImage>();
-                    // read all content of show folder
-                    getdir(slidesDir,slidesnames);
-                    // for each name found loads the image and populates the imgs array (excluding "." an "..")
-                    for (unsigned int i = 0; i < slidesnames.size(); i++)
+                    if (slidesnames[i] != "." && slidesnames[i] != "..")
                     {
-                        if (slidesnames[i] != "." && slidesnames[i] != "..")
-                        {
-                            slide.loadImage(slideshowName+"/"+slidesnames[i]);
-                            slides.push_back(slide);
-                        }
-                    }
-                    loadedSlideshow = slideshowName;
-                    currentSlide = 0;
-                    slideTimer = 0;
-                }
-            }
-            // turn it on again for drawing
-            // update fps
-            //if (abs(fps-ofGetFrameRate()) > 50) {fps = ofGetFrameRate();}
-            slideFramesDuration = (slideshowSpeed * fps);
-            slideshowBg = True;
-        }
-
-        // ----------------------------------------------------------------------------
-        // finds kinect blobs with OpenCV
-        #ifdef WITH_KINECT
-        if (kinectBg)
-        {
-            kinectThreshImage.clear();
-            kinectContourImage.clear();
-            kinectThreshImage.allocate(quadKinect->kinect.width, quadKinect->kinect.height);
-            kinectContourImage.allocate(quadKinect->kinect.width, quadKinect->kinect.height);
-            kinectThreshImage = quadKinect->getThresholdDepthImage(nearDepthTh, farDepthTh, kinectBlur);
-            kinectContourImage = kinectThreshImage;
-            kinectContourFinder.findContours(kinectContourImage, (quadKinect->kinect.width*quadKinect->kinect.height)*kinectContourMin, (quadKinect->kinect.width*quadKinect->kinect.height)*kinectContourMax, 20, true);
-            // clear kinect path if any
-            kinectPath.clear();
-            kinectPath.setFilled(true);
-            for( int i=0; i<(int)kinectContourFinder.blobs.size(); i++ )
-            {
-                ofPolyline poly(kinectContourFinder.blobs[i].pts);
-                poly.close();
-                poly.simplify(kinectContourSimplify);
-                ofPolyline polySmoothed = poly.getSmoothed(kinectContourSmooth);
-                //polySmoothed.close();
-                vector<ofPoint> points = polySmoothed.getVertices();
-
-                for( int j=0; j<points.size(); j++ )
-                {
-                    if (kinectContourCurved)
-                    {
-                        kinectPath.curveTo(points[j]);
-                    }
-                    else
-                    {
-                        kinectPath.lineTo(points[j]);
+                        slide.loadImage(slideshowName+"/"+slidesnames[i]);
+                        slides.push_back(slide);
                     }
                 }
-                kinectPath.close();
+                loadedSlideshow = slideshowName;
+                currentSlide = 0;
+                slideTimer = 0;
             }
         }
-        #endif
+        // turn it on again for drawing
+        // update fps
+        //if (abs(fps-ofGetFrameRate()) > 50) {fps = ofGetFrameRate();}
+        slideFramesDuration = (slideshowSpeed * fps);
+        slideshowBg = True;
+    }
 
-        //we set matrix to the default - 0 translation
-        //and 1.0 scale for x y z and w
-        for(int i = 0; i < 16; i++)
+    // ----------------------------------------------------------------------------
+    // finds kinect blobs with OpenCV
+#ifdef WITH_KINECT
+    if (kinectBg)
+    {
+        kinectThreshImage.clear();
+        kinectContourImage.clear();
+        kinectThreshImage.allocate(quadKinect->kinect.width, quadKinect->kinect.height);
+        kinectContourImage.allocate(quadKinect->kinect.width, quadKinect->kinect.height);
+        kinectThreshImage = quadKinect->getThresholdDepthImage(nearDepthTh, farDepthTh, kinectBlur);
+        kinectContourImage = kinectThreshImage;
+        kinectContourFinder.findContours(kinectContourImage, (quadKinect->kinect.width*quadKinect->kinect.height)*kinectContourMin, (quadKinect->kinect.width*quadKinect->kinect.height)*kinectContourMax, 20, true);
+        // clear kinect path if any
+        kinectPath.clear();
+        kinectPath.setFilled(true);
+        for( int i=0; i<(int)kinectContourFinder.blobs.size(); i++ )
         {
-            if(i % 5 != 0) matrix[i] = 0.0;
-            else matrix[i] = 1.0;
-        }
+            ofPolyline poly(kinectContourFinder.blobs[i].pts);
+            poly.close();
+            poly.simplify(kinectContourSimplify);
+            ofPolyline polySmoothed = poly.getSmoothed(kinectContourSmooth);
+            //polySmoothed.close();
+            vector<ofPoint> points = polySmoothed.getVertices();
 
-        //we set the warp coordinates
-        //source coordinates as the dimensions of our window
-        src[0].x = 0;
-        src[0].y = 0;
-        src[1].x = ofGetWidth();
-        src[1].y = 0;
-        src[2].x = ofGetWidth();
-        src[2].y = ofGetHeight();
-        src[3].x = 0;
-        src[3].y = ofGetHeight();
-
-        //corners are in 0.0 - 1.0 range
-        //so we scale up so that they are at the window's scale
-        for(int i = 0; i < 4; i++)
-        {
-            dst[i].x = corners[i].x  * (float)ofGetWidth();
-            dst[i].y = corners[i].y * (float) ofGetHeight();
+            for( int j=0; j<points.size(); j++ )
+            {
+                if (kinectContourCurved)
+                {
+                    kinectPath.curveTo(points[j]);
+                }
+                else
+                {
+                    kinectPath.lineTo(points[j]);
+                }
+            }
+            kinectPath.close();
         }
+    }
+#endif
+
+    //we set matrix to the default - 0 translation
+    //and 1.0 scale for x y z and w
+    for(int i = 0; i < 16; i++)
+    {
+        if(i % 5 != 0) matrix[i] = 0.0;
+        else matrix[i] = 1.0;
+    }
+
+    //we set the warp coordinates
+    //source coordinates as the dimensions of our window
+    src[0].x = 0;
+    src[0].y = 0;
+    src[1].x = ofGetWidth();
+    src[1].y = 0;
+    src[2].x = ofGetWidth();
+    src[2].y = ofGetHeight();
+    src[3].x = 0;
+    src[3].y = ofGetHeight();
+
+    //corners are in 0.0 - 1.0 range
+    //so we scale up so that they are at the window's scale
+    for(int i = 0; i < 4; i++)
+    {
+        dst[i].x = corners[i].x  * (float)ofGetWidth();
+        dst[i].y = corners[i].y * (float) ofGetHeight();
+    }
 }
 
 
@@ -543,6 +544,7 @@ void quad::draw()
         quadFbo.begin();
         ofClear(0.0,0.0,0.0,0.0);
         ofEnableAlphaBlending();
+        //ofEnableDepthTest();
 
         // -- NOW LETS DRAW!!!!!!  -----
 
@@ -574,25 +576,25 @@ void quad::draw()
                 float fitX = ofGetWidth()/video.getWidth();
                 float fitY = ofGetHeight()/video.getHeight();
                 if (videoKeepAspect)
+                {
+                    // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                    if (fitX >= fitY)
                     {
-                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
-                        if (fitX >= fitY)
-                        {
-                            videoMultX = fitY;
-                            videoMultX = fitY;
-                        }
-                        else
-                        {
-                            videoMultX = fitX;
-                            videoMultY = fitX;
-                        }
+                        videoMultX = fitY;
+                        videoMultX = fitY;
                     }
-                    // this is for stretching image to whole quad size
                     else
                     {
                         videoMultX = fitX;
-                        videoMultY = fitY;
+                        videoMultY = fitX;
                     }
+                }
+                // this is for stretching image to whole quad size
+                else
+                {
+                    videoMultX = fitX;
+                    videoMultY = fitY;
+                }
 
             }
             if (videoHFlip || videoVFlip)
@@ -646,21 +648,21 @@ void quad::draw()
             {
                 if (videoGreenscreen)
                 {
-                        greenscreenShader->begin();
-                        greenscreenShader->setUniformTexture("tex", video.getTextureReference(),0 );
-                        greenscreenShader->setUniform1f("greenscreenR", colorGreenscreen.r);
-                        greenscreenShader->setUniform1f("greenscreenG", colorGreenscreen.g);
-                        greenscreenShader->setUniform1f("greenscreenB", colorGreenscreen.b);
-                        // we pass tint values too
-                        greenscreenShader->setUniform1f("tintR", videoColorize.r);
-                        greenscreenShader->setUniform1f("tintG", videoColorize.g);
-                        greenscreenShader->setUniform1f("tintB", videoColorize.b);
-                        greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
-                        if(video.isPlaying())
-                        {
-                            video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
-                        }
-                        greenscreenShader->end();
+                    greenscreenShader->begin();
+                    greenscreenShader->setUniformTexture("tex", video.getTextureReference(),0 );
+                    greenscreenShader->setUniform1f("greenscreenR", colorGreenscreen.r);
+                    greenscreenShader->setUniform1f("greenscreenG", colorGreenscreen.g);
+                    greenscreenShader->setUniform1f("greenscreenB", colorGreenscreen.b);
+                    // we pass tint values too
+                    greenscreenShader->setUniform1f("tintR", videoColorize.r);
+                    greenscreenShader->setUniform1f("tintG", videoColorize.g);
+                    greenscreenShader->setUniform1f("tintB", videoColorize.b);
+                    greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
+                    if(video.isPlaying())
+                    {
+                        video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
+                    }
+                    greenscreenShader->end();
                 }
                 else
                 {
@@ -675,44 +677,45 @@ void quad::draw()
                 glPopMatrix();
 
             }
-            if(videoFishEye)
-                fisheye->begin();
-                fisheye->setUniformTexture("tex0", video.getTextureReference(),0);
-                fisheye->end();
+
             //--------------------------brickwall---------------------------
-/*
-                    if (brickwallShader)
-                    {
-                    brickwallShader->begin();
-                    brickwallShader->end();
-                    }
-                    else
-                    {
-                        video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
-                    }*/
+            /*
+                                if (brickwallShader)
+                                {
+                                brickwallShader->begin();
+                                brickwallShader->end();
+                                }
+                                else
+                                {
+                                    video.draw(0,0,videoWidth*videoMultX, videoHeight*videoMultY);
+                                }*/
 
 
         }
         //--------------------------animation---------------------------
-        if(animaBg){
+        if(animaBg)
+        {
 
             ofPushMatrix();
-            model.setPosition(ofGetWidth()/2, (float)ofGetHeight() * 0.75 , 0);
+            //ofEnableDepthTest();
+            model.setPosition(animaMovex,animaMovey,animaMovez);
             ofTranslate(-model.getPosition().x+1280, -model.getPosition().y+1300);
 
             //ofRotate(animationRotation, 0, 1, 0);
             ofScale(animaScalex, animaScaley, animaScalez);
+            ofSetColor(animationCol.r * 255 * timelineRed, animationCol.g * 255 * timelineGreen, animationCol.b * 255 * timelineBlu, animationCol.a * 255 * timelineAlpha);
+
 
             ofRotateX(animaRotateX);
             ofRotateY(animaRotateY);
             ofRotateZ(animaRotateZ);
             model.playAllAnimations();
             model.setLoopStateForAllAnimations(OF_LOOP_NORMAL);
-
+            model.enableMaterials();
             if(!bAnimate)
             {
-            model.setPausedForAllAnimations(true);
-            model.stopAllAnimations();
+                model.setAnimation(true);
+                model.stopAllAnimations();
             }
             /*else if(bAnimate)
             {
@@ -748,16 +751,16 @@ void quad::draw()
             material.begin();
             material.end();
             texture.unbind();
-	        ofPopMatrix();
+            ofPopMatrix();
 
-	        glPopAttrib();
+            glPopAttrib();
 
-            ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
-/*            ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
-            ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
-            ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
-*/
-         }
+            /*          ofDrawBitmapString("fps: "+ofToString(ofGetFrameRate(), 2), 10, 15);
+                        ofDrawBitmapString("keys 1-5 load models, spacebar to trigger animation", 10, 30);
+                        ofDrawBitmapString("drag to control animation with mouseY", 10, 45);
+                        ofDrawBitmapString("num animations for this model: " + ofToString(model.getAnimationCount()), 10, 60);
+            */
+        }
 
         // shared video ----------------------------------------------------------------------
 
@@ -768,25 +771,25 @@ void quad::draw()
                 float fitX = float(ofGetWidth()/vids[sharedVideoId].getWidth());
                 float fitY = float(ofGetHeight()/vids[sharedVideoId].getHeight());
                 if (sVideoKeepAspect)
+                {
+                    // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                    if (fitX >= fitY)
                     {
-                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
-                        if (fitX >= fitY)
-                        {
-                            videoMultY = fitY;
-                            videoMultX = fitY;
-                        }
-                        else
-                        {
-                            videoMultX = fitX;
-                            videoMultY = fitX;
-                        }
+                        videoMultY = fitY;
+                        videoMultX = fitY;
                     }
-                    // this is for stretching image to whole quad size
                     else
                     {
                         videoMultX = fitX;
-                        videoMultY = fitY;
+                        videoMultY = fitX;
                     }
+                }
+                // this is for stretching image to whole quad size
+                else
+                {
+                    videoMultX = fitX;
+                    videoMultY = fitY;
+                }
 
             }
             if (sVideoHFlip || sVideoVFlip)
@@ -838,7 +841,7 @@ void quad::draw()
             brickwallShader->end();
             }*/
 
-}
+        }
 
 
 
@@ -851,25 +854,25 @@ void quad::draw()
                 float fitX = float(ofGetWidth()/cams[camNumber].getWidth());
                 float fitY = float(ofGetHeight()/cams[camNumber].getHeight());
                 if (camKeepAspect)
+                {
+                    // we calculate the factor for fitting the image in quad respecting img aspect ratio
+                    if (fitX >= fitY)
                     {
-                        // we calculate the factor for fitting the image in quad respecting img aspect ratio
-                        if (fitX >= fitY)
-                        {
-                            camMultX = fitY;
-                            camMultX = fitY;
-                        }
-                        else
-                        {
-                            camMultX = fitX;
-                            camMultY = fitX;
-                        }
+                        camMultX = fitY;
+                        camMultX = fitY;
                     }
-                    // this is for stretching image to whole quad size
                     else
                     {
                         camMultX = fitX;
-                        camMultY = fitY;
+                        camMultY = fitX;
                     }
+                }
+                // this is for stretching image to whole quad size
+                else
+                {
+                    camMultX = fitX;
+                    camMultY = fitY;
+                }
 
             }
             if (camHFlip || camVFlip)
@@ -973,26 +976,26 @@ void quad::draw()
                     }
                 }
                 ofSetColor(imgColorize.r * 255 * timelineRed, imgColorize.g * 255 * timelineGreen, imgColorize.b * 255 * timelineBlu, imgColorize.a * 255 * timelineAlpha);
-            if (imgGreenscreen)
-            {
-                greenscreenShader->begin();
-                greenscreenShader->setUniformTexture("tex", img.getTextureReference(),0 );
-                greenscreenShader->setUniform1f("greenscreenR", colorGreenscreen.r);
-                greenscreenShader->setUniform1f("greenscreenG", colorGreenscreen.g);
-                greenscreenShader->setUniform1f("greenscreenB", colorGreenscreen.b);
-                // we pass tint values too
-                greenscreenShader->setUniform1f("tintR", imgColorize.r);
-                greenscreenShader->setUniform1f("tintG", imgColorize.g);
-                greenscreenShader->setUniform1f("tintB", imgColorize.b);
-                greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
-                slide.draw(0,0,slide.getWidth()*multX, slide.getHeight()*multY);
-                greenscreenShader->end();
-            }
-            else
-            {
-                // at last we draw the image with appropriate size multiplier
-                slide.draw(0,0,slide.getWidth()*multX, slide.getHeight()*multY);
-            }
+                if (imgGreenscreen)
+                {
+                    greenscreenShader->begin();
+                    greenscreenShader->setUniformTexture("tex", img.getTextureReference(),0 );
+                    greenscreenShader->setUniform1f("greenscreenR", colorGreenscreen.r);
+                    greenscreenShader->setUniform1f("greenscreenG", colorGreenscreen.g);
+                    greenscreenShader->setUniform1f("greenscreenB", colorGreenscreen.b);
+                    // we pass tint values too
+                    greenscreenShader->setUniform1f("tintR", imgColorize.r);
+                    greenscreenShader->setUniform1f("tintG", imgColorize.g);
+                    greenscreenShader->setUniform1f("tintB", imgColorize.b);
+                    greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
+                    slide.draw(0,0,slide.getWidth()*multX, slide.getHeight()*multY);
+                    greenscreenShader->end();
+                }
+                else
+                {
+                    // at last we draw the image with appropriate size multiplier
+                    slide.draw(0,0,slide.getWidth()*multX, slide.getHeight()*multY);
+                }
 
 
                 // if slide showing time has elapsed it switches to next slide
@@ -1013,6 +1016,8 @@ void quad::draw()
         //if an image content is chosen it draws it (maybe use it as mask as well?)
         if (imgBg)
         {
+            ofSetColor(imgColorize.r * 255 * timelineRed, imgColorize.g * 255 * timelineGreen, imgColorize.b * 255 * timelineBlu, imgColorize.a * 255 * timelineAlpha);
+
             if (imgHFlip || imgVFlip)
             {
                 glPushMatrix();
@@ -1040,9 +1045,9 @@ void quad::draw()
                 greenscreenShader->setUniform1f("greenscreenG", colorGreenscreen.g);
                 greenscreenShader->setUniform1f("greenscreenB", colorGreenscreen.b);
                 // we pass tint values too
-                greenscreenShader->setUniform1f("tintR", imgBgColorize.r);
-                greenscreenShader->setUniform1f("tintG", imgBgColorize.g);
-                greenscreenShader->setUniform1f("tintB", imgBgColorize.b);
+                greenscreenShader->setUniform1f("tintR", imgColorize.r);
+                greenscreenShader->setUniform1f("tintG", imgColorize.g);
+                greenscreenShader->setUniform1f("tintB", imgColorize.b);
                 greenscreenShader->setUniform1f("greenscreenT", (float)thresholdGreenscreen/255.0);
                 img.draw(0,0,img.getWidth()*imgMultX*screenFactorX, img.getHeight()*imgMultY*screenFactorY);
                 greenscreenShader->end();
@@ -1051,11 +1056,6 @@ void quad::draw()
             {
                 img.draw(0,0,img.getWidth()*imgMultX*screenFactorX, img.getHeight()*imgMultY*screenFactorY);
             }
-
-            ofSetColor(imgColorize.r * 255 * timelineRed, imgColorize.g * 255 * timelineGreen, imgColorize.b * 255 * timelineBlu, imgColorize.a * 255 * timelineAlpha);
-            //img.draw(0,0,img.getWidth()*imgMultX, img.getHeight()*imgMultY);
-            //img.draw(0,0,img.getWidth()*imgMultX/(img.getWidth()/ofGetWidth()), img.getHeight()*imgMultY/(img.getHeight()/ofGetHeight()));
-            //img.draw(0,0,img.getWidth()*imgMultX*screenFactorX, img.getHeight()*imgMultY*screenFactorY);
             if (imgHFlip || imgVFlip)
             {
                 glPopMatrix();
@@ -1063,7 +1063,7 @@ void quad::draw()
         }
 
         // kinect stuff
-        #ifdef WITH_KINECT
+#ifdef WITH_KINECT
         if (kinectBg && kinectImg)
         {
             ofSetColor(kinectColorize.r * 255 * timelineRed, kinectColorize.g * 255 * timelineGreen, kinectColorize.b * 255 * timelineBlu, kinectColorize.a * 255 * timelineAlpha);
@@ -1089,16 +1089,16 @@ void quad::draw()
                 kinectThreshImage.draw(0,0,quadKinect->grayImage.getWidth()*kinectMultX,quadKinect->grayImage.getHeight()*kinectMultY);
             }
         }
-        #endif
+#endif
 
-        #ifdef WITH_SYPHON
+#ifdef WITH_SYPHON
         // syphon stuff
-		if (bSyphon)
-		{
-			ofSetColor(255, 255, 255);
-			syphClientTex->draw(syphonPosX, syphonPosY, syphonScaleX*syphClientTex->getWidth(), syphonScaleY*syphClientTex->getHeight());
-		}
-        #endif
+        if (bSyphon)
+        {
+            ofSetColor(255, 255, 255);
+            syphClientTex->draw(syphonPosX, syphonPosY, syphonScaleX*syphClientTex->getWidth(), syphonScaleY*syphClientTex->getHeight());
+        }
+#endif
 
         ofDisableAlphaBlending();
         quadFbo.end();
@@ -1136,7 +1136,8 @@ void quad::draw()
             }
             ofEndShape(true);
         }
-        #ifdef WITH_KINECT
+
+#ifdef WITH_KINECT
         if(kinectBg && kinectMask)
         {
             ofSetColor(255,255,255);
@@ -1157,7 +1158,7 @@ void quad::draw()
                 kinectThreshImage.draw(0,0,quadKinect->grayImage.getWidth()*kinectMultX,quadKinect->grayImage.getHeight()*kinectMultY);
             }
         }
-        #endif
+#endif
         ofDisableSmoothing();
         ofNoFill();
         ofDisableAlphaBlending();

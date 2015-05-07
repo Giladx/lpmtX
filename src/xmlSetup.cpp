@@ -37,6 +37,11 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO",quads[i].loadedVideo);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO_PATH",quads[i].bgVideo);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":SLIDESHOW:LOADED_SLIDESHOW",quads[i].bgSlideshow);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:LOADED_ANIMA",quads[i].loadedAnima);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:LOADED_ANIMA_PATH",quads[i].bgAnima);
+
+
+
 
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:X",quads[i].corners[0].x);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CORNERS:CORNER_0:Y",quads[i].corners[0].y);
@@ -73,9 +78,19 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOOP",quads[i].videoLoop);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:FIT",quads[i].videoFit);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:KEEP_ASPECT",quads[i].videoKeepAspect);
+
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_X",quads[i].animaScalex);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Y",quads[i].animaScaley);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Z",quads[i].animaScalez);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_X",quads[i].animaRotateX);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_Y",quads[i].animaRotateY);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_Z",quads[i].animaRotateZ);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_X",quads[i].animaMovex);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_Y",quads[i].animaMovey);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_Z",quads[i].animaMovez);
+
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ANIMATE",quads[i].bAnimate);
+
 
 
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",quads[i].bgColor.r);
@@ -102,6 +117,13 @@ void testApp::setXml()
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:G",quads[i].camColorize.g);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:B",quads[i].camColorize.b);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:A",quads[i].camColorize.a);
+
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:R",quads[i].animationCol.r);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:G",quads[i].animationCol.g);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:B",quads[i].animationCol.b);
+            XML.setValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:A",quads[i].animationCol.a);
+
+
 
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:H",quads[i].imgHFlip);
             XML.setValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:V",quads[i].imgVFlip);
@@ -158,6 +180,14 @@ void testApp::setXml()
                     XML.setValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Z",quads[i].bezierPoints[j][k][2]);
                 }
             }
+/*            if (quads[i].gridPoints.size() > 0)
+            {
+                for(int j=0; j<quads[i].gridPoints.size(); j++)
+                {
+                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":X",quads[i].gridPoints[j][0]*ofGetWidth());
+                    XML.setValue("QUADS:QUAD_"+ofToString(i)+":MASK:POINTS:POINT_"+ofToString(j)+":Y",quads[i].gridPoints[j][1]*ofGetHeight());
+                }
+            }*/
 
         }
     }
@@ -198,15 +228,15 @@ void testApp::getXml(string xmlFile)
 
         #ifdef WITH_KINECT
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect, syphClient);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, kinect);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, kinect);
             #endif
         #else
             #ifdef WITH_SYPHON
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos, syphClient);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos, syphClient);
             #else
-            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, fisheyeShader, cameras, models, sharedVideos);
+            quads[i].setup(x0, y0, x1, y1, x2, y2, x3, y3, edgeBlendShader, quadMaskShader, chromaShader, cameras, models, sharedVideos);
             #endif
         #endif
         quads[i].quadNumber = XML.getValue("QUADS:QUAD_"+ofToString(i)+":NUMBER", 0);
@@ -232,6 +262,13 @@ void testApp::getXml(string xmlFile)
         }
         quads[i].imgHFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:H", 0);
         quads[i].imgVFlip = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IMG:FLIP:V", 0);
+
+        quads[i].loadedAnima = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:LOADED_ANIMA", "", 0);
+        quads[i].bgAnima = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:LOADED_ANIMA_PATH", "", 0);
+        if ((quads[i].animaBg) && (quads[i].bgAnima != ""))
+        {
+            quads[i].loadAnimaFromFile(quads[i].loadedAnima, quads[i].bgAnima);
+        }
 
         quads[i].videoBg = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:ACTIVE",0);
         quads[i].loadedVideo = XML.getValue("QUADS:QUAD_"+ofToString(i)+":VIDEO:LOADED_VIDEO", "", 0);
@@ -280,6 +317,20 @@ void testApp::getXml(string xmlFile)
         quads[i].animaScalex = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_X",1.0);
         quads[i].animaScaley = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Y",1.0);
         quads[i].animaScalez = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:SCALE_Z",1.0);
+        quads[i].animaRotateX = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_X",0.0);
+        quads[i].animaRotateY = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_Y",0.0);
+        quads[i].animaRotateZ = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ROTATE_Z",0.0);
+        quads[i].animaMovex = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_X",216.0);
+        quads[i].animaMovey = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_Y",216.0);
+        quads[i].animaMovez = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:MOVE_Z",0.0);
+
+        quads[i].bAnimate = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:ANIMATE", 1);
+
+
+
+
+
+
 
 
         quads[i].bgColor.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":COLOR:R",0.0);
@@ -306,6 +357,12 @@ void testApp::getXml(string xmlFile)
         quads[i].camColorize.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:G",1.0);
         quads[i].camColorize.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:B",1.0);
         quads[i].camColorize.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":CAM:COLORIZE:A",1.0);
+
+        quads[i].animationCol.r = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:R",1.0);
+        quads[i].animationCol.g = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:G",1.0);
+        quads[i].animationCol.b = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:B",1.0);
+        quads[i].animationCol.a = XML.getValue("QUADS:QUAD_"+ofToString(i)+":ANIMA:COLORIZE:A",1.0);
+
 
         quads[i].bBlendModes = XML.getValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:ON", 0);
         quads[i].blendMode= XML.getValue("QUADS:QUAD_"+ofToString(i)+":BLENDING:MODE", 0);
@@ -354,7 +411,18 @@ void testApp::getXml(string xmlFile)
                 quads[i].bezierPoints[j][k][1] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Y",0.0);
                 quads[i].bezierPoints[j][k][2] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:BEZIER:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Z",0.0);
             }
+
         }
+        for (int j = 0; j < 4; ++j)
+        {
+            for (int k = 0; k < 4; ++k)
+            {
+                quads[i].gridPoints[j][k][0] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:GRID:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":X",0.0);
+                quads[i].gridPoints[j][k][0] = XML.getValue("QUADS:QUAD_"+ofToString(i)+":DEFORM:GRID:CTRLPOINTS:POINT_"+ofToString(j)+"_"+ofToString(k)+":Y",0.0);
+            }
+
+        }
+
 
 
         quads[i].isOn = XML.getValue("QUADS:QUAD_"+ofToString(i)+":IS_ON",0);
