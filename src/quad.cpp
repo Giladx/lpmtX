@@ -48,7 +48,7 @@ void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, flo
 
     //loads load in some truetype fonts
     //ttf.loadFont("type/frabk.ttf", 11);
-    ttf.loadFont("type/OpenSans-Regular.ttf", 11);
+    ttf.loadFont("type/TlwgMono-Bold.ttf", 16);
 
     bgAnima = string("");
     loadedAnima = string("");
@@ -88,7 +88,7 @@ void quad::setup(float x1, float y1, float x2, float y2, float x3, float y3, flo
     //videos = videoFiles;
     //slideshows = slideshowFolders;
 
-    borderColor = 0x666666;
+    borderColor = 0xffffff;
 
     // sets default variables
     initialized = True;
@@ -1445,11 +1445,11 @@ void quad::draw()
                         }
                     }
 
-                    if(bBlendModes)
+                    /*if(bBlendModes)
                     {
                         glDisable(GL_BLEND);
                     }
-                    ofDisableAlphaBlending();
+                    ofDisableAlphaBlending();*/
                 }
             }
         }
@@ -1460,8 +1460,8 @@ void quad::draw()
         {
             ofEnableAlphaBlending();
             //set ofColor to red with alpha
-            //ofSetColor(255,100,100,180);
-            ofSetColor(100,139,150,160);
+            ofSetColor(255,0,0,200);
+            //ofSetColor(100,139,150,160);
             maskFbo.draw(0+quadDispX,0+quadDispY,quadW,quadH);
             ofDisableAlphaBlending();
         }
@@ -1505,7 +1505,7 @@ void quad::draw()
             // draws helper grid on active quad
             if (isActive)
             {
-                ofSetHexColor(0x444444);
+                ofSetHexColor(0xFFFFFF);
                 ofLine(0,ofGetHeight()/2,ofGetWidth(),ofGetHeight()/2);
                 ofLine(ofGetWidth()/2,0,ofGetWidth()/2,ofGetHeight());
                 ofLine(ofGetWidth()/2,0,ofGetWidth()/2-20,20);
@@ -1546,7 +1546,7 @@ void quad::draw()
         {
             //ofFill();
             //ofSetColor(0,200,220,120);
-            ofSetColor(219,104,0,255);
+            ofSetColor(255,0,0,255);
             ofEnableAlphaBlending();
             ofCircle(corners[highlightedCorner].x*ofGetWidth(),corners[highlightedCorner].y*ofGetHeight(),5);
             ofCircle(corners[highlightedCorner].x*ofGetWidth(),corners[highlightedCorner].y*ofGetHeight(),20);
@@ -1566,7 +1566,7 @@ void quad::draw()
                     ofFill();
                     ofEnableAlphaBlending();
                     //ofSetColor(0,200,220,120);
-                    ofSetColor(219,104,0,120);
+                    ofSetColor(255,0,0,255);
                     ofRect(center.x*ofGetWidth()-5,center.y*ofGetHeight()-5,10,10);
                     ofDisableAlphaBlending();
                     ofNoFill();
@@ -1588,7 +1588,7 @@ void quad::draw()
                     ofSetCircleResolution(48);
                     ofCircle(center.x*ofGetWidth()-25,center.y*ofGetHeight(),12);
                     ofSetCircleResolution(40);
-                    ofSetHexColor(0x444444);
+                    ofSetHexColor(0xffffff);
 
                 }
 
@@ -1597,18 +1597,18 @@ void quad::draw()
                     ofFill();
                     ofEnableAlphaBlending();
                     //ofSetColor(0,200,220,120);
-                    ofSetColor(219,104,0,120);
+                    ofSetColor(255,0,0,255);
                     ofCircle((center.x+0.1)*ofGetWidth(),center.y*ofGetHeight(),5);
                     ofDisableAlphaBlending();
-                    ofSetHexColor(0x444444);
+                    ofSetHexColor(0xffffff);
                     ofNoFill();
                 }
-                ofSetHexColor(0x444444);
+                ofSetHexColor(0xffffff);
                 ofRect(center.x*ofGetWidth()-5,center.y*ofGetHeight()-5,10,10);
                 ofCircle((center.x+0.1)*ofGetWidth(),center.y*ofGetHeight(),5);
                 ofLine(center.x*ofGetWidth(),center.y*ofGetHeight(),(center.x+0.1)*ofGetWidth(),center.y*ofGetHeight());
 
-                ofSetColor(219,104,0,255);    // draws orange label if active quad, white if not
+                ofSetColor(255,0,0,255);    // draws orange label if active quad, white if not
                 ttf.drawString("surface "+ofToString(quadNumber), (center.x*ofGetWidth())+8, (center.y*ofGetHeight())-12);
             }
             else

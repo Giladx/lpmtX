@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <vector>
 #include <string>
-
+#include <GL/glut.h>
 
 using namespace std;
 
@@ -120,13 +120,13 @@ void testApp::setup()
 
     if(ofGetScreenWidth()>1024 && ofGetScreenHeight()>800 )
     {
-        WINDOW_W = 1024;
-        WINDOW_H = 768;
+        WINDOW_W = 1280;
+        WINDOW_H = 1024;
     }
     else
     {
-        WINDOW_W = 640;
-        WINDOW_H = 480;
+        WINDOW_W = 1024;
+        WINDOW_H = 768;
     }
 
     //we run at 60 fps!
@@ -231,7 +231,7 @@ void testApp::setup()
     //EnvBMShader.load("shaders/new/EnvBM.vert", "shaders/new/EnvBM.frag");
 
     //ttf.loadFont("type/frabk.ttf", 11);
-    ttf.loadFont("type/OpenSans-Regular.ttf", 11);
+    ttf.loadFont("type/TlwgMono-Bold.ttf", 16);
     // set border color for quads in setup mode
     borderColor = 0x666666;
     // starts in quads setup mode
@@ -250,7 +250,7 @@ void testApp::setup()
     // snap mode for surfaces corner is on
     bSnapOn = true;
     // number of surface to use as source in copy/paste is disabled
-    copyQuadNum = -1;
+    copyQuadNum = 1;
 
     //timeline defaults
 #ifdef WITH_TIMELINE
@@ -352,10 +352,10 @@ void testApp::setup()
     gui.addTitle("Locked");
     // overriding default theme
 //    gui.bDrawHeader = false;
-    gui.config->toggleHeight = 12;
+    gui.config->toggleHeight = 18;
     gui.config->buttonHeight = 18;
     gui.config->sliderTextHeight = 18;
-    gui.config->titleHeight = 12;
+    gui.config->titleHeight = 18;
     //gui.config->fullActiveColor = 0x6B404B;
     //gui.config->fullActiveColor = 0x5E4D3E;
     gui.config->fullActiveColor = 0x008080;
@@ -460,7 +460,7 @@ void testApp::setup()
         gui.addSlider("right edge", quads[i].edgeBlendAmountDx, 0.0, 0.5);
         gui.addSlider("top edge", quads[i].edgeBlendAmountTop, 0.0, 0.5);
         gui.addSlider("bottom edge", quads[i].edgeBlendAmountBottom, 0.0, 0.5);
-        gui.addToggle("Blend grid(num8)", bdrawGrid);
+        gui.addToggle("Blend grid", bdrawGrid);
         gui.addTitle("Content placement");
         gui.addSlider("X displacement", quads[i].quadDispX, -1600, 1600);
         gui.addSlider("Y displacement", quads[i].quadDispY, -1600, 1600);
@@ -943,7 +943,7 @@ void testApp::draw()
     if (isSetup)
     {
         // in setup mode sets active quad border to be white
-        quads[activeQuad].borderColor = 0xFFFFFF;
+        quads[activeQuad].borderColor = 0xffffff;
     }
 
     if (!bMpe)
@@ -960,7 +960,7 @@ void testApp::draw()
             ofEnableAlphaBlending();
             ofFill();
             //ofSetColor(0,200,220,120);
-            ofSetColor(219,104,0,255);
+            ofSetColor(255,0,0,255);
             rotationSector.draw();
             ofNoFill();
             ofDisableAlphaBlending();
@@ -969,7 +969,7 @@ void testApp::draw()
             if(maskSetup)
             {
                 ofSetHexColor(0xFF0000);
-                ttf.drawString("Mask-editing mode ", 170, ofGetHeight()-25);
+                ttf.drawString("Mask-editing mode ", 280, ofGetHeight()-25);
             }
             if(bMidiHotkeyCoupling)
             {
@@ -988,7 +988,7 @@ void testApp::draw()
             if(bdrawGrid)
             {
                 ofSetColor(0, 255, 0, 255);
-                drawGrid(80,60);
+                drawGrid(120,120);
             }
             // draws gui
             gui.draw();
@@ -1121,6 +1121,7 @@ void testApp::keyPressed(int key)
         }
 
 
+
         // saves quads settings to an xml file in data directory
         if ( (key == 's') && !bTimeline)
         {
@@ -1162,6 +1163,25 @@ void testApp::keyPressed(int key)
                 string filePath = dialog_result.getPath();
                 getXml(filePath);
                 gui.setPage((activeQuad*4)+2);
+            }
+        }
+
+        if ( (key == 'V') && !bTimeline)
+        {
+            ofFileDialogResult dialog_result = ofSystemLoadDialog("Load Video", false, "/home/gilad/Videos");
+            if(dialog_result.bSuccess)
+            {
+            openVideoFile();
+            gui.setPage((activeQuad*4)+2);
+            }
+        }
+        if ( (key == 'I') && !bTimeline)
+        {
+            ofFileDialogResult dialog_result = ofSystemLoadDialog("Load Image", false);
+            if(dialog_result.bSuccess)
+            {
+            openImageFile();
+            gui.setPage((activeQuad*4)+2);
             }
         }
 
@@ -1245,6 +1265,57 @@ void testApp::keyPressed(int key)
 
                 quads[activeQuad].corners[3].x = 0.24;
                 quads[activeQuad].corners[3].y = 0.72;
+            }
+        }
+        if ( (key ==')') && !bTimeline)
+        {
+            if (isSetup)
+            {
+                quads[activeQuad].corners[0].x = 0.39;
+                quads[activeQuad].corners[0].y = 0.38;
+
+                quads[activeQuad].corners[1].x = 0.61;
+                quads[activeQuad].corners[1].y = 0.38;
+
+                quads[activeQuad].corners[2].x = 0.61;
+                quads[activeQuad].corners[2].y = 0.62;
+
+                quads[activeQuad].corners[3].x = 0.39;
+                quads[activeQuad].corners[3].y = 0.62;
+            }
+        }
+        if ( (key =='T') && !bTimeline)
+        {
+            if (isSetup)
+            {
+                quads[activeQuad].corners[0].x = 0.50;
+                quads[activeQuad].corners[0].y = 0.38;
+
+                quads[activeQuad].corners[1].x = 0.501;
+                quads[activeQuad].corners[1].y = 0.38;
+
+                quads[activeQuad].corners[2].x = 0.61;
+                quads[activeQuad].corners[2].y = 0.62;
+
+                quads[activeQuad].corners[3].x = 0.39;
+                quads[activeQuad].corners[3].y = 0.62;
+            }
+        }
+        if ( (key =='U') && !bTimeline)
+        {
+            if (isSetup)
+            {
+                quads[activeQuad].corners[0].x = 0.0;
+                quads[activeQuad].corners[0].y = 0.38;
+
+                quads[activeQuad].corners[1].x = 1.0;
+                quads[activeQuad].corners[1].y = 0.38;
+
+                quads[activeQuad].corners[2].x = 1.0;
+                quads[activeQuad].corners[2].y = 0.62;
+
+                quads[activeQuad].corners[3].x = 0.0;
+                quads[activeQuad].corners[3].y = 0.62;
             }
         }
 
@@ -1337,21 +1408,21 @@ void testApp::keyPressed(int key)
         }
 
         // paste settings from source surface to current active surface
-        /*if ( (key == 'v') && !bTimeline)
+        if ( (key == 'u') && !bTimeline)
         {
             if(glutGetModifiers() & GLUT_ACTIVE_CTRL)
             {
                copyQuadSettings(copyQuadNum);
             }
-        }*/
+        }
 
-        if ( (key == 3) && !bTimeline)
+        if ( (key == '3') && !bTimeline)
         {
             copyQuadNum = activeQuad;
         }
 
 
-        if ( (key == 22) && !bTimeline)
+        if ( (key == '2') && !bTimeline)
         {
             copyQuadSettings(copyQuadNum);
         }
@@ -1586,10 +1657,10 @@ void testApp::keyPressed(int key)
             stopProjection();
         }
 
-/*        if(key == 'n' && !bTimeline)
+        if(key == 'n' && !bTimeline)
         {
             mpeSetup();
-        }*/
+        }
 
         // displays help in system dialog
         if((key == 'h') && !bTimeline)

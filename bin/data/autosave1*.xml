@@ -1,5 +1,5 @@
 <GENERAL>
-    <ACTIVE_QUAD>3</ACTIVE_QUAD>
+    <ACTIVE_QUAD>1</ACTIVE_QUAD>
     <N_OF_QUADS>4</N_OF_QUADS>
 </GENERAL>
 <TIMELINE>
@@ -23,7 +23,7 @@
 <QUADS>
     <QUAD_0>
         <NUMBER>0</NUMBER>
-        <LAYER>0</LAYER>
+        <LAYER>1</LAYER>
         <TIMELINE>
             <TINT>0</TINT>
             <COLOR>0</COLOR>
@@ -33,8 +33,8 @@
         <CONTENT>
             <DISPX>0</DISPX>
             <DISPY>0</DISPY>
-            <WIDTH>1366</WIDTH>
-            <HEIGHT>768</HEIGHT>
+            <WIDTH>1280</WIDTH>
+            <HEIGHT>970</HEIGHT>
         </CONTENT>
         <IMG>
             <LOADED_IMG></LOADED_IMG>
@@ -54,15 +54,15 @@
             </FLIP>
         </IMG>
         <VIDEO>
-            <LOADED_VIDEO></LOADED_VIDEO>
-            <LOADED_VIDEO_PATH></LOADED_VIDEO_PATH>
-            <ACTIVE>0</ACTIVE>
-            <MULT_X>1.000000000</MULT_X>
-            <MULT_Y>1.000000000</MULT_Y>
+            <LOADED_VIDEO>dark20000-0200.mov</LOADED_VIDEO>
+            <LOADED_VIDEO_PATH>/home/gilad/Videos/Link to cca/0216/dark20000-0200.mov</LOADED_VIDEO_PATH>
+            <ACTIVE>1</ACTIVE>
+            <MULT_X>1.333333373</MULT_X>
+            <MULT_Y>1.796296239</MULT_Y>
             <SPEED>1.000000000</SPEED>
             <VOLUME>0</VOLUME>
             <LOOP>1</LOOP>
-            <FIT>0</FIT>
+            <FIT>1</FIT>
             <KEEP_ASPECT>0</KEEP_ASPECT>
             <COLORIZE>
                 <R>1.000000000</R>
@@ -105,19 +105,19 @@
         <CORNERS>
             <CORNER_0>
                 <X>0.000000000</X>
-                <Y>0.000000000</Y>
+                <Y>0.478350520</Y>
             </CORNER_0>
             <CORNER_1>
-                <X>0.500000000</X>
-                <Y>0.000000000</Y>
+                <X>1.079687834</X>
+                <Y>-0.077319637</Y>
             </CORNER_1>
             <CORNER_2>
-                <X>0.500000000</X>
-                <Y>0.500000000</Y>
+                <X>0.999218762</X>
+                <Y>0.331958771</Y>
             </CORNER_2>
             <CORNER_3>
                 <X>0.000000000</X>
-                <Y>0.500000000</Y>
+                <Y>0.996907234</Y>
             </CORNER_3>
         </CORNERS>
         <IS_ON>1</IS_ON>
@@ -140,8 +140,8 @@
         </COLOR>
         <CAM>
             <ACTIVE>0</ACTIVE>
-            <WIDTH>640</WIDTH>
-            <HEIGHT>480</HEIGHT>
+            <WIDTH>0</WIDTH>
+            <HEIGHT>0</HEIGHT>
             <MULT_X>1.000000000</MULT_X>
             <MULT_Y>1.000000000</MULT_Y>
             <FIT>0</FIT>
@@ -289,7 +289,7 @@
     </QUAD_0>
     <QUAD_1>
         <NUMBER>1</NUMBER>
-        <LAYER>1</LAYER>
+        <LAYER>3</LAYER>
         <TIMELINE>
             <TINT>0</TINT>
             <COLOR>0</COLOR>
@@ -299,8 +299,8 @@
         <CONTENT>
             <DISPX>0</DISPX>
             <DISPY>0</DISPY>
-            <WIDTH>1366</WIDTH>
-            <HEIGHT>768</HEIGHT>
+            <WIDTH>1280</WIDTH>
+            <HEIGHT>970</HEIGHT>
         </CONTENT>
         <IMG>
             <LOADED_IMG></LOADED_IMG>
@@ -320,11 +320,11 @@
             </FLIP>
         </IMG>
         <VIDEO>
-            <LOADED_VIDEO></LOADED_VIDEO>
-            <LOADED_VIDEO_PATH></LOADED_VIDEO_PATH>
-            <ACTIVE>0</ACTIVE>
+            <LOADED_VIDEO>[MMD] Magnet- Hatsune Miku , Megurine Luka.mp4</LOADED_VIDEO>
+            <LOADED_VIDEO_PATH>/media/gilad/24977d63-9fda-40be-bf4f-514f679f9cd2/home/mtscreen/vjfiles/[MMD] Magnet- Hatsune Miku , Megurine Luka.mp4</LOADED_VIDEO_PATH>
+            <ACTIVE>1</ACTIVE>
             <MULT_X>1.000000000</MULT_X>
-            <MULT_Y>1.000000000</MULT_Y>
+            <MULT_Y>1.376922131</MULT_Y>
             <SPEED>1.000000000</SPEED>
             <VOLUME>0</VOLUME>
             <LOOP>1</LOOP>
@@ -370,20 +370,20 @@
         </ANIMA>
         <CORNERS>
             <CORNER_0>
-                <X>0.500000000</X>
-                <Y>0.000000000</Y>
+                <X>0.355213791</X>
+                <Y>0.469472885</Y>
             </CORNER_0>
             <CORNER_1>
-                <X>1.000000000</X>
-                <Y>0.000000000</Y>
+                <X>0.513144970</X>
+                <Y>0.462540656</Y>
             </CORNER_1>
             <CORNER_2>
-                <X>1.000000000</X>
-                <Y>0.500000000</Y>
+                <X>0.515534282</X>
+                <Y>0.962497175</Y>
             </CORNER_2>
             <CORNER_3>
-                <X>0.500000000</X>
-                <Y>0.500000000</Y>
+                <X>0.363602549</X>
+                <Y>0.969403386</Y>
             </CORNER_3>
         </CORNERS>
         <IS_ON>1</IS_ON>
@@ -406,8 +406,8 @@
         </COLOR>
         <CAM>
             <ACTIVE>0</ACTIVE>
-            <WIDTH>640</WIDTH>
-            <HEIGHT>480</HEIGHT>
+            <WIDTH>0</WIDTH>
+            <HEIGHT>0</HEIGHT>
             <MULT_X>1.000000000</MULT_X>
             <MULT_Y>1.000000000</MULT_Y>
             <FIT>0</FIT>
@@ -565,8 +565,8 @@
         <CONTENT>
             <DISPX>0</DISPX>
             <DISPY>0</DISPY>
-            <WIDTH>1366</WIDTH>
-            <HEIGHT>768</HEIGHT>
+            <WIDTH>1280</WIDTH>
+            <HEIGHT>970</HEIGHT>
         </CONTENT>
         <IMG>
             <LOADED_IMG></LOADED_IMG>
@@ -586,15 +586,15 @@
             </FLIP>
         </IMG>
         <VIDEO>
-            <LOADED_VIDEO></LOADED_VIDEO>
-            <LOADED_VIDEO_PATH></LOADED_VIDEO_PATH>
-            <ACTIVE>0</ACTIVE>
+            <LOADED_VIDEO>Animation_ Family Kingfisher 1 - Black Background-HD.mp4</LOADED_VIDEO>
+            <LOADED_VIDEO_PATH>/media/gilad/24977d63-9fda-40be-bf4f-514f679f9cd2/home/mtscreen/vjfiles/Animation_ Family Kingfisher 1 - Black Background-HD.mp4</LOADED_VIDEO_PATH>
+            <ACTIVE>1</ACTIVE>
             <MULT_X>1.000000000</MULT_X>
-            <MULT_Y>1.000000000</MULT_Y>
+            <MULT_Y>1.347222209</MULT_Y>
             <SPEED>1.000000000</SPEED>
             <VOLUME>0</VOLUME>
             <LOOP>1</LOOP>
-            <FIT>0</FIT>
+            <FIT>1</FIT>
             <KEEP_ASPECT>0</KEEP_ASPECT>
             <COLORIZE>
                 <R>1.000000000</R>
@@ -636,20 +636,20 @@
         </ANIMA>
         <CORNERS>
             <CORNER_0>
-                <X>0.000000000</X>
-                <Y>0.500000000</Y>
+                <X>0.249219045</X>
+                <Y>0.001030803</Y>
             </CORNER_0>
             <CORNER_1>
-                <X>0.500000000</X>
-                <Y>0.500000000</Y>
+                <X>0.749217391</X>
+                <Y>0.001030803</Y>
             </CORNER_1>
             <CORNER_2>
-                <X>0.500000000</X>
-                <Y>1.000000000</Y>
+                <X>0.749217391</X>
+                <Y>0.501030862</Y>
             </CORNER_2>
             <CORNER_3>
-                <X>0.000000000</X>
-                <Y>1.000000000</Y>
+                <X>0.249219045</X>
+                <Y>0.501030862</Y>
             </CORNER_3>
         </CORNERS>
         <IS_ON>1</IS_ON>
@@ -672,8 +672,8 @@
         </COLOR>
         <CAM>
             <ACTIVE>0</ACTIVE>
-            <WIDTH>640</WIDTH>
-            <HEIGHT>480</HEIGHT>
+            <WIDTH>0</WIDTH>
+            <HEIGHT>0</HEIGHT>
             <MULT_X>1.000000000</MULT_X>
             <MULT_Y>1.000000000</MULT_Y>
             <FIT>0</FIT>
@@ -698,7 +698,7 @@
             <MODE>0</MODE>
         </BLENDING>
         <EDGE_BLENDING>
-            <ON>0</ON>
+            <ON>1</ON>
             <EXPONENT>1.000000000</EXPONENT>
             <GAMMA>1.799999952</GAMMA>
             <LUMINANCE>0.000000000</LUMINANCE>
@@ -716,7 +716,7 @@
             <CROP>
                 <RECTANGULAR>
                     <TOP>0.000000000</TOP>
-                    <RIGHT>0.000000000</RIGHT>
+                    <RIGHT>0.075999975</RIGHT>
                     <BOTTOM>0.000000000</BOTTOM>
                     <LEFT>0.000000000</LEFT>
                 </RECTANGULAR>
@@ -821,7 +821,7 @@
     </QUAD_2>
     <QUAD_3>
         <NUMBER>3</NUMBER>
-        <LAYER>3</LAYER>
+        <LAYER>0</LAYER>
         <TIMELINE>
             <TINT>0</TINT>
             <COLOR>0</COLOR>
@@ -831,8 +831,8 @@
         <CONTENT>
             <DISPX>0</DISPX>
             <DISPY>0</DISPY>
-            <WIDTH>1366</WIDTH>
-            <HEIGHT>768</HEIGHT>
+            <WIDTH>1280</WIDTH>
+            <HEIGHT>970</HEIGHT>
         </CONTENT>
         <IMG>
             <LOADED_IMG></LOADED_IMG>
@@ -852,15 +852,15 @@
             </FLIP>
         </IMG>
         <VIDEO>
-            <LOADED_VIDEO></LOADED_VIDEO>
-            <LOADED_VIDEO_PATH></LOADED_VIDEO_PATH>
-            <ACTIVE>0</ACTIVE>
+            <LOADED_VIDEO>Particles Flying Up - Free HD Animation Black Background.mp4</LOADED_VIDEO>
+            <LOADED_VIDEO_PATH>/media/gilad/24977d63-9fda-40be-bf4f-514f679f9cd2/home/mtscreen/vjfiles/Particles Flying Up - Free HD Animation Black Background.mp4</LOADED_VIDEO_PATH>
+            <ACTIVE>1</ACTIVE>
             <MULT_X>1.000000000</MULT_X>
-            <MULT_Y>1.000000000</MULT_Y>
+            <MULT_Y>1.347222209</MULT_Y>
             <SPEED>1.000000000</SPEED>
             <VOLUME>0</VOLUME>
             <LOOP>1</LOOP>
-            <FIT>0</FIT>
+            <FIT>1</FIT>
             <KEEP_ASPECT>0</KEEP_ASPECT>
             <COLORIZE>
                 <R>1.000000000</R>
@@ -902,19 +902,19 @@
         </ANIMA>
         <CORNERS>
             <CORNER_0>
-                <X>0.500000000</X>
-                <Y>0.500000000</Y>
+                <X>0.000000000</X>
+                <Y>0.000000000</Y>
             </CORNER_0>
             <CORNER_1>
                 <X>1.000000000</X>
-                <Y>0.500000000</Y>
+                <Y>0.000000000</Y>
             </CORNER_1>
             <CORNER_2>
                 <X>1.000000000</X>
                 <Y>1.000000000</Y>
             </CORNER_2>
             <CORNER_3>
-                <X>0.500000000</X>
+                <X>0.000000000</X>
                 <Y>1.000000000</Y>
             </CORNER_3>
         </CORNERS>
@@ -938,8 +938,8 @@
         </COLOR>
         <CAM>
             <ACTIVE>0</ACTIVE>
-            <WIDTH>640</WIDTH>
-            <HEIGHT>480</HEIGHT>
+            <WIDTH>0</WIDTH>
+            <HEIGHT>0</HEIGHT>
             <MULT_X>1.000000000</MULT_X>
             <MULT_Y>1.000000000</MULT_Y>
             <FIT>0</FIT>

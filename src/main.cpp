@@ -3,11 +3,11 @@
 #include "ofAppGlutWindow.h"
 
 //========================================================================
-int main( )
+int main()
 {
 
-    ofAppGlutWindow window;
-    ofSetupOpenGL(&window, 640, 480, OF_WINDOW);			// <-------- setup the GL context
+    ofAppGlutWindow* window = new ofAppGlutWindow();
+    ofSetupOpenGL(window, 1280, 1024, OF_WINDOW);			// <-------- setup the GL context
 //    ofSetWindowPosition(0,0);
     ofSetWindowTitle("LpmtX recoded by Gil@d.X");
 

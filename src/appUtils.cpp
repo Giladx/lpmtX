@@ -4,7 +4,7 @@
 void testApp::openImageFile()
 {
     cout << "loading image " << endl;
-    ofFileDialogResult dialog_result = ofSystemLoadDialog("load image file");
+    ofFileDialogResult dialog_result = ofSystemLoadDialog("load image file", false, "/home/gilad/Pictures");
     cout << "image loaded " << endl;
     if(dialog_result.bSuccess)
     {
@@ -16,7 +16,7 @@ void testApp::openImageFile()
 void testApp::openVideoFile()
 {
     cout << "loading video " << endl;
-    ofFileDialogResult dialog_result = ofSystemLoadDialog("load video file");
+    ofFileDialogResult dialog_result = ofSystemLoadDialog("load video file", false, "/media/gilad/24977d63-9fda-40be-bf4f-514f679f9cd2/home/mtscreen/vjfiles/");
     cout << "video loaded " << endl;
     if(dialog_result.bSuccess)
     {
@@ -28,7 +28,7 @@ void testApp::openVideoFile()
 void testApp::openAnimaFile()
 {
     cout << "loading 3d model " << endl;
-    ofFileDialogResult dialog_result = ofSystemLoadDialog("load 3d model");
+    ofFileDialogResult dialog_result = ofSystemLoadDialog("load 3d model", false,"/home/gilad/of_v0.8.4_linux64_release/apps/myApps/lpmtX/bin/data");
     cout << "3d model loaded " << endl;
     if(dialog_result.bSuccess)
     {
@@ -39,7 +39,7 @@ void testApp::openAnimaFile()
 void testApp::openSharedVideoFile(int i)
 {
     cout << "loading shared video " << endl;
-    ofFileDialogResult dialog_result = ofSystemLoadDialog("load shared video file");
+    ofFileDialogResult dialog_result = ofSystemLoadDialog("load shared video file", false, "/media/gilad/24977d63-9fda-40be-bf4f-514f679f9cd2/home/mtscreen/vjfiles");
     if(dialog_result.bSuccess)
     {
         if (sharedVideos[i].isLoaded())

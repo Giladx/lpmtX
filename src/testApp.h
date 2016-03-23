@@ -1,6 +1,6 @@
 #ifndef _TEST_APP
 #define _TEST_APP
-
+#define TESTAPP_DEBUG
 #include "config.h"
 
 #define OF_ADDON_USING_OFXXMLSETTINGS
@@ -33,9 +33,10 @@
 #endif
 #include "ofxAssimpModelLoader.h"
 #include "ofVboMesh.h"
-
+#include "ofxMultiGLFWWindow.h"
 //#include <GL/glut.h>
 #ifdef WITH_MIDI
+
 class testApp : public ofBaseApp, public ofxMidiListener
 #else
 class testApp : public ofBaseApp
@@ -125,7 +126,8 @@ public:
     vector<string> modelFiles;
     // use of MostPixelsEver
     bool bMpe;
-    mpeClientTCP client;
+    //mpeClientTCP client;
+    ofxMPEClient client;
     void mpeFrameEvent(ofxMPEEventArgs& event);
     void mpeMessageEvent(ofxMPEEventArgs& event);
     void mpeResetEvent(ofxMPEEventArgs& event);
@@ -276,6 +278,8 @@ public:
 
 
 };
+
+
 
 #endif
 

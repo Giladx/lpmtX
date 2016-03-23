@@ -1086,6 +1086,30 @@
 		<Unit filename="../../../addons/ofxXmlSettings/src/ofxXmlSettings.h">
 			<Option virtualFolder="addons/ofxXmlSettings/src" />
 		</Unit>
+        <Unit filename="../../../addons/ofxMultiGLFWWindow/src/ofxMultiGLFWWindow.h">
+			<Option virtualFolder="addons/ofxMultiGLFWWindow/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxMultiGLFWWindow/src/ofxMultiGLFWWindow.cpp">
+			<Option virtualFolder="addons/ofxMultiGLFWWindow/src" />
+		</Unit>
+        <Unit filename="../../../addons/ofxGifDecoder/src/ofxGifDecoder.h">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGifDecoder/src/ofxGifDecoder.cpp">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGifDecoder/src/ofxGifFrame.h">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGifDecoder/src/ofxGifFrame.cpp">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGifDecoder/src/ofxGifFile.h">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
+		<Unit filename="../../../addons/ofxGifDecoder/src/ofxGifFile.cpp">
+			<Option virtualFolder="addons/ofxGifDecoder/src" />
+		</Unit>
 		<Unit filename="bin/data/shaders/blend.frag">
 			<Option virtualFolder="shaders/" />
 		</Unit>

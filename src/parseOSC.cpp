@@ -3387,15 +3387,16 @@ void testApp::parseOsc()
 
 		// end crop
 		}
-		//3D Model
+		//surface/0/3d
 		else if (splittedAdress[2]=="3d"){
-
+        //surface/0/3d/load
             if (splittedAdress[3]=="load")
             {
              openAnimaFile();
             }
-            if (splittedAdress[3]=="scale"){
-
+        //surface/0/3d/scale
+            else if (splittedAdress[3]=="scale")
+            {
             if (splittedAdress[4]=="x")
                     {
                      float scale_x_3d = m.getArgAsFloat(0);

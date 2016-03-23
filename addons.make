@@ -14,3 +14,5 @@ ofxTimecode
 ofxTextInputField
 ofxMidi
 ofxAssimpModelLoader
+ofxMultiGLFWWindow
+ofxGifDecoder
